@@ -1,5 +1,27 @@
-# For PCBs designed using KiCad: http://www.kicad-pcb.org/
-# Format documentation: http://kicad-pcb.org/help/file-formats/
+#####
+# From the CLion-PlatformIO wizard
+#####
+
+.pio
+CMakeListsPrivate.txt
+cmake-build-*/
+
+
+#####
+# Exclude files not relevant to the library itself
+#####
+
+include/
+lib/
+test/
+CMakeLists.txt
+platformio.ini
+src/main.cpp
+
+
+#####
+# From GitHub's .gitignore for KiCad
+#####
 
 # Temporary files
 *.000
@@ -24,3 +46,136 @@ fp-info-cache
 # Exported BOM files
 *.xml
 *.csv
+
+
+#####
+# From @DocBohn's all-powerful .gitignore (omitting Java, Python, and other irrelevant file extensions)
+#####
+
+# Mac file finder metadata
+.DS_Store
+# Windows file metadata
+._*
+# Thumbnail image caches
+Thumbs.db
+ethumbs.db
+# MS Office temporary file
+~*
+# Emacs backup file
+*~
+
+# Common
+[Bb]in/
+[Bb]uild/
+[Oo]bj/
+[Oo]ut/
+[Tt]mp/
+[Xx]86/
+[Ii][Aa]32/
+[Xx]64/
+[Xx]86_64/
+[Xx]86-64/
+[Aa]rm
+[Aa]32
+[Tt]32
+[Aa]64
+*.tmp
+*.bak
+*.bk
+*.swp
+*.log
+
+# Miscellaneous
+*.gcno
+
+# LaTeX files
+*.aux
+*.tex.gz
+*.synctex.gz
+*.texmk
+*.dvi
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+
+# C files
+*.o
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so
+*.so.*
+*.dylib
+*.exe
+*.out
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# JetBrains (IntelliJ IDEA, PyCharm, etc) files
+.idea/
+cmake-build-*/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse files
+.settings/
+.project
+.classpath
+.buildpath
+.loadpath
+.factorypath
+local.properties
+
+# Visual Studio / VS Code files
+.vs*/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp_proj
+*_wpftmp.csproj
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+*.psess
+*.vsp
+*.vspx
+
+# Xcode files
+*.xcodeproj/
+xcuserdata/
+.build/
+

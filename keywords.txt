@@ -1,0 +1,105 @@
+# DATATYPES
+
+cowpi_ioport_t	KEYWORD1
+cowpi_spi_t	KEYWORD1
+cowpi_i2c_t	KEYWORD1
+cowpi_pininterrupt_t	KEYWORD1
+cowpi_timer8bit_t	KEYWORD1
+cowpi_timer16bit_t	KEYWORD1
+
+
+# FUNCTIONS
+
+cowpi_setup	KEYWORD2
+cowpi_stdio_setup	KEYWORD2
+cowpi_set_display_dialect	KEYWORD2
+cowpi_get_display_dialect	KEYWORD2
+cowpi_is_spi_lsbfirst	KEYWORD2
+cowpi_set_display_i2c_address	KEYWORD2
+cowpi_get_display_i2c_address	KEYWORD2
+cowpi_get_keypress	KEYWORD2
+cowpi_left_button_is_pressed	KEYWORD2
+cowpi_right_button_is_pressed	KEYWORD2
+cowpi_left_switch_in_left_position	KEYWORD2
+cowpi_right_switch_in_left_position	KEYWORD2
+cowpi_left_switch_in_right_position	KEYWORD2
+cowpi_right_switch_in_right_position	KEYWORD2
+cowpi_illuminate_external_led	KEYWORD2
+cowpi_illuminate_internal_led	KEYWORD2
+cowpi_deluminate_external_led	KEYWORD2
+cowpi_deluminate_internal_led	KEYWORD2
+cowpi_max7219_send	KEYWORD2
+cowpi_max7219_shutdown()	KEYWORD2
+cowpi_max7219_startup()	KEYWORD2
+cowpi_max7219_no_decode()	KEYWORD2
+cowpi_max7219_bcd_decode()	KEYWORD2
+cowpi_max7219_set_intensity	KEYWORD2
+cowpi_lcd1602_place_character	KEYWORD2
+cowpi_lcd1602_place_cursor	KEYWORD2
+cowpi_lcd1602_send_command	KEYWORD2
+cowpi_lcd1602_send_character	KEYWORD2
+cowpi_lcd1602_create_character	KEYWORD2
+cowpi_lcd1602_clear_display	KEYWORD2
+cowpi_lcd1602_return_home	KEYWORD2
+cowpi_lcd1602_set_backlight	KEYWORD2
+cowpi_lcd1602_set_send_halfbyte_function	KEYWORD2
+cowpi_font_ascii_to_7segment	KEYWORD2
+cowpi_font_string_to_7segment	KEYWORD2
+cowpi_font_get_dotmatrix_width	KEYWORD2
+cowpi_font_ascii_to_narrow_dotmatrix	KEYWORD2
+cowpi_font_ascii_to_5wide_dotmatrix	KEYWORD2
+cowpi_font_ascii_to_8wide_dotmatrix	KEYWORD2
+cowpi_font_transpose_dotmatrix	KEYWORD2
+cowpi_font_string_to_horizontal_dotmatrix	KEYWORD2
+cowpi_font_string_to_vertical_dotmatrix	KEYWORD2
+
+
+# CODE STRUCTURES (kind of)
+
+cowpi_spi_enable	KEYWORD3
+cowpi_spi_disable	KEYWORD3
+cowpi_initialize_i2c	KEYWORD3
+
+
+# CONSTANTS
+
+cowpi_io_base	LITERAL1
+
+SPI	LITERAL1
+I2C	LITERAL1
+IIC	LITERAL1
+TWI	LITERAL1
+MAX7219	LITERAL1
+LCD1602	LITERAL1
+ADAFRUIT	LITERAL1
+COWPI_DEFAULT	LITERAL1
+PROTOCOL_MASK	LITERAL1
+DISPLAY_MASK	LITERAL1
+DISPLAY_DIALECT_MASK	LITERAL1
+
+COWPI_PB	LITERAL1
+COWPI_PC	LITERAL1
+COWPI_PD	LITERAL1
+A0_A5	LITERAL1
+A0_A7	LITERAL1
+D0_D7	LITERAL1
+D8_D13	LITERAL1
+D14_D19	LITERAL1
+D14_D21	LITERAL1
+
+LCDENTRY_CURSORMOVESRIGHT	LITERAL1
+LCDENTRY_CURSORMOVESLEFT	LITERAL1
+LCDENTRY_TEXTSHIFTS	LITERAL1
+LCDENTRY_TEXTNOSHIFT	LITERAL1
+
+LCDONOFF_DISPLAYON	LITERAL1
+LCDONOFF_DISPLAYOFF	LITERAL1
+LCDONOFF_CURSORON	LITERAL1
+LCDONOFF_CURSOROFF	LITERAL1
+LCDONOFF_BLINKON	LITERAL1
+LCDONOFF_BLINKOFF	LITERAL1
+
+LCDSHIFT_DISPLAYLEFT	LITERAL1
+LCDSHIFT_DISPLAYRIGHT	LITERAL1
+LCDSHIFT_CURSORLEFT	LITERAL1
+LCDSHIFT_CURSORRIGHT	LITERAL1
