@@ -8,7 +8,7 @@ board), and a display module.
 
 In broad strokes, a [Mark 1 Cow Pi](#mark-1-series) is built using a solderless
 breadboard. A [Mark 2 Cow Pi](#mark-2-series) is a one-off circuit built using one
-or more perfboards. A [Mark 3 Cow Pi](#mark-3-series) is built using a 
+or more perfboards. A [Mark 3 Cow Pi](#mark-3-series) is built using a
 through-hole printed circuit board. Eventually, a Mark 4 Cow Pi will use a
 surface-mount printed circuit board.
 
@@ -82,6 +82,7 @@ Changes from mk1b:
   - Internal LED always available (due to change in protocol)
 
 #### mk1c
+
 - Microcontroller board: Arduino Nano
 - Display module: MAX7219-based 8-digit 7-segment display (SPI)
 
@@ -115,6 +116,9 @@ error.
 
 ![Cow Pi mk2a](mk2a.jpg)
 
+- Microcontroller board: Arduino Nano
+- Display module: MAX7219-based 8-digit 7-segment display (SPI)
+
 Made from "perma-proto boards" in the half-length and quarter-length breadboard
 form factor, with a membrane keypad affixed to a solid surface, and with a 9V
 battery for power when not connected to a host computer, the Cow Pi mk2a can
@@ -131,6 +135,9 @@ The mk2a has very nice lines, if we do say so ourselves.
 ![Cow Pi mk2b with LED matrix](mk2b-1.jpg)
 ![Cow Pi mk2b with 7-segment displays](mk2b-2.jpg)
 ![Cow Pi mk2b with 2x16 LCD character display](mk2b-3.jpg)
+
+- Microcontroller board: Arduino Nano
+- Display module: header strip to receive arbitrary display modules
 
 Made from a "perma-proto shield" for an Arduino Uno, the Cow Pi mk2b was made
 primarily for experimentation with different display modules. It being more
@@ -162,6 +169,9 @@ we really don't consider this to be a failure -- just a missed opportunity).
 
 ![Cow Pi mk2c](mk2c.jpg)
 
+- Microcontroller board: Arduino Nano or Arduino Nano Every
+- Display module: 2x16 character LCD dot-matrix display (SPI or I2C)
+
 The impetus for the Cow Pi mk2c was to create a durable version of the mk1d, but
 as part of preparing for the mk3a, we included the ability to switch between the
 I2C adapter component and a 74HC595-based SPI adapter circuit for the
@@ -180,25 +190,55 @@ both detracts from its appearance and made for a difficult build.
 
 ## Mark 3 Series
 
-The Cow Pi Mark 3 series can be thought of as a staging series leading to the
-Mark 4 series. They use through-hole PCBs. (The Mark 4 series will use
-surface-mount PCBs with through-hole components only when surface-mount
-components are unavailable.) If students know how to solder, Mark 3 Cow Pis
-would be perfectly appropriate for them and should be less expensive than having
-Mark 4 Cow Pis assembled at a PCB Assembly facility (but will be more expensive
-than Mark 1 Cow Pis).
+The Cow Pi Mark 3 series can be thought of as a staging series to proof designs,
+leading to the Mark 4 series. They use through-hole PCBs. (The Mark 4 series
+will use surface-mount PCBs and will be assembled before the students receive
+them.) If students know how to solder, Mark 3 Cow Pis would be perfectly
+appropriate for them and should be less expensive than having Mark 4 Cow Pis
+assembled at a PCB Assembly facility (but will be more expensive than Mark 1 Cow
+Pis).
 
 ### mk3a
+
+![Populated and unpopulated Cow Pi mk3a printed circuit boards](mk3a.jpg)
 
 - Microcontroller board: Arduino Nano or Arduino Nano Every
 - Display module: 2x16 character LCD dot-matrix display (SPI or I2C)
 
-In the final design stages now, we expect the Cow Pi mk3a to be configurable *at
-assembly time* to use SPI or I2C; the selection will be based on which
-components are soldered to the board. Dynamically changing the protocol (like
-the mk2b) will not be possible. Like the mk2c, the keypad will be sixteen
-tactile switches, though sixteen diodes will replace the four resistors, which
-should make it possible to safely and accurately detect up to sixteen keys
-pressed simultaneously. A breakout header and a mini-breadboard will make it
-possible to attach sensors and actuators beyond those that are part of the Cow Pi
-circuit.
+The Cow Pi mk3a is configurable *at assembly time* to use SPI or I2C; the
+selection will be based on which components are soldered to the board.
+Dynamically changing the protocol (like the mk2b) will not be possible. Like the
+mk2c, the is sixteen tactile switches, though sixteen diodes replace the four
+resistors, which should make it possible to safely and accurately detect up to
+sixteen keys pressed simultaneously. A breakout header and a mini-breadboard
+will make it possible to attach sensors and actuators beyond those that are part
+of the Cow Pi circuit.
+
+While the PCB accommodates the LCD character display, other displays (indeed,
+other components in general) can be used by taking advantage of the breakout
+header. For example, to use the MAX7219-based 8-digit 7-segment display:
+
+![Cow Pi mk3a with an 8-digit 7-segment display module connected to the board's breakout header](mk3a-with-7seg.jpg)
+
+- If the board is configured for SPI then place the `SPI-LCD1602 Enable/Disable`
+  shunt jumper to the `Disable` position.
+- If the board is configured for I2C then slide both slide-switches to the right.
+- Use jumper wires to connect the display module's `VCC` pin to `5V`, `GND` to `GND`, `DIN` to `COPI-D11`, `CS` to `CS-D10`, and `CLK` to `SCK-D13`.
+  - You can, of course, use a different Arduino pin for `CS` which would
+    eliminate the need to disable the LCD1602 when the board is configured for
+    SPI, but the CowPi library's built-in MAX7219 functions assume that `D10` is
+    used. Fortunately, the point of this board is to support labs in which
+    students will write their own functions, so there you go.
+
+#### LIBRARY NOTE
+
+The CowPi library v0.3.0 works just fine with the ubiquitous I2C-LCD1602
+interface module used that the mk3a board uses when it's configured for I2C. The
+CowPi library v0.3.0 works just fine with the mapping of shift register bits to
+LCD1602 bits when using the AdaFruit SPI/I2C-LCD1602 interface module in SPI
+mode. For the Cow Pi Mark 3 and 4 series, we elected to have the SPI bit mapping
+match the I2C bit mapping, and we haven't yet updated the library's LCD1602
+SPI functions to use this particular mapping. Naturally, you can expect this
+mapping to be supported in the next library update. (Also, this being a board to
+support labs in which students will write their own functions, you can always do
+that.)
