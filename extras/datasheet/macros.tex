@@ -1,0 +1,52 @@
+%! suppress = NonMatchingIf
+\newcommand{\hardwareversion}{unknown}
+\newcommand{\construction}{unknown}
+\newcommand{\mcuboard}{unknown}
+\newcommand{\photograph}{unknown}
+\newcommand{\microcontroller}{unknown}
+\newcommand{\displaymoduledescription}{unknown}
+
+\providebool{spi}
+\providebool{i2c}
+\providebool{max7219digits}
+\providebool{max7219matrix}
+\providebool{lcd1602}
+\providebool{nano-form-factor}
+\providebool{pico-form-factor}
+
+\ifdefstring{\cowpiversion}{mk1c}{
+    \renewcommand{\hardwareversion}{mark~1c}
+    \renewcommand{\construction}{solderless breadboard}
+    \renewcommand{\mcuboard}{Arduino Nano}
+    \setbool{spi}{true}
+    \setbool{max7219digits}{true}
+    \renewcommand{\photograph}{../hardware/mk1a.jpg}    % close enough
+}{}
+
+\ifdefstring{\cowpiversion}{mk1d}{
+    \renewcommand{\hardwareversion}{mark~1d}
+    \renewcommand{\construction}{solderless breadboard}
+    \renewcommand{\mcuboard}{Arduino Nano}
+    \setbool{i2c}{true}
+    \setbool{lcd1602}{true}
+    \renewcommand{\photograph}{../hardware/mk1d.jpg}
+}{}
+
+\ifdefstring{\cowpiversion}{mk3a}{
+    \renewcommand{\hardwareversion}{mark~3a}
+    \renewcommand{\construction}{through-hole printed circuit board}
+    \renewcommand{\mcuboard}{Arduino Nano}
+    \setbool{spi}{true}
+    \setbool{i2c}{true}
+    \setbool{lcd1602}{true}
+    \renewcommand{\photograph}{../hardware/mk3a.jpg}
+}{}
+
+
+\ifdefstring{\mcuboard}{Arduino Nano}{
+    \renewcommand{\microcontroller}{ATmega328P}
+    \setbool{nano-form-factor}{true}
+}{}
+\ifboolexpe{bool{max7219digits}}{\renewcommand{\displaymoduledescription}{8-digit 7-segment LED display}}{}
+\ifboolexpe{bool{max7219matrix}}{\renewcommand{\displaymoduledescription}{$8 \times 8$ LED matrix display}}{}
+\ifboolexpe{bool{lcd1602}}{\renewcommand{\displaymoduledescription}{$2 \times 16$ LCD dot-matrix character display}}{}

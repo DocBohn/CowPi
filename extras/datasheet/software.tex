@@ -1,0 +1,523 @@
+%! suppress = NonMatchingIf
+This section describes the v\softwareversion\ CowPi library's functions relevant to the Cow Pi \cowpiversion\ development board.
+More complete documentation can be obtained by processing the library's source code with Doxygen.
+% I, too, wish that I could simply use Doxygen's output here
+
+\subsection{Configuring / Initializing the Board}
+
+    Functions used to configure the Cow Pi hardware and library at the start of a program.
+
+    \begin{itemize}
+        \functionitem{void}{cowpi_setup}{unsigned int configuration} \\ \\
+            Configures the microcontroller's pins for the expected hardware setup, and configures the library to work with the specified display module and communication protocol.
+            \begin{description}
+                \item[parameters] \
+                    \begin{description}
+                        \item[configuration] bitwise disjunction of named constants, specifying the display module and protocol
+                            \begin{itemize}
+                                \item For the Cow Pi \cowpiversion, the typical argument will be
+                                    \ifdefstring{\cowpiversion}{mk1c}{\texttt{MAX7219|SPI}}{}
+                                    \ifdefstring{\cowpiversion}{mk1d}{\texttt{LCD1602|I2C}}{}
+                                    \ifdefstring{\cowpiversion}{mk3a}{either \texttt{LCD1602|SPI} or \texttt{LCD1602|I2C}, depending on how the development board is configured}{}
+                            \end{itemize}
+                    \end{description}
+                \item[returns] n/a
+                \item[notes] \
+                    \begin{itemize}
+                        \item If the I$^2$C protocol is used, then \function{cowpi_set_display_i2c_address()} must be called \textit{before} \function{cowpi_setup()}
+                        \ifboolexpe{bool{lcd1602}}{\item If a non-\lstinline{COWPI_DEFAULT} display dialect is used, then \function{cowpi_set_display_dialect()} must be called before \function{cowpi_setup()}}{}
+                        \ifdefstring{\microcontroller}{ATmega328P}{\item If \function{printf()} and/or \function{scanf()} will be used, then we recommend that \function{cowpi_stdio_setup()} be called before \function{cowpi_setup()}; however, this is not required}{}
+                    \end{itemize}
+            \end{description}
+
+        \ifboolexpe{bool{i2c}}{\functionitem{void}{cowpi_set_display_i2c_address}{uint8_t peripheral_address} \\ \\
+            Sets the I$^2$C address for an I$^2$C-driven display module. \\ \\
+            Because the I$^2$C protocol uses addresses to select the peripheral that the microcontroller is communicating with, the display module's address needs to be set.
+            If the SPI protocol is being used, then there is no need to call this function. \\ \\
+            The common PCF8574-based interfaces used with LCD1602 display modules typically have an address of 0x27, but this can readily be changed.
+            \begin{description}
+                \item[parameters] \
+                \begin{description}
+                    \item[peripheral\_address]
+                \end{description}
+                \item[returns] n/a
+                \item[notes] \
+                \begin{itemize}
+                    \item If this function is called, it must be called before \function{cowpi_setup()} so that the display module can be properly configured.
+                \end{itemize}
+            \end{description}
+        }{}
+
+        \ifboolexpe{bool{lcd1602}}{\functionitem{void}{cowpi_set_display_dialect}{uint8_t dialect} \\ \\
+            Sets the ``dialect,'' or the mapping of protocol bits to display module bits. \\ \\
+            Some display modules (e.g., MAX7219-based modules) have only one possible mapping, and calling this function has no effect for those modules.
+            For other display modules, the \lstinline{COWPI_DEFAULT} dialect is the default;
+            this function does not need to be called if the \lstinline{COWPI_DEFAULT} dialect will be used.
+            \begin{description}
+                \item[parameters] \
+                \begin{description}
+                    \item[dialect] a named constant specifying which mapping of protocol bits to display module bits shall be used
+                \end{description}
+                \item[returns] n/a
+                \item[notes] \
+                \begin{itemize}
+                    \item If this function is called, it must be called before \function{cowpi_setup()} so that the display module can be properly configured.
+                \end{itemize}
+            \end{description}
+        }{}
+
+        \ifdefstring{\microcontroller}{ATmega328P}{\functionitem{void}{cowpi_stdio_setup}{unsigned long baud} \\ \\
+            Configures the CowPi library to use \textit{stdio.h} functions. \\ \\
+            Configures \function{printf()} to write to, and \function{scanf()} to read from, the serial interface between the microcontroller and the host computer.
+            Calls to \function{printf()} and \function{scanf()} that occur before the call to \function{cowpi_stdio_setup()} will have no effect.
+            \begin{description}
+                \item[parameters] \
+                \begin{description}
+                    \item[baud] the USART signal rate
+                \end{description}
+                \item[returns] n/a
+                \item[notes] \
+                \begin{itemize}
+                    \item By default, \function{printf()} will not format floating point numbers;
+                        to override this behavior, add \texttt{\#define printf} to the start of your program
+                \end{itemize}
+            \end{description}
+        }{}
+
+    \end{itemize}
+
+
+\subsection{Simple Inputs}\label{subsec:SimpleInputs}
+
+    Buttons and switches that can be read directly from pins.
+
+    \begin{itemize}
+        \functionitem{bool}{cowpi_left_button_is_pressed}{void} \\ \\
+        Reports whether the left button is pressed. \\ \\
+            There is no debouncing.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the left button is in Arduino pin D8.
+            A pressed button grounds a pulled-high input.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] \lstinline{true} if the button is pressed, \lstinline{false} otherwise
+                %\item[notes]
+            \end{description}
+
+        \functionitem{bool}{cowpi_right_button_is_pressed}{void} \\ \\
+        Reports whether the right button is pressed. \\ \\
+        There is no debouncing.
+        This is a portable implementation, not a memory-mapped implementation. \\ \\
+        Assumes the left button is in Arduino pin D9.
+        A pressed button grounds a pulled-high input.
+        \begin{description}
+            \item[parameters] n/a
+            \item[returns] \lstinline{true} if the button is pressed, \lstinline{false} otherwise
+            %\item[notes]
+        \end{description}
+
+        \functionitem{bool}{cowpi_left_switch_in_left_position}{void} \\ \\
+        Reports whether the left switch is in the left position. \\ \\
+            There is no debouncing.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I$^2$C) is in use or if no protocol is in use;
+            assumes the switch is in pin D11 if I$^2$C (but not SPI) is in use.
+            If both protocols are in use, then this function will always return \lstinline{false}.
+            A switch in the left position grounds a pulled-high input.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] \lstinline{true} if the switch is in the left position, \lstinline{false} otherwise
+                %\item[notes]
+            \end{description}
+
+        \functionitem{bool}{cowpi_left_switch_in_right_position}{void} \\ \\
+        Reports whether the left switch is in the right position. \\ \\
+        There is no debouncing.
+        This is a portable implementation, not a memory-mapped implementation. \\ \\
+        Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I$^2$C) is in use or if no protocol is in use;
+        assumes the switch is in pin D11 if I$^2$C (but not SPI) is in use.
+        If both protocols are in use, then this function will always return \lstinline{false}.
+        A switch in the right position floats, allowing a pulled-high input to remain high.
+        \begin{description}
+            \item[parameters] n/a
+            \item[returns] \lstinline{true} if the switch is in the right position, \lstinline{false} otherwise
+            %\item[notes]
+        \end{description}
+
+        \functionitem{bool}{cowpi_right_switch_in_left_position}{void} \\ \\
+        Reports whether the right switch is in the left position. \\ \\
+        There is no debouncing.
+        This is a portable implementation, not a memory-mapped implementation. \\ \\
+        Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I$^2$C) is in use or if no protocol is in use;
+        assumes the switch is in pin D10 if I$^2$C (but not SPI) is in use.
+        If both protocols are in use, then this function will always return \lstinline{false}.
+        A switch in the left position grounds a pulled-high input.
+        \begin{description}
+            \item[parameters] n/a
+            \item[returns] \lstinline{true} if the switch is in the left position, \lstinline{false} otherwise
+            %\item[notes]
+        \end{description}
+
+        \functionitem{bool}{cowpi_right_switch_in_right_position}{void} \\ \\
+        Reports whether the right switch is in the right position. \\ \\
+        There is no debouncing.
+        This is a portable implementation, not a memory-mapped implementation. \\ \\
+        Assumes the right switch is in Arduino pin A5 (D1i) if SPI (but not I$^2$C) is in use or if no protocol is in use;
+        assumes the switch is in pin D10 if I$^2$C (but not SPI) is in use.
+        If both protocols are in use, then this function will always return \lstinline{false}.
+        A switch in the right position floats, allowing a pulled-high input to remain high.
+        \begin{description}
+            \item[parameters] n/a
+            \item[returns] \lstinline{true} if the switch is in the right position, \lstinline{false} otherwise
+            %\item[notes]
+        \end{description}
+
+    \end{itemize}
+
+
+\subsection{Simple Outputs}\label{subsec:SimpleOutputs}
+
+    LEDs that can be written directly through pins.
+
+    \begin{itemize}
+        \functionitem{void}{cowpi_illuminate_left_led}{void} \\ \\
+            Illuminates the left LED, aka the built-in LED, aka the internal LED\@.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the left LED is on Arduino pin D13. \\ \\
+            The Arduino semantics are that an LED illuminates when the pin is placed high.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] n/a
+                %\item[notes]
+            \end{description}
+
+        \functionitem{void}{cowpi_deluminate_left_led}{void} \\ \\
+            Deluminates the left LED, aka the built-in LED, aka the internal LED\@.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the left LED is on Arduino pin D13. \\ \\
+            The Arduino semantics are that an LED deluminates when the pin is placed low.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] n/a
+                %\item[notes]
+            \end{description}
+
+        \functionitem{void}{cowpi_illuminate_right_led}{void} \\ \\
+            Illuminates the right LED, aka the external LED\@.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the right LED is on Arduino pin D12. \\ \\
+            An LED illuminates when the pin is placed high, to match the semantics of Arduino's built-in LED\@.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] n/a
+                %\item[notes]
+            \end{description}
+
+        \functionitem{void}{cowpi_deluminate_right_led}{void} \\ \\
+            Deluminates the right LED, aka the external LED\@.
+            This is a portable implementation, not a memory-mapped implementation. \\ \\
+            Assumes the right LED is on Arduino pin D12. \\ \\
+            An LED deluminates when the pin is placed low, to match the semantics of Arduino's built-in LED\@.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] n/a
+                %\item[notes]
+            \end{description}
+
+    \end{itemize}
+
+
+    \subsection{Scanned Inputs}\label{subsec:ScannedInputs}
+
+        Keypad that is scanned through a combination of writing to pins and reading from other pins.
+
+        \begin{itemize}
+            \functionitem{char}{cowpi_get_keypress}{void} \\ \\
+            Scans the keypad to determine which, if any, key was pressed. \\ \\
+            There is no debouncing.
+            This is a portable implementation, not a memory-mapped implementation.
+            Returns the ASCII representation of the character depicted on whichever key was pressed (0-9, A-D, *, \#). \\ \\
+            Assumes a common 4x4 matrix keypad with the rows in Arduino pins D4-D7 and the columns in Arduino pins A0-A3 (D14-D17).
+            A pressed key grounds a pulled-high input.
+            \begin{description}
+                \item[parameters] n/a
+                \item[returns] ASCII character corresponding to the key that is pressed, or \texttt{NUL} if no key is pressed
+                %\item[notes]
+            \end{description}
+
+        \end{itemize}
+
+
+    \subsection{Display Modules}
+
+    Functions for display modules.
+
+    \begin{itemize}
+        \ifboolexpe{bool{max7219digits} or bool{max7219matrix}}{
+            \functionitem{void}{cowpi_max7219_send}{uint8_t address, uint8_t data} \\ \\
+                Sends a byte of data to be placed in the specified MAX7219 register. \\ \\
+                The firmware program should only need to send data to addresses 1--8, the digit registers.
+                Most other registers are handled by specific \function{cowpi_max7219} functions. \\ \\
+                This is a portable software-only implementation;
+                it does not use SPI hardware, nor does it use memory-mapped I/O of any form.
+                Re-implementing this function (using a different function name) to use SPI hardware is a possible part of a memory-mapped I/O lab assignment.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[address] the register to be updated
+                        \item[data] the byte to place in that register
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] \
+                    \begin{itemize}
+                        \item A re-implementation that uses the SPI hardware must invoke \function{cowpi_spi_enable} at the start of the function and \function{cowpi_spi_disable} at the end. \\ \\
+                            The necessity to enable and disable the SPI hardware is because on most Arduino boards, the right LED is on the pin that also serves as the CIPO pin.
+                            When enabled, the SPI hardware forces the CIPO pin to be an input pin.
+                        \item Assumes the display module's data-in line is connected to the microcontroller's COPI pin (D11 on most Arduino boards), the display module's serial-clock line is connected to the microcontroller's SCK pin (D13 on most Arduino boards), and the display module's chip-select line is connected to Arduino pin D10.
+                    \end{itemize}
+                \end{description}
+
+            \functionitem{void}{cowpi_max7219_bcd_decode}{void} \\ \\
+                Places the MAX7219 in decode mode. \\ \\
+                This function places 0xFF in the MAX7219's Decode-Mode register, causing the display to interpret the data register bits as BCD values and place the corresponding decimal numeral on the digits. \\ \\
+                This function should not be called when using an 8x8 LED matrix – there's no harm in doing so, but decode mode really is meant for 7-segment displays.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_max7219_no_decode}{void} \\ \\
+                Takes the MAX7219 out of decode mode. \\ \\
+                This function places 0 in the MAX7219's Decode-Mode register, causing the display to map the data register bits directly to the digits' segments.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_max7219_set_intensity}{uint8_t intensity} \\ \\
+                Sets the MAX7219 display module's brightness level. \\ \\
+                This function places the argument in the MAX7219's Intensity register.
+                The MAX7219 ignores the upper four bits, so there are 16 levels of brightness.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[intensity] the desired brightness level
+                    \end{description}
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_max7219_shutdown}{void} \\ \\
+                Shuts-down the MAX7219 display module. \\ \\
+                This function places a 0 in the MAX7219's Shutdown register, causing the display to blank.
+                Data in the digit and control registers remain unchanged.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_max7219_startup}{void} \\ \\
+                Takes the MAX7219 display module out of shutdown mode. \\ \\
+                This function places a 1 in the MAX7219's Shutdown register, causing the display to resume.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+        }{}
+
+        \ifboolexpe{bool{lcd1602}}{
+            \functionitem{typedef void}{(*cowpi_lcd1602_send_halfbyte_t)}{uint8_t halfbyte, bool is_command} \\ \\
+                Convenience type for a pointer to a function that sends a halfbyte to the LCD1602 display.
+
+            \functionitem{void}{(*cowpi_lcd1602_send_halfbyte)}{uint8_t halfbyte, bool is_command} \\
+            \textit{declared as} \lstinline{cowpi_lcd1602_send_halfbyte_t cowpi_lcd1602_send_halfbyte} \\ \\
+                Pointer to a function that sends a halfbyte to the LCD1602 display. \\ \\
+                The \function{cowpi_lcd1602} utility functions all make use of the \function{cowpi_lcd1602_send_halfbyte()} function pointer. \\ \\
+                Initially, \function{cowpi_lcd1602_send_halfbyte()} is one of two default implementations, depending on the protocol specified in the argument to \function{cowpi_setup()}.
+                The SPI implementation is a portable software-only implementation that does not use SPI hardware, nor does it use memory-mapped I/O of any form.
+                The I$^2$C implementation currently makes use of the I$^2$C hardware using avr-libc macros. \\ \\
+                Re-implementing this function to use SPI or I2C hardware is a possible part of a memory-mapped I/O lab assignment. \\ \\
+                SPI: Assumes the display module's data-in line is connected to the microcontroller's COPI pin (D11 on most Arduino boards), the display module's serial-clock line is connected to the microcontroller's SCK pin (D13 on most Arduino boards), and the display module's chip-select line is connected to Arduino pin D10. \\ \\
+                I$^2$C: Assumes the display module's data line is connected to the microcontroller's SDA pin (D18 on most Arduino boards) and the display module's serial-clock line is connected to the microcontroller's SCL pin (D19 on most Arduino boards).
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[halfbyte] the data to be sent to the display module
+                        \item[is\_command] indicates whether the data is part of a command (\lstinline{true}) or part of a character (\lstinline{false})
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] \
+                    \begin{itemize}
+                        \item Application developers cannot access this function pointer directly;
+                            they will assign the function to the function pointer through \function{cowpi_lcd1602_set_send_halfbyte()}, and the myriad \function{cowpi_lcd1602} library functions will use the assigned function.
+                        \item \textbf{TODO}: finish implementing portable software-only I$^2$C implementation.
+                    \end{itemize}
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_set_send_halfbyte}{cowpi_lcd1602_send_halfbyte_t send_halfbyte_function} \\ \\
+                Reassigns the \function{cowpi_lcd1602_send_halfbyte} function pointer to point to the specified function. \\ \\
+                During setup, this function is used to assign one of the two default \function{cowpi_lcd1602_send_halfbyte_t} implementations to \function{cowpi_lcd1602_send_halfbyte}, unless it was previously used to assign a reimplementation.
+                It can also later be used to assign a re-implementation.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[send\_halfbyte\_function] the function to be used to send halfbytes to the LCD1602 display module
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] n/a
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_create_character}{uint8_t encoding, const uint8_t pixel_vector[8]} \\ \\
+                Creates a custom character for the LCD1602 display module. \\ \\
+                The encoding can be a value between 0 and 7, inclusive.
+                Each element of the pixel vector corresponds to a row of the $5 \times 8$ character matrix (thus, only 5 bits of each element are used).
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[encoding] the value used to represent the character
+                        \item[pixel\_vector] identifies which LCDs are ``on'' or ``off'' for the custom character
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] n/a
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_place_character}{uint8_t address, uint8_t character} \\ \\
+                Places the specified character on the display at the specified location. \\ \\
+                The character is an ASCII or ``extended-ASCII'' character, or a custom character created by using \function{cowpi_lcd1602_create_character()}.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[address] the address of the desired location
+                        \item[character] the character to be displayed
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] \
+                    \begin{itemize}
+                        \item The base address of the top row is 0x00, and the base address of the bottom row is 0x40.
+                    \end{itemize}
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_place_cursor}{uint8_t address} \\ \\
+                Places the cursor at the specified location without updating the display. \\ \\
+                While the cursor will move to the specified location, it will only be visibly there if the cursor is on.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[address] the address of the desired location
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] \
+                    \begin{itemize}
+                        \item The base address of the top row is 0x00, and the base address of the bottom row is 0x40.
+                    \end{itemize}
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_return_home}{void} \\ \\
+                Places the cursor in row 0, column 0. \\ \\
+                If the display was shifted, the display is shifted back to its original position.
+                The contents of each character position remain unchanged.
+                remain unchanged.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_send_character}{uint8_t character} \\ \\
+                Displays a character at the cursor's location on the LCD1602 display module. \\ \\
+                The character is an ASCII or ``extended-ASCII'' character, or a custom character created by using \function{cowpi_lcd1602_create_character()}.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[character] the character to be displayed
+                    \end{description}
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_send_command}{uint8_t command} \\ \\
+                Sends a command to the LCD1602 display module.
+                The command is a bitwise disjunction of named constants to specify the entry mode (cursor and text movement to occur after characters are sent), a disjunction of named constants to specify the display mode (whether the display is on, whether the underscore cursor is displayed, and whether the cursor's location blinks), or one shift command (shift display left/right or shift cursor left/right).
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[command]
+                    \end{description}
+                    \item[returns] n/a
+                    \item[notes] The possible commands are:
+                    \begin{itemize}
+                        \item Entry Mode Commands {\tiny (apply bitwise disjunction)}
+                            \begin{description}
+                                \item[\texttt{LCDENTRY\_CURSORMOVESRIGHT}] Instructs the display module to move the cursor right after a character is displayed
+                                    \begin{itemize}
+                                        \item CowPi library initializes display with the cursor moving right
+                                    \end{itemize}
+                                \item[\texttt{LCDENTRY\_CURSORMOVESLEFT}] Instructs the display module to move the cursor left after a character is displayed
+                                    \begin{itemize}
+                                        \item If an entry mode command is sent without specifying the direction of cursor movement, the LCD1602 defaults to the cursor moving left cursor movement, the LCD1602 defaults to cursor moving left
+                                    \end{itemize}
+                                \item[\texttt{LCDENTRY\_TEXTSHIFTS}] Instructs the display module to shift the entire display after a character is displayed
+                                \item[\texttt{LCDENTRY\_TEXTNOSHIFT}] Instructs the display module not to shift the display after a character is displayed
+                                    \begin{itemize}
+                                        \item CowPi library initializes display with the text not shifting
+                                        \item If an entry mode command is sent without specifying whether to shift the text, the LCD1602 defaults to the text not shifting
+                                    \end{itemize}
+                            \end{description}
+                        \item Display Mode Commands {\tiny (apply bitwise disjunction)}
+                            \begin{description}
+                                \item[\texttt{LCDONOFF\_DISPLAYON}] Instructs the display module to turn on the display
+                                    \begin{itemize}
+                                        \item CowPi library initializes display with the display on
+                                    \end{itemize}
+                                \item[\texttt{LCDONOFF\_DISPLAYOFF}] Instructs the display module to turn off the display
+                                \begin{itemize}
+                                    \item If a display mode command is sent without specifying whether to turn the display on, the LCD1602 defaults to turning the display off
+                                \end{itemize}
+                                \item[\texttt{LCDONOFF\_CURSORON}] Instructs the display module to turn on the underscore cursor
+                                \item[\texttt{LCDONOFF\_CURSOROFF}] Instructs the display module to turn off the underscore cursor
+                                    \begin{itemize}
+                                        \item CowPi library initializes display with the cursor off
+                                        \item If a display mode command is sent without specifying whether to turn the cursor on, the LCD1602 defaults to turning the cursor off
+                                    \end{itemize}
+                                \item[\texttt{LCDONOFF\_BLINKON}] Instructs the display module to blink the cursor's position
+                                \item[\texttt{LCDONOFF\_BLINKOFF}] Instructs the display module not to blink the cursor's position
+                                    \begin{itemize}
+                                        \item CowPi library initializes display with the cursor not blinking
+                                        \item If a display mode command is sent without specifying whether to have the cursor blink, the LCD1602 defaults to having the cursor not blink
+                                    \end{itemize}
+                            \end{description}
+                        \item Shift Commands {\tiny (apply only one at a time)}
+                            \begin{description}
+                                \item[\texttt{LCDSHIFT\_DISPLAYLEFT}] Shifts the entire display to the left
+                                \item[\texttt{LCDSHIFT\_DISPLAYRIGHT}] Shifts the entire display to the right
+                                \item[\texttt{LCDSHIFT\_CURSORLEFT}] Shifts the cursor to the left
+                                \item[\texttt{LCDSHIFT\_CURSORRIGHT}] Shifts the cursor to the right
+                            \end{description}
+                    \end{itemize}
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_set_backlight}{bool backlight_on} \\ \\
+                Turns the display module's backlight on or off.
+                \begin{description}
+                    \item[parameters] \
+                    \begin{description}
+                        \item[backlight\_on] indicates whether the backlight should be on (\lstinline{true}) or off (\lstinline{false})
+                    \end{description}
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+
+            \functionitem{void}{cowpi_lcd1602_clear_display}{void} \\ \\
+                Clears the display and places the cursor in row 0, column 0.
+                \begin{description}
+                    \item[parameters] n/a
+                    \item[returns] n/a
+                    %\item[notes]
+                \end{description}
+        }{}
+
+    \end{itemize}

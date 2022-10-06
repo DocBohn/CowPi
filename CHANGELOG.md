@@ -15,7 +15,7 @@ and this project adheres to
 ## [Unreleased]
 
 - LCD1602 default dialect for SPI
-- Bit-banged I2C implementation
+- Bit-banged I^2^C implementation
 - Microcontroller-dependent code other than that for ATMega328P
 
 <!--
@@ -33,14 +33,14 @@ and this project adheres to
 
 - Replaced single header file with library
   - Default implementations for reading inputs and writing outputs
-    - Most are microcontroller-independent; I2C is still ATMega328P-only
+    - Most are microcontroller-independent; I^2^C is still ATMega328P-only
   - Microcontroller-dependent code (*e.g.* memory-mapped I/O structures)
     isolated from microcontroller-independent code
   - Framework to allow polling I/O code and memory-mapped I/O code to be graded
     distinctly
 - 7-segment and dot-matrix fonts
 - Framework to control LCD1602 display module; students only need to write code
-  to use SPI or I2C hardware
+  to use SPI or I^2^C hardware
 - Setup code to enable `printf`/`scanf` for AVR microcontrollers
 - Example code
   - Replace test code in construction instructions with examples

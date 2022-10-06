@@ -1,0 +1,1 @@
+- Have these files generated from the source code by doxygen as part of the Makefile for the datasheet

@@ -83,8 +83,8 @@ teaching memory-mapped I/O.
 
 Python isn't exactly known for being a language that exposes the underlying
 hardware. While it's possible to make the library work with MicroPython and/or
-CircuitPython, that'd defeat the point of the library being a way to hide the
-complexities and *only* the complexities that are unrelated to memory-mapped I/O,
+CircuitPython, that'd defeat the point of the library being a way to hide
+*only* the complexities that are unrelated to memory-mapped I/O,
 polling, and interrupts.
 
 ## Are you going to make it work with the XYZ microcontroller board?

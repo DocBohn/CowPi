@@ -1,0 +1,73 @@
+%%
+%% Cow Pi Datasheet (c) 2021-22 Christopher A. Bohn
+%%
+%% Licensed under the Apache License, Version 2.0 (the "License");
+%% you may not use this file except in compliance with the License.
+%% You may obtain a copy of the License at
+%%     http://www.apache.org/licenses/LICENSE-2.0
+%% Unless required by applicable law or agreed to in writing, software
+%% distributed under the License is distributed on an "AS IS" BASIS,
+%% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%% See the License for the specific language governing permissions and
+%% limitations under the License.
+%%
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[procnames]{listings}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\lstset{language=C, tabsize=4, upquote=true, basicstyle=\ttfamily, numberstyle=\color{gray}, numbers=left, showspaces=false, showstringspaces=false}
+\newcommand{\function}[1]{\textbf{\lstinline{#1}}}
+\newcommand{\functionitem}[3]{\item \hypertarget{function:#2}{\lstinline{#1} \function{#2} \lstinline{(#3)}}\addcontentsline{toc}{subsubsection}{\function{#2}}}
+\hypersetup{colorlinks=true}
+
+\input{macros.tex}
+
+\begin{document}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \lhead{Cow Pi \cowpiversion\ Development Board}
+    \rhead{CowPi v\softwareversion\ Library}
+    \cfoot{\thepage}
+    \title{Cow Pi, \hardwareversion\footnote{The Cow Pi hardware design, library, example code, and documentation \copyright 2021--22, Christopher A. Bohn}}
+    \author{Datasheet}
+    \date{}
+    \maketitle
+
+    The \hardwareversion\ Cow Pi is a member of the Cow Pi product line from Eclectic Electronics\footnote{Eclectic Electronics is a joint subsidiary of The Pleistocene Petting Zoo, a Limited-Reality Corporation, and of Babbage's Analytic Engines, a Frankly-Figmentary Partnership.} and is guaranteed to bring you minutes of fun.
+    Whether you need a 4-function calculator to count your terror bird eggs before they hatch, an electronic combination lock to secure your wildly-dangerous experimental robots, or a motion alarm to protect yourself from zombie gourds, using the Cow Pi development board is your best option.
+
+    This document describes the use of the Cow Pi \cowpiversion\ development board with the CowPi v\softwareversion\ library.
+
+    \tableofcontents
+
+
+    \section{Hardware Overview} \input{hardware}
+
+    \section{Software Overview} \input{software}
+
+    \section{Example Programs} \input{examples}
+
+    \section{Input/Output Register Descriptions} \label{sec:IOregisterDescriptions}
+
+    \section{Interrupts} \label{sec:Interrupts}
+
+    \section{Expansion Options}
+
+    \appendix
+
+
+    \section{Source Datasheets}
+
+\end{document}
+
