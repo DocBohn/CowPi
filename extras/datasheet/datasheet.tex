@@ -23,7 +23,10 @@
 \usepackage{hyperref}
 \usepackage[procnames]{listings}
 \usepackage{setspace}
+\usepackage{subfig}
 \usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
 \usepackage{xcolor}
 
 \lstset{language=C, tabsize=4, upquote=true, basicstyle=\ttfamily, numberstyle=\color{gray}, numbers=left, showspaces=false, showstringspaces=false}
@@ -44,7 +47,9 @@
     \date{}
     \maketitle
 
-    The \hardwareversion\ Cow Pi is a member of the Cow Pi product line from Eclectic Electronics\footnote{Eclectic Electronics is a joint subsidiary of The Pleistocene Petting Zoo, a Limited-Reality Corporation, and of Babbage's Analytic Engines, a Frankly-Figmentary Partnership.} and is guaranteed to bring you minutes of fun.
+    The \hardwareversion\ Cow Pi is a member of the Cow Pi product line from Eclectic Electronics\footnote{
+        Eclectic Electronics is a joint subsidiary of The Pleistocene Petting Zoo, a Limited-Reality Corporation, and of Babbage's Analytic Engines, a Frankly-Figmentary Partnership.}
+    and is guaranteed to bring you minutes of fun.
     Whether you need a 4-function calculator to count your terror bird eggs before they hatch, an electronic combination lock to secure your wildly-dangerous experimental robots, or a motion alarm to protect yourself from zombie gourds, using the Cow Pi development board is your best option.
 
     This document describes the use of the Cow Pi \cowpiversion\ development board with the CowPi v\softwareversion\ library.
@@ -54,20 +59,25 @@
 
     \section{Hardware Overview} \input{hardware}
 
-    \section{Software Overview} \input{software}
+    \section{Library Overview} \input{software}
 
     \section{Example Programs} \input{examples}
 
-    \section{Input/Output Register Descriptions} \label{sec:IOregisterDescriptions}
+    \section{Input/Output Register Descriptions} \label{sec:IOregisterDescriptions} \input{atmega328p-registers}
 
     \section{Interrupts} \label{sec:Interrupts}
 
-    \section{Expansion Options}
+    This section will be completed before InterruptLab.
 
-    \appendix
+    \section{Timers} \label{sec:Timers}
 
+    This section will be completed before InterruptLab.
 
-    \section{Source Datasheets}
+%    \section{Expansion Options}
+%
+%    This section will be completed before the Group Project.
+
+    \bibliographystyle{plain}\bibliography{datasheet}
 
 \end{document}
 

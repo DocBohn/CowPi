@@ -87,11 +87,13 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
     In general, there is no need to setup \texttt{stdio} (line~4); however in this case we do so that we can provide information to someone who is assembling a Cow Pi development board (lines~28--29).
 
     Unlike the simple I/O demonstration, since this example uses a display module, we do need to specify which display module we're using on line~26 so that the display module can be configured properly.
-    We also specify whether to use SPI or I$^2$C.\footnote{As of v0.3, if using SPI, the CowPi library will only work with the AdaFruit LCD1602 ``backpacks.'' If using I$^2$C, the CowPi library will work with both the AdaFruit ``backpacks'' and the ubiquitous and cheap serial adapters. More general SPI-LCD1602 support will be part of v0.4.}
+    We also specify whether to use SPI or I$^2$C.\footnote{
+        As of v0.3, if using SPI, the CowPi library will only work with the AdaFruit LCD1602 ``backpacks.'' If using I$^2$C, the CowPi library will work with both the AdaFruit ``backpacks'' and the ubiquitous and cheap serial adapters. More general SPI-LCD1602 support will be part of v0.4.}
     If using I$^2$C, we need to call \hyperlink{function:cowpi_set_display_i2c_address}{\function{cowpi_set_display_i2c_address()}} (line~22) before calling \function{cowpi_setup()}.
     For LCD1602 serial adapters, specifying \texttt{0x27} as the address is a very good choice unless you know that your adapter has been modified to use a different address.
     If \texttt{0x27} doesn't work when assembling a Cow Pi development board, double-check the wiring;
-    if the wiring is good, then run a program to scan the I$^2$C for peripherals and report their addresses.\footnote{Such a program is available on the Arduino website: \url{https://playground.arduino.cc/Main/I2cScanner/}.}
+    if the wiring is good, then run a program to scan the I$^2$C for peripherals and report their addresses.\footnote{
+        Such a program is available on the Arduino website: \url{https://playground.arduino.cc/Main/I2cScanner/}.}
 
     Some of the functionality demonstrated in this program is:
     \begin{itemize}
@@ -116,7 +118,7 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
 
     The \function{loop()} function simply turns the display module's backlight on and off every half-second so that someone assembling a Cow Pi development board knows that they have successfully connected to the display module, even if they don't see any text.
 
-\subsection{Adding Custom Characters to the LCD1602 Display Module}
+\subsection{Adding Custom Characters to the LCD1602 Display Module} \label{subsec:CustomCharacters}
 
     Up to eight (8) custom characters can be programmed into the LCD1602 display module, corresponding to characters 0--7.
     In this program, we create three characters to produce a crude animation of a stick figure running:
