@@ -1,0 +1,52 @@
+\hypertarget{cowpi__io_8c}{}\doxysection{cowpi\+\_\+io.\+c File Reference}
+\label{cowpi__io_8c}\index{cowpi\_io.c@{cowpi\_io.c}}
+
+
+Defines the functions to query inputs and set outputs that can readily be accessed from the general-\/purpose I/O pins.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}cowpi\+\_\+io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cowpi\+\_\+internal.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{group__scanned_ga67948aab161a6b9cb8206d0c7f29ceb7}{cowpi\+\_\+get\+\_\+keypress}} (void)
+\begin{DoxyCompactList}\small\item\em Scans the keypad to determine which, if any, key was pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_ga308eee9232481c14f3aabb96a162b421}{cowpi\+\_\+left\+\_\+button\+\_\+is\+\_\+pressed}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left button is pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gae9e2f08c0c783b461d6ba1916d808ac1}{cowpi\+\_\+right\+\_\+button\+\_\+is\+\_\+pressed}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right button is pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gac2228c317a761680fbcccdcbd95705b5}{cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+left\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left switch is in the left position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gabd7afea898d03f650dcb41bec5f7c1d4}{cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+left\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right switch is in the left position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gaa1bd9c6fa20c5235b4cd7181703967bf}{cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+right\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left switch is in the right position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_ga34dca1c2c42720a0ce20001355de9114}{cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+right\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right switch is in the right position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga8e3925d5fa737ef8388f207201bb9c9d}{cowpi\+\_\+illuminate\+\_\+right\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the right LED, aka the external LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_gade721a7e0b657fbce4341e350af9a96a}{cowpi\+\_\+illuminate\+\_\+left\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the left LED, aka the built-\/in LED, aka the internal LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga6d27979ccb40bac26a3ca7b249c8ddbe}{cowpi\+\_\+deluminate\+\_\+right\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the right LED, aka the external LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga3f09051852585a58105de9bae863a165}{cowpi\+\_\+deluminate\+\_\+left\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the left LED, aka the built-\/in LED, aka the internal LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga22ccdc377705c63bf46c5679ee4d92e8}{cowpi\+\_\+illuminate\+\_\+external\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the external LED, aka the right LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga6f047955602459b995c47acdcc6daa04}{cowpi\+\_\+illuminate\+\_\+internal\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the internal LED, aka the built-\/in LED, aka the left LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga9561c6d36126ef5cab2e11fc9f7f8c4d}{cowpi\+\_\+deluminate\+\_\+external\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the external LED, aka the right LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga2a2fe1ec6842584b43ae6932abf6d4bf}{cowpi\+\_\+deluminate\+\_\+internal\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the internal LED, aka the built-\/in LED, aka the left LED. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the functions to query inputs and set outputs that can readily be accessed from the general-\/purpose I/O pins. 
+
+\begin{DoxyAuthor}{Author}
+Christopher A. Bohn
+\end{DoxyAuthor}
+Re-\/implementing these functions (using different function names) is a typical part of a memory-\/mapped I/O lab assignment. 

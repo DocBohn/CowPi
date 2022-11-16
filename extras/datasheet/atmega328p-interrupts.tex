@@ -1,0 +1,67 @@
+Most interrupts on the \microcontroller\ are handled either by creating an interrupt service routine (ISR) using AVR-libc's \function{ISR()} macro.
+External interrupts, however, can be handled either by creating an ISR or by using the Arduino Core's \function{attachInterrupt()} function to register an interrupt handler.
+
+
+\subsection{Sharing data with ISRs and Interrupt Handlers} \label{subsec:isr}
+
+Regardless of whether you create an ISR using the \function{ISR()} macro or register an interrupt handler using the \function{attachInterrupt()} function, data cannot be passed to the interrupt-handling code through parameters, and the interrupt-handling code cannot return data through a return value.
+This necessitates the use of global variables to provide data to, and obtain data from, the interrupt-handling code.
+
+Because the compiler cannot detect any definition-use pairs for these global variables --
+they are updated in one function and read in another, and no call chain exists between the two functions --
+the compiler will optimize-away these variables and the code that accesses them in the interest of reducing the program's memory footprint.
+The way to prevent this mis-optimization is to use the \lstinline{volatile} keyword.
+
+\textit{Any global variables that interrupt-handling code reads from and/or writes to \textbf{must} have the \lstinline{volatile} modifier.}
+
+
+\subsection{Registering Interrupt Service Routines using the \function{ISR()} Macro} \label{subsec:isrMacro}
+
+To create an interrupt service routine, write this code that looks like a function, outside of any other function:
+
+\begin{lstlisting}
+ISR(vector) {
+    ...
+}
+\end{lstlisting}
+
+where $vector$ is one of the vectors listed in the AVR-libc's interrupts documentation\cite{avrInterrupt}
+(look in the table rows that have ``ATmega328P'' in the ``Applicable for Device'' cell).
+Replace ``\dots'' with the code that should execute whenever the timer interrupt occurs.
+You want to keep your ISR short, no more than a few lines of code.
+If anything more elaborate needs to happen, code in your \function{loop()} function (or a function called by \function{loop()}) can do that based on changes made from within your ISR.
+
+Any necessary configuration to establish the conditions under which the ISR will be invoked, typically through the use of memory-mapped I/O registers, will need to occur either in the \function{setup()} function or in a helper function called by \function{setup()}.
+
+\subsection{Registering External Interrupt Handlers using \function{attachInterrupt()}}
+
+The \microcontroller\ has two types of interrupts that are based on changes detected at the pins.
+
+\textit{Pin Change Interrupts} are the less flexible of the two but can be triggered by changes on any of the digital pins.
+See the \microcontroller\ datasheet\cite{ATmega328P} for details on configuring pin change interrupts.
+Pin change interrupts must be handled through an ISR, as described above.
+
+\textit{External Interrupts} can also be manually configured\cite{ATmega328P} and handled through an ISR;
+however, the Arduino Core has functions that abstract-away all of the configuration details.\cite{arduinoInterrupt}
+While external interrupts on the \microcontroller\ are limited to only two pins (digital pins D2 \& D3), they can be triggered for many conditions, and their interrupt handlers can be easily registered.
+\textit{For this reason, a NAND of the pushbuttons is input to pin D2, and a NAND of the keypad's columns is input to pin D3.}
+
+To handle an interrupt, first write a function, such as \function{handle_buttonpress()} or \function{handle_keypress()}.
+This function must not have any parameters, and its return type must be \lstinline{void}.
+Then, in the \function{setup()} function (or in one of its helper functions), register the interrupt handler with this code:
+\begin{lstlisting}[basicstyle=\small]
+attachInterrupt(digitalPinToInterrupt(pin_number), interrupt_handler_name, mode);
+\end{lstlisting}
+This will configure all of the necessary registers to call the function \function{interrupt_handler_name()} whenever the input value on the pin \textit{pin\_number} satisfies the \textit{mode}.
+The \textit{mode} is one of:
+\begin{description}
+    \item [LOW] to trigger the interrupt whenever the pin is low
+    \item [RISING] to trigger the interrupt whenever the pin goes from low to
+    high
+    \item [FALLING] to trigger the interrupt whenever the pin goes from high to
+    low
+    \item [CHANGE] to trigger the interrupt whenever the pin rises or falls
+\end{description}
+
+As with ISRs registered with the \function{ISR()} macro, you want to keep your interrupt handler short.
+

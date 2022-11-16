@@ -1,0 +1,33 @@
+\hypertarget{structcowpi__ioport__t}{}\doxysection{cowpi\+\_\+ioport\+\_\+t Struct Reference}
+\label{structcowpi__ioport__t}\index{cowpi\_ioport\_t@{cowpi\_ioport\_t}}
+
+
+Structure for the general-\/purpose I/O pins.  
+
+
+
+
+{\ttfamily \#include $<$cowpi\+\_\+atmega328p.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcowpi__ioport__t_a50dd6867d88f56234ea891814236ea21}\label{structcowpi__ioport__t_a50dd6867d88f56234ea891814236ea21}} 
+uint8\+\_\+t {\bfseries input}
+\begin{DoxyCompactList}\small\item\em Read inputs from field (PINx) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__ioport__t_a9fad4ed334233388bbe481f7f73c25ed}\label{structcowpi__ioport__t_a9fad4ed334233388bbe481f7f73c25ed}} 
+uint8\+\_\+t {\bfseries direction}
+\begin{DoxyCompactList}\small\item\em Set the pin\textquotesingle{}s direction using this field (DDRx) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__ioport__t_aebd761330e6ebd35517e60a59cc14c26}\label{structcowpi__ioport__t_aebd761330e6ebd35517e60a59cc14c26}} 
+uint8\+\_\+t {\bfseries output}
+\begin{DoxyCompactList}\small\item\em Write outputs to this field, and set/unset a pull-\/up resistor (PORTx) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure for the general-\/purpose I/O pins. 
+
+An array of these structures can be indexed using named constants (COWPI\+\_\+\+PB, etc). 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cowpi__atmega328p_8h}{cowpi\+\_\+atmega328p.\+h}}\end{DoxyCompactItemize}

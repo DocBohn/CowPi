@@ -1,0 +1,57 @@
+\hypertarget{cowpi__font__7segment_8h_source}{}\doxysection{cowpi\+\_\+font\+\_\+7segment.\+h}
+\mbox{\hyperlink{cowpi__font__7segment_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/**************************************************************************/}}
+\DoxyCodeLine{30 \textcolor{comment}{/* CowPi (c) 2021-\/22 Christopher A. Bohn}}
+\DoxyCodeLine{31 \textcolor{comment}{ *}}
+\DoxyCodeLine{32 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{33 \textcolor{comment}{ * you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{34 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{35 \textcolor{comment}{ *     http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{36 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{37 \textcolor{comment}{ * distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{38 \textcolor{comment}{ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{39 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{40 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{41 \textcolor{comment}{ */}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef COWPI\_FONT\_7SEGMENT\_H}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define COWPI\_FONT\_7SEGMENT\_H}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <avr/pgmspace.h>}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{53 \textcolor{keyword}{const} uint8\_t cowpi\_font\_7segment[0x80] PROGMEM = \{}
+\DoxyCodeLine{54 \textcolor{comment}{//      00 nul   01 soh   02 stx   03 etx   04 eot   05 enq   06 ack   07 bel   08 bs    09 ht    0a nl    0b vt    0c np    0d cr    0e so    0f si}}
+\DoxyCodeLine{55         0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x0D, 0x3D, 0x4F, 0x47,}
+\DoxyCodeLine{56 \textcolor{comment}{//      10 dle   11 dc1   12 dc2   13 dc3   14 dc4   15 nak   16 syn   17 etb   18 can   19 em    1a sub   1b esc   1c fs    1d gs    1e rs    1f us}}
+\DoxyCodeLine{57         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,}
+\DoxyCodeLine{58 \textcolor{comment}{//      20 sp    21  !    22  "{}    23  \#    24  \$    25  \%    26  \&    27  '    28  (    29  )    2a  *    2b  +    2c  ,    2d  -\/    2e  .    2f  /}}
+\DoxyCodeLine{59         0x00, 0xA0, 0x22, 0x49, 0x00, 0x5A, 0x4A, 0x02, 0x4A, 0x68, 0x2B, 0x07, 0x80, 0x01, 0x80, 0x25,}
+\DoxyCodeLine{60 \textcolor{comment}{//      30  0    31  1    32  2    33  3    34  4    35  5    36  6    37  7    38  8    39  9    3a  :    3b  ;    3c  <    3d  =    3e  >    3f  ?}}
+\DoxyCodeLine{61         0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x88, 0x88, 0x43, 0x41, 0x61, 0xE1,}
+\DoxyCodeLine{62 \textcolor{comment}{//      40  @    41  A    42  B    43  C    44  D    45  E    46  F    47  G    48  H    49  I    4a  J    4b  K    4c  L    4d  M    4e  N    4f  O}}
+\DoxyCodeLine{63         0x6F, 0x77, 0x1F, 0x0D, 0x3D, 0x4F, 0x47, 0x5E, 0x37, 0x04, 0x38, 0x2F, 0x0E, 0x57, 0x76, 0x1D,}
+\DoxyCodeLine{64 \textcolor{comment}{//      50  P    51  Q    52  R    53  S    54  T    55  U    56  V    57  W    58  X    59  Y    5a  Z    5b  [    5c  \(\backslash\)    5d  ]    5e  \string^    5f  \_}}
+\DoxyCodeLine{65         0x67, 0x73, 0x05, 0x5B, 0x0F, 0x3E, 0x27, 0x3F, 0x55, 0x3B, 0x6D, 0x4E, 0x13, 0x78, 0x62, 0x08,}
+\DoxyCodeLine{66 \textcolor{comment}{//      60  `    61  a    62  b    63  c    64  d    65  e    66  f    67  g    68  h    69  i    6a  j    6b  k    6c  l    6d  m    6e  n    6f  o}}
+\DoxyCodeLine{67         0x20, 0x77, 0x1F, 0x0D, 0x3D, 0x4F, 0x47, 0x5E, 0x37, 0x04, 0x38, 0x2F, 0x0E, 0x57, 0x76, 0x1D,}
+\DoxyCodeLine{68 \textcolor{comment}{//      70  p    71  q    72  r    73  s    74  t    75  u    76  v    77  w    78  x    79  y    7a  z    7b  \{    7c  |    7d  \}    7e  \string~    7f del}}
+\DoxyCodeLine{69         0x67, 0x73, 0x05, 0x5B, 0x0F, 0x3E, 0x27, 0x3F, 0x55, 0x3B, 0x6D, 0x4C, 0x06, 0x58, 0x40, 0xFF}
+\DoxyCodeLine{70 \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{75 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{97 uint8\_t cowpi\_font\_ascii\_to\_7segment(\textcolor{keywordtype}{char} c);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{118 uint8\_t *cowpi\_font\_string\_to\_7segment(uint8\_t *destination, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *s);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{121 \} \textcolor{comment}{// extern "{}C"{}}}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//COWPI\_FONT\_7SEGMENT\_H}}
+
+\end{DoxyCode}

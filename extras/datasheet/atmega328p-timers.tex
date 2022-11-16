@@ -1,0 +1,338 @@
+The \microcontroller\ used by the \mcuboard\ in the Cow Pi has three timers.
+As with the other I/O registers, the registers used by these timers are mapped into the data memory address space.
+
+\subsection{Structures for Memory-Mapped Timer Registers}
+
+The CowPi library provides data structures for both 8-bit and 16-bit timers, allowing access to the memory-mapped timer registers in a more readable form.
+
+\lstinputlisting[linerange=177-205, firstnumber=177, basicstyle=\small]{../../src/cowpi_atmega328p.h}
+
+The \microcontroller's TIMER0 and TIMER2 are 8-bit timers, and TIMER1 is a 16-bit timer.
+
+\textbf{NOTE:} Even though TIMER0 and TIMER2 are both 8-bit timers and make use of the same \lstinline{cowpi_timer8bit_t} structure definition, the interpretation of the bits in their fields is subtly different.
+Be sure to use the correct tables when configuring the timers.
+
+\textbf{NOTE:} The timers have uses which may not be immediately obvious.
+The most critical of these is that TIMER0 is used for the pseudo-clock that allows the Arduino Core's \function{millis()} function to report the number of milliseconds since power-up.
+While you can safely configure and handle comparison interrupts that do not reset the timer's counter, \textit{you should not change TIMER0's period, reset TIMER0's counter, nor register an ISR for \lstinline{TIMER0_OVF0_vect}} unless you are willing to accept the adverse impact on \function{millis()} and any code that depends on \function{millis()}.
+
+The five fields in the structures are:
+
+\begin{description}
+    \item[\texttt{control}] The concatenation of the timer's two (TIMER0, TIMER2) or three (TIMER1) control registers
+    \item[\texttt{counter}] The 8-bit (TIMER0, TIMER2) or 16-bit (TIMER1) value that increments by one in each timer period
+    \item[\texttt{capture}] Stores the counter's value at the exact moment that an input capture event occurs (TIMER1 only)
+    \item[\texttt{compareA}] The counter value at which a \texttt{TIMER\textit{n}\_COMPA\_vect} interrupt should be triggered, where \textit{n} is the timer number
+    \item[\texttt{compareB}] The counter value at which a \texttt{TIMER\textit{n}\_COMPB\_vect} interrupt should be triggered, where \textit{n} is the timer number
+\end{description}
+
+\subsection{Configuring the Timer Period}
+
+In a timer's ``Normal'' mode, it will increment its counter to the maximum value representable by its counter, and then overflow to zero, possibly generating a timer overflow interrupt in the process.
+You can adjust the rate at which its counter increments using a prescaler that is applied to the system clock's period.
+Because the number of increments is fixed, a timer has only 5 or 7 possible periods without introducing an external timer source.
+In other timer modes, you have a much wider range of possible intervals between interrupts available to you, which you can obtain by setting both a prescaler and a comparison value.
+
+Once you know the desired timer period between timer interrupts, you need to determine the comparison value and the timer prescaler that will realize this timer period.
+You can then determine the parameters for the timer using
+this equation:
+\[
+    16,000,000 \frac{\mathrm{cycles}}{\mathrm{second}} =
+    comparison\_value \frac{\mathrm{beats}}{\mathrm{interrupt}} \times
+    prescaler \frac{\mathrm{cycles}}{\mathrm{beat}} \times
+    interrupt\_frequency \frac{\mathrm{interrupts}}{\mathrm{second}}
+\]
+or, equivalently:
+\[
+    comparison\_value \frac{\mathrm{beats}}{\mathrm{interrupt}} \times
+    prescaler \frac{\mathrm{cycles}}{\mathrm{beat}} =
+    16,000,000 \frac{\mathrm{cycles}}{\mathrm{second}} \times
+    interrupt\_period \frac{\mathrm{seconds}}{\mathrm{interrupt}}
+\]
+where:
+\begin{description}
+    \item [16,000,000 Hz] is the system clock frequency (the inverse of the clock period).
+    \item [comparison\_value] is a number you will place in one of the timer's \texttt{compare} registers for a comparison-based timer interrupt.
+        This can be any possible value of an unsigned 16-bit integer for Timer1, or any possible value of an unsigned 8-bit integer for Timer2.
+        (If you plan to use an overflow interrupt, then $comparison\_value$ is 256 or 65,536, depending on whether you're using an 8-bit or a 16-bit timer.)
+    \item [prescaler] is a multiplier applied to the clock period to adjust the time between counter increments (``beats'').
+        Possible values are 1, 8, 64, 256, and 1024 for Timer0 and Timer1, or 1, 8, 32, 64, 128, 256, and 1024 for Timer2.
+    \item [interrupt\_frequency] is how often you want a timer interrupt (the inverse of the interrupt period).
+    \item [interrupt\_period] is the time between timer interrupts (the inverse of the interrupt frequency).
+\end{description}
+
+You may have to iterate on your design until you arrive at one that works with the constraints of that equation's terms for whichever timer you choose to use.
+
+If you cannot generate a timer period great enough for your needs, then follow the example used by the Arduino pseudo-clock:
+Find a comparison value and a prescaler that yield a timer period that is a whole-number factor of your actual desired period.
+Then introduce a counter variable in your ISR that increments each time the ISR is invoked, and when it reaches a particular value (the value at which $timer\_period \times counter\_value = desired\_period$) then take the appropriate action.
+
+To understand the available waveform generation modes, see the \microcontroller\ datasheet;\cite{ATmega328P}
+specifically, see Section~14.7 (TIMER0), Section~15.9 (TIMER1), or Section~17.7 (TIMER2).
+A good choice for many applications is Clear Timer on Compare (\textit{CTC}) with the ``TOP'' value set by an output compare register (\texttt{OCRxx}, aka one of the \textit{compareX} fields in the data structure).
+But, again, check the \microcontroller\ datasheet to be sure.
+Use the tables below to select the appropriate WGM bits.
+
+Based on the prescaler you chose for the above equation, use the tables below to select the appropriate CS bits.
+
+\subsection{Configuring TIMER0}
+
+\textbf{CAUTION: TIMER0 is used by the Arduino Core to track time since power-up.}
+The Arduino Core configures TIMER0 for ``Normal'' mode with a prescaler of 64, generating a timer overflow interrupt every 1,024$\mu$s.
+While it is perfectly safe to set up comparison interrupts using TIMER0, \textbf{DO NOT change TIMER0's Waveform Generation Mode or Clock Select bits, nor register an ISR for \texttt{TIMER\textit{n}\_OVF\_vect}, if your code relies upon the Arduino Core to track time.}
+
+Table~\ref{tab:timer0registers} shows the mapping of TIMER0's registers to the \lstinline{cowpi_timer8bit_t} struct.
+Creating a pointer to TIMER0's memory-mapped registers is as simple as
+\begin{lstlisting}
+    volatile cowpi_timer8bit_t *timer
+            = (cowpi_timer8bit_t *)(cowpi_io_base + 0x24);
+\end{lstlisting}
+Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer8bit_t}'s fields.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|r|c||c|c|c|c|c|c|c|c||} \cline{1-2}
+    \textbf{Name}   & \textbf{Offset}   & \multicolumn{8}{|c}{ }                                                                                                                                        \\ \hline\hline\hline
+    \multicolumn{2}{|c||}{\texttt{compareB}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+    OCR0B           & 0x28              & \multicolumn{8}{|c||}{Comparison Value ``B''}                                                                                                                 \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{compareA}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+    OCR0A           & 0x27              & \multicolumn{8}{|c||}{Comparison Value ``A''}                                                                                                                 \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{counter}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                  \\
+    TCNT0           & 0x26              & \multicolumn{8}{|c||}{Timer Counter Value}                                                                                                                    \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{control}} & \textbf{Bit 15} & \textbf{Bit 14} & \textbf{Bit 13}   & \textbf{Bit 12}   & \textbf{Bit 11}   & \textbf{Bit 10}   & \textbf{Bit 9}    & \textbf{Bit 8}    \\
+    TCCR0B          &                   & \texttt{FOC0A}    & \texttt{FOC0B}    & \textemdash       & \textemdash       & \texttt{WGM02}    & \texttt{CS02}     & \texttt{CS01}     & \texttt{CS00}     \\ \cline{1-1}\cline{3-10}
+    &                   & \textbf{Bit 7}    & \textbf{Bit 6}    & \textbf{Bit 5}    & \textbf{Bit 4}    & \textbf{Bit 3}    & \textbf{Bit 2}    & \textbf{Bit 1}    & \textbf{Bit 0}    \\
+    TCCR0A          & 0x24              & \texttt{COM0A1}   & \texttt{COM0A0}   & \texttt{COM0BA1}  & \texttt{COM0B0}   & \textemdash       & \textemdash       & \texttt{WGM01}    & \texttt{WGM00}    \\ \hline
+    \end{tabular}
+    \caption{Timer0's registers. \tiny Adapted from ATmega328P Data Sheet, §14.9.\cite{ATmega328P} \label{tab:timer0registers}}
+\end{table}
+
+The two comparison values, which you can set, are continuously compared to the timer's counter value.
+A comparison match can be used to generate an output compare interrupt (\lstinline{TIMER0_COMPA_vect} or \lstinline{TIMER0_COMPB_vect}).
+The timer's counter value can be read from or written to by your program.
+Polling the counter value is a notional use case, but configuring an interrupt would be more appropriate.
+Assigning a value, such as 0, to the counter would be a mechanism to reset its counter to a known value.
+
+Among the bits in the \lstinline{control} field (the \texttt{TCCR0A} \& \texttt{TCCR0B} registers), most can be left as 0.
+If you believe that you need to set custom ``Force Output Compare'' ``Compare Output Mode'' bits, then consult the ATmega328P datasheet, Section~14.9.\cite{ATmega328P}
+Under typical Cow Pi usage, you should only need to set the ``Waveform Generation Mode'' and ``Clock Select'' bits.
+
+Using the prescaler that you determined above, you should assign the \texttt{CS00}, \texttt{CS01}, and \texttt{CS02} bits using Table~\ref{tab:timer0clockselect}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|l|} \hline
+    \textbf{CS02}   & \textbf{CS01} & \textbf{CS00} & \textbf{Description}                      \\ \hline\hline
+    0               & 0             & 0             & No clock source (Timer/Counter stopped)   \\ \hline
+    0               & 0             & 1             & $\frac{clk}{1}$ (no prescaling)           \\ \hline
+    0               & 1             & 0             & $\frac{clk}{8}$ (from prescaler)          \\ \hline
+    0               & 1             & 1             & $\frac{clk}{64}$ (from prescaler)         \\ \hline
+    1               & 0             & 0             & $\frac{clk}{256}$ (from prescaler)        \\ \hline
+    1               & 0             & 1             & $\frac{clk}{1024}$ (from prescaler)       \\ \hline
+    \end{tabular}
+    \caption{Timer0's Clock Select Bit Description. \tiny Abridged from ATmega328P Data Sheet, Table~14\mbox{-}9.\cite{ATmega328P} See the original table for the clock select bits when using an external clock source. \label{tab:timer0clockselect}}
+\end{table}
+
+The Waveform Generation Bits are used to set the Timer/Counter mode of operation.
+There are two modes most useful for typical Cow Pi usage.
+The first is ``Normal'' mode, in which the counter increases monotonically until it reaches the greatest possible representable value and then overflows to 0.
+The other mode is ``Clear Timer on Compare'' (\textit{CTC}) with the ``TOP'' value set by output compare register ``A,'' in which the counter increases monotonically until it reaches the value in the comparison register and then resets to 0.
+The \texttt{WGM} bits for these two modes are shown in Table~\ref{tab:timer0wgm}.
+For the Pulse Width Modulation modes, consult Section~14.7 and Table~14\mbox{-}8 of the ATmega328P datasheet.\cite{ATmega328P}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \textbf{WGM02}    & \textbf{WGM01}    & \textbf{WGM00}    & \textbf{Timer/Counter Mode of Operation}  & TOP    \\ \hline\hline
+    0                 & 0                 & 0                 & Normal                                    & 0xFF   \\ \hline
+    0                 & 1                 & 0                 & CTC                                       & OCR2A  \\ \hline
+    \end{tabular}
+    \caption{Timer0's Waveform Generation Mode Bit Description. \tiny Abridged from ATmega328P Data Sheet, Table~14\mbox{-}8.\cite{ATmega328P} See the original table for the WGM bits when using a PWM mode, and for the ``OCRx [sic] Update'' and ``TOV [sic] Flag Set'' columns. \label{tab:timer0wgm}}
+\end{table}
+
+After configuring the timer, enable the relevant interrupt(s) as described in Section~\ref{subsec:timerInterrupts}, and register any necessary ISRs as described in Section~\ref{subsec:isr}.
+
+
+\subsection{Configuring TIMER1}
+
+Table~\ref{tab:timer1registers} shows the mapping of TIMER1's registers to the \lstinline{cowpi_timer16bit_t} struct.
+Creating a pointer to TIMER1's memory-mapped registers is as simple as
+\begin{lstlisting}
+    volatile cowpi_timer16bit_t *timer
+            = (cowpi_timer16bit_t *)(cowpi_io_base + 0x60);
+\end{lstlisting}
+Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer16bit_t}'s fields.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|r|c||c|c|c|c|c|c|c|c||} \cline{1-2}
+        \textbf{Name}   & \textbf{Offset}   & \multicolumn{8}{|c}{ }                                                                                                                                        \\ \hline\hline\hline
+        \multicolumn{2}{|c||}{\texttt{compareB}} & \multicolumn{1}{|l}{\textbf{Bit 15}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                \\
+        OCR1B           & 0x6A              & \multicolumn{8}{|c||}{Comparison Value ``B''}                                                                                                                 \\ \hline\hline
+        \multicolumn{2}{|c||}{\texttt{compareA}} & \multicolumn{1}{|l}{\textbf{Bit 15}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                \\
+        OCR1A           & 0x68              & \multicolumn{8}{|c||}{Comparison Value ``A''}                                                                                                                 \\ \hline\hline
+        \multicolumn{2}{|c||}{\texttt{capture}} & \multicolumn{1}{|l}{\textbf{Bit 15}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+        ICR1            & 0x66              & \multicolumn{8}{|c||}{Input Capture's Counter Value}                                                                                                          \\ \hline\hline
+        \multicolumn{2}{|c||}{\texttt{counter}} & \multicolumn{1}{|l}{\textbf{Bit 15}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+        TCNT1           & 0x64              & \multicolumn{8}{|c||}{Timer Counter Value}                                                                                                                    \\ \hline\hline
+        \multicolumn{2}{|c||}{\texttt{control}} & \textbf{Bit 23} & \textbf{Bit 22} & \textbf{Bit 21}   & \textbf{Bit 20}   & \textbf{Bit 19}   & \textbf{Bit 18}   & \textbf{Bit 17}   & \textbf{Bit 16}   \\
+        TCCR1C          &                   & \texttt{FOC1A}    & \texttt{FOC1B}    & \textemdash       & \textemdash       & \textemdash       & \textemdash       & \textemdash       & \textemdash       \\ \cline{1-1}\cline{3-10}
+                        &                   & \textbf{Bit 15}   & \textbf{Bit 14}   & \textbf{Bit 13}   & \textbf{Bit 12}   & \textbf{Bit 11}   & \textbf{Bit 10}   & \textbf{Bit 9}    & \textbf{Bit 8}    \\
+        TCCR1B          &                   & \texttt{ICNC1}    & \texttt{ICES1}    & \textemdash       & \texttt{WGM13}    & \texttt{WGM12}    & \texttt{CS12}     & \texttt{CS11}     & \texttt{CS10}     \\ \cline{1-1}\cline{3-10}
+                        &                   & \textbf{Bit 7}    & \textbf{Bit 6}    & \textbf{Bit 5}    & \textbf{Bit 4}    & \textbf{Bit 3}    & \textbf{Bit 2}    & \textbf{Bit 1}    & \textbf{Bit 0}    \\
+        TCCR1A          & 0x60              & \texttt{COM1A1}   & \texttt{COM1A0}   & \texttt{COM1BA1}  & \texttt{COM1B0}   & \textemdash       & \textemdash       & \texttt{WGM11}    & \texttt{WGM10}    \\ \hline
+    \end{tabular}
+    \caption{Timer1's registers. \tiny Adapted from ATmega328P Data Sheet, §15.11.\cite{ATmega328P} \label{tab:timer1registers}}
+\end{table}
+
+The two comparison values, which you can set, are continuously compared to the timer's counter value.
+A comparison match can be used to generate an output compare interrupt (\lstinline{TIMER1_COMPA_vect} or \lstinline{TIMER1_COMPB_vect}).
+Input capture is beyond the scope of typical Cow Pi usage;
+see the ATmega328P datasheet, Section~15.6\cite{ATmega328P} for discussion of the input capture unit.
+The timer's counter value can be read from or written to by your program.
+Polling the counter value is a notional use case, but configuring an interrupt would be more appropriate.
+Assigning a value, such as 0, to the counter would be a mechanism to reset its counter to a known value.
+
+Among the bits in the \lstinline{control} field (the \texttt{TCCR1A}, \texttt{TCCR1B}, \& \texttt{TCCR1C} registers), most can be left as 0.
+If you believe that you need to set custom ``Force Output Compare,'' ``Input Capture,'' or ``Compare Output Mode'' bits, then consult the ATmega328P datasheet, Section~15.11.\cite{ATmega328P}
+Under typical Cow Pi usage, you should only need to set the ``Waveform Generation Mode'' and ``Clock Select'' bits.
+
+Using the prescaler that you determined above, you should assign the \texttt{CS10}, \texttt{CS11}, and \texttt{CS12} bits using Table~\ref{tab:timer1clockselect}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|l|} \hline
+    \textbf{CS12}   & \textbf{CS11} & \textbf{CS10} & \textbf{Description}                          \\ \hline\hline
+        0               & 0             & 0             & No clock source (Timer/Counter stopped)   \\ \hline
+        0               & 0             & 1             & $\frac{clk}{1}$ (no prescaling)           \\ \hline
+        0               & 1             & 0             & $\frac{clk}{8}$ (from prescaler)          \\ \hline
+        0               & 1             & 1             & $\frac{clk}{64}$ (from prescaler)         \\ \hline
+        1               & 0             & 0             & $\frac{clk}{256}$ (from prescaler)        \\ \hline
+        1               & 0             & 1             & $\frac{clk}{1024}$ (from prescaler)       \\ \hline
+    \end{tabular}
+    \caption{Timer1's Clock Select Bit Description. \tiny Abridged from ATmega328P Data Sheet, Table~15\mbox{-}6.\cite{ATmega328P} See the original table for the clock select bits when using an external clock source. \label{tab:timer1clockselect}}
+\end{table}
+
+The Waveform Generation Bits are used to set the Timer/Counter mode of operation.
+There are two modes most useful for typical Cow Pi usage.
+The first is ``Normal'' mode, in which the counter increases monotonically until it reaches the greatest possible representable value and then overflows to 0.
+The other mode is ``Clear Timer on Compare'' (\textit{CTC}) with the ``TOP'' value set by output compare register ``A,'' in which the counter increases monotonically until it reaches the value in the comparison register and then resets to 0.
+The \texttt{WGM} bits for these two modes are shown in Table~\ref{tab:timer1wgm}.
+For the Pulse Width Modulation modes, consult Section~15.9 and Table~15\mbox{-}5 of the ATmega328P datasheet.\cite{ATmega328P}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|c|c|c|} \hline
+    \textbf{WGM13}  & \textbf{WGM12}    & \textbf{WGM11}    & \textbf{WGM10}    & \textbf{Timer/Counter Mode of Operation}  & TOP    \\ \hline\hline
+    0               & 0                 & 0                 & 0                 & Normal                                    & 0xFFFF \\ \hline
+    0               & 1                 & 0                 & 0                 & CTC                                       & OCR1A  \\ \hline
+    \end{tabular}
+    \caption{Timer1's Waveform Generation Mode Bit Description. \tiny Abridged from ATmega328P Data Sheet, Table~15\mbox{-}5.\cite{ATmega328P} See the original table for the WGM bits when using a PWM mode, and for the ``OCR1x Update'' and ``TOV1 Flag Set'' columns. \label{tab:timer1wgm}}
+\end{table}
+
+After configuring the timer, enable the relevant interrupt(s) as described in Section~\ref{subsec:timerInterrupts}, and register any necessary ISRs as described in Section~\ref{subsec:isr}.
+
+\subsection{Configuring TIMER2}
+Table~\ref{tab:timer2registers} shows the mapping of TIMER2's registers to the \lstinline{cowpi_timer8bit_t} struct.
+Creating a pointer to TIMER2's memory-mapped registers is as simple as
+\begin{lstlisting}
+    volatile cowpi_timer8bit_t *timer
+            = (cowpi_timer8bit_t *)(cowpi_io_base + 0x90);
+\end{lstlisting}
+Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer8bit_t}'s fields.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|r|c||c|c|c|c|c|c|c|c||} \cline{1-2}
+    \textbf{Name}   & \textbf{Offset}   & \multicolumn{8}{|c}{ }                                                                                                                                        \\ \hline\hline\hline
+    \multicolumn{2}{|c||}{\texttt{compareB}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+    OCR2B           & 0x94              & \multicolumn{8}{|c||}{Comparison Value ``B''}                                                                                                                 \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{compareA}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                 \\
+    OCR2A           & 0x93              & \multicolumn{8}{|c||}{Comparison Value ``A''}                                                                                                                 \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{counter}} & \multicolumn{1}{|l}{\textbf{Bit 7}} & \multicolumn{6}{{c}}{\dots} & \multicolumn{1}{r||}{\textbf{Bit 0}}                                                  \\
+    TCNT2           & 0x92              & \multicolumn{8}{|c||}{Timer Counter Value}                                                                                                                    \\ \hline\hline
+    \multicolumn{2}{|c||}{\texttt{control}} & \textbf{Bit 15} & \textbf{Bit 14} & \textbf{Bit 13}   & \textbf{Bit 12}   & \textbf{Bit 11}   & \textbf{Bit 10}   & \textbf{Bit 9}    & \textbf{Bit 8}    \\
+    TCCR2B          &                   & \texttt{FOC2A}    & \texttt{FOC2B}    & \textemdash       & \textemdash       & \texttt{WGM22}    & \texttt{CS22}     & \texttt{CS21}     & \texttt{CS20}     \\ \cline{1-1}\cline{3-10}
+                    &                   & \textbf{Bit 7}    & \textbf{Bit 6}    & \textbf{Bit 5}    & \textbf{Bit 4}    & \textbf{Bit 3}    & \textbf{Bit 2}    & \textbf{Bit 1}    & \textbf{Bit 0}    \\
+    TCCR2A          & 0x90              & \texttt{COM2A1}   & \texttt{COM2A0}   & \texttt{COM2BA1}  & \texttt{COM2B0}   & \textemdash       & \textemdash       & \texttt{WGM21}    & \texttt{WGM20}    \\ \hline
+    \end{tabular}
+    \caption{Timer2's registers. \tiny Adapted from ATmega328P Data Sheet, §17.11.\cite{ATmega328P} \label{tab:timer2registers}}
+\end{table}
+
+The two comparison values, which you can set, are continuously compared to the timer's counter value.
+A comparison match can be used to generate an output compare interrupt (\lstinline{TIMER2_COMPA_vect} or \lstinline{TIMER2_COMPB_vect}).
+The timer's counter value can be read from or written to by your program.
+Polling the counter value is a notional use case, but configuring an interrupt would be more appropriate.
+Assigning a value, such as 0, to the counter would be a mechanism to reset its counter to a known value.
+
+Among the bits in the \lstinline{control} field (the \texttt{TCCR2A} \& \texttt{TCCR2B} registers), most can be left as 0.
+If you believe that you need to set custom ``Force Output Compare'' ``Compare Output Mode'' bits, then consult the ATmega328P datasheet, Section~17.11.\cite{ATmega328P}
+Under typical Cow Pi usage, you should only need to set the ``Waveform Generation Mode'' and ``Clock Select'' bits.
+
+Using the prescaler that you determined above, you should assign the \texttt{CS20}, \texttt{CS21}, and \texttt{CS22} bits using Table~\ref{tab:timer2clockselect}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|l|} \hline
+    \textbf{CS22}   & \textbf{CS21} & \textbf{CS20} & \textbf{Description}                      \\ \hline\hline
+    0               & 0             & 0             & No clock source (Timer/Counter stopped)   \\ \hline
+    0               & 0             & 1             & $\frac{clk}{1}$ (no prescaling)           \\ \hline
+    0               & 1             & 0             & $\frac{clk}{8}$ (from prescaler)          \\ \hline
+    0               & 1             & 1             & $\frac{clk}{32}$ (from prescaler)         \\ \hline
+    1               & 0             & 0             & $\frac{clk}{64}$ (from prescaler)         \\ \hline
+    1               & 0             & 1             & $\frac{clk}{128}$ (from prescaler)        \\ \hline
+    1               & 1             & 0             & $\frac{clk}{256}$ (from prescaler)        \\ \hline
+    1               & 1             & 1             & $\frac{clk}{1024}$ (from prescaler)       \\ \hline
+    \end{tabular}
+    \caption{Timer2's Clock Select Bit Description. \tiny Copied from ATmega328P Data Sheet, Table~17\mbox{-}9.\cite{ATmega328P} \label{tab:timer2clockselect}}
+\end{table}
+
+The Waveform Generation Bits are used to set the Timer/Counter mode of operation.
+There are two modes most useful for typical Cow Pi usage.
+The first is ``Normal'' mode, in which the counter increases monotonically until it reaches the greatest possible representable value and then overflows to 0.
+The other mode is ``Clear Timer on Compare'' (\textit{CTC}) with the ``TOP'' value set by output compare register ``A,'' in which the counter increases monotonically until it reaches the value in the comparison register and then resets to 0.
+The \texttt{WGM} bits for these two modes are shown in Table~\ref{tab:timer2wgm}.
+For the Pulse Width Modulation modes, consult Section~17.7 and Table~17\mbox{-}8 of the ATmega328P datasheet.\cite{ATmega328P}.
+
+\begin{table}[h]
+    \centering \small
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \textbf{WGM22}    & \textbf{WGM21}    & \textbf{WGM20}    & \textbf{Timer/Counter Mode of Operation}  & TOP    \\ \hline\hline
+    0                 & 0                 & 0                 & Normal                                    & 0xFF   \\ \hline
+    0                 & 1                 & 0                 & CTC                                       & OCR2A  \\ \hline
+    \end{tabular}
+    \caption{Timer1's Waveform Generation Mode Bit Description. \tiny Abridged from ATmega328P Data Sheet, Table~17\mbox{-}8.\cite{ATmega328P} See the original table for the WGM bits when using a PWM mode, and for the ``OCRx [sic] Update'' and ``TOV [sic] Flag Set'' columns. \label{tab:timer2wgm}}
+\end{table}
+
+After configuring the timer, enable the relevant interrupt(s) as described in Section~\ref{subsec:timerInterrupts}, and register any necessary ISRs as described in Section~\ref{subsec:isr}.
+
+
+\subsection{Timer Interrupts} \label{subsec:timerInterrupts}
+
+Table~\ref{tab:timerInterrupt} shows the bits of the Timer Interrupt Mask registers.
+To access these as memory-mapped registers, create a \lstinline{uint8_t} pointer, and assign that pointer to the lowest address of these registers:
+
+\begin{lstlisting}
+    volatile uint8_t *timer_interrupt_masks = cowpi_io_base + 0x4E;
+\end{lstlisting}
+
+This pointer can then be used as a 3-element array, indexed by the timer number.
+For example, \lstinline{timer_interrupt_masks[0]} can be used to enable any of the TIMER0 interrupts.
+
+\begin{table}[h]
+    \centering \footnotesize
+    \begin{tabular}{|r|c||c|c|c|c|c|c|c|c|} \hline
+        \textbf{Name}   & \textbf{Offset}   & \textbf{Bit 7}    & \textbf{Bit 6}    & \textbf{Bit 5}    & \textbf{Bit 4}    & \textbf{Bit 3}    & \textbf{Bit 2}    & \textbf{Bit 1}    & \textbf{Bit 0}    \\ \hline\hline
+        TIMSK2          & 0x50              & \textemdash       & \textemdash       & \textemdash       & \textemdash       & \textemdash        & OCIE2B           & OCIE2A            & TOIE2             \\ \hline
+        TIMSK1          & 0x4F              & \textemdash       & \textemdash       & ICIE1             & \textemdash       & \textemdash        & OCIE1B           & OCIE1A            & TOIE1             \\ \hline
+        TIMSK0          & 0x4E              & \textemdash       & \textemdash       & \textemdash       & \textemdash       & \textemdash        & OCIE0B           & OCIE0A            & TOIE0             \\ \hline
+    \end{tabular}
+    \caption{Timer Interrupt Mask registers. \tiny Original data from ATmega328P datasheet, §30.\cite{ATmega328P} \label{tab:timerInterrupt}}
+\end{table}
+
+For Timer Overflow interrupts, to enable \texttt{TIMER\textit{n}\_OVF\_vect}, set the \texttt{TOIE\textit{n}} bit to 1.
+For Timer Comparison interrupts, to enable \texttt{TIMER\textit{n}\_COMPA\_vect}, set the \texttt{OCIE\textit{n}A} bit to 1;
+to enable \texttt{TIMER\textit{n}\_COMPB\_vect}, set the \texttt{OCIE\textit{n}B} bit to 1.
+For Input Capture interrupts, to enable \texttt{TIMER1\_CAPT\_vect}, set the \texttt{ICIE1} bit.
+
+After enabling timer interrupts, be sure to register any necessary ISRs as described in Section~\ref{subsec:isr}.

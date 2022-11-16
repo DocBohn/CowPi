@@ -1,0 +1,46 @@
+\hypertarget{structcowpi__pininterrupt__t}{}\doxysection{cowpi\+\_\+pininterrupt\+\_\+t Struct Reference}
+\label{structcowpi__pininterrupt__t}\index{cowpi\_pininterrupt\_t@{cowpi\_pininterrupt\_t}}
+
+
+Structure for pin-\/based interrupts\+: pin change interrupts and external interrupts.  
+
+
+
+
+{\ttfamily \#include $<$cowpi\+\_\+atmega328p.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_ae08e48d3e5028282b0a96f91d93593c1}\label{structcowpi__pininterrupt__t_ae08e48d3e5028282b0a96f91d93593c1}} 
+uint8\+\_\+t {\bfseries pci\+\_\+flags}
+\begin{DoxyCompactList}\small\item\em Pin change interrupt flag register (PCIFR) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a96a3385644120e743b8ada8d7e8edf97}\label{structcowpi__pininterrupt__t_a96a3385644120e743b8ada8d7e8edf97}} 
+uint8\+\_\+t {\bfseries ei\+\_\+flags}
+\begin{DoxyCompactList}\small\item\em External interrupt flag register (EIFR) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a7747d4a0c6a0abf8a5b9e88e25a859d0}\label{structcowpi__pininterrupt__t_a7747d4a0c6a0abf8a5b9e88e25a859d0}} 
+uint8\+\_\+t {\bfseries ei\+\_\+mask}
+\begin{DoxyCompactList}\small\item\em External interrupt mask register (EIMSK) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a7a28c6d8a6d5dec3c2cae780c8a50f0b}\label{structcowpi__pininterrupt__t_a7a28c6d8a6d5dec3c2cae780c8a50f0b}} 
+uint8\+\_\+t {\bfseries DO\+\_\+\+NOT\+\_\+\+TOUCH} \mbox{[}0x2A\mbox{]}
+\begin{DoxyCompactList}\small\item\em padding \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a443b22b16fff1ea8069eed24eae0941b}\label{structcowpi__pininterrupt__t_a443b22b16fff1ea8069eed24eae0941b}} 
+uint8\+\_\+t {\bfseries pci\+\_\+control}
+\begin{DoxyCompactList}\small\item\em Pin change interrupt control register (PCICR) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a2d090d1a28c71a53a5b6c8828130d72d}\label{structcowpi__pininterrupt__t_a2d090d1a28c71a53a5b6c8828130d72d}} 
+uint8\+\_\+t {\bfseries ei\+\_\+control}
+\begin{DoxyCompactList}\small\item\em External interrupt control register (EICRA) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_a5193fbe9abb3a21307a00b28b248b2b0}\label{structcowpi__pininterrupt__t_a5193fbe9abb3a21307a00b28b248b2b0}} 
+uint8\+\_\+t {\bfseries \+\_\+\+\_\+pad0\+\_\+\+\_\+}\+:8
+\begin{DoxyCompactList}\small\item\em padding \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__pininterrupt__t_ae3199073cd21783dfaf60e35a3c025ab}\label{structcowpi__pininterrupt__t_ae3199073cd21783dfaf60e35a3c025ab}} 
+uint8\+\_\+t {\bfseries pci\+\_\+mask} \mbox{[}3\mbox{]}
+\begin{DoxyCompactList}\small\item\em Pin change mask registers -- index array using named constants (COWPI\+\_\+\+PB, etc) (PCMSKx) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure for pin-\/based interrupts\+: pin change interrupts and external interrupts. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cowpi__atmega328p_8h}{cowpi\+\_\+atmega328p.\+h}}\end{DoxyCompactItemize}

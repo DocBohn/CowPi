@@ -1,0 +1,110 @@
+\hypertarget{cowpi__atmega328p_8h_source}{}\doxysection{cowpi\+\_\+atmega328p.\+h}
+\mbox{\hyperlink{cowpi__atmega328p_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/**************************************************************************/}}
+\DoxyCodeLine{30 \textcolor{comment}{/* CowPi (c) 2021-\/22 Christopher A. Bohn}}
+\DoxyCodeLine{31 \textcolor{comment}{ *}}
+\DoxyCodeLine{32 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{33 \textcolor{comment}{ * you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{34 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{35 \textcolor{comment}{ *     http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{36 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{37 \textcolor{comment}{ * distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{38 \textcolor{comment}{ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{39 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{40 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{41 \textcolor{comment}{ */}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef COWPI\_ATMEGA328P\_H}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define COWPI\_ATMEGA328P\_H}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <Arduino.h>}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <avr/pgmspace.h>}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{cowpi__setup_8h}{cowpi\_setup.h}}"{}}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{57 uint8\_t *\textcolor{keyword}{const} \mbox{\hyperlink{group__architecture_ga81b5ad1a515cb49e738abf3d2110e02f}{cowpi\_io\_base}} = (uint8\_t *) 0x20;}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#define cowpi\_spi\_enable do \{                                                                           \(\backslash\)}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{    }\textcolor{comment}{/* Enable SPI, Controller, set clock rate fck/16 [1MHz] */}\textcolor{preprocessor}{                                          \(\backslash\)}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{    SPCR = cowpi\_is\_spi\_lsbfirst()  ? (1 << SPE) | (1 << DORD) | (1 << MSTR) | (1 << SPR0)              \(\backslash\)}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{                                    : (1 << SPE) |               (1 << MSTR) | (1 << SPR0);             \(\backslash\)}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{    }\textcolor{comment}{/* By repeating myself, both constants will be generated at compile time */}\textcolor{preprocessor}{                         \(\backslash\)}}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\} while(0)}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#define cowpi\_spi\_disable do \{                                                                          \(\backslash\)}}
+\DoxyCodeLine{96 \textcolor{preprocessor}{    SPCR = 0;                                                                                           \(\backslash\)}}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\} while(0)}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#define cowpi\_initialize\_i2c do \{                                                                       \(\backslash\)}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{    }\textcolor{comment}{/* Set SCL Frequency [100kHz] = CPU Clock Frequency [16MHz] / (16 + 2 * TWBR * prescaler [1]) */}\textcolor{preprocessor}{    \(\backslash\)}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{    TWBR = 72;                                                                                          \(\backslash\)}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{    TWSR \&= \string~((1 << TWPS1) | (1 << TWPS0));                                                             \(\backslash\)}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{    }\textcolor{comment}{/* We won't rely on interrupts since students will work with display before knowing interrupts. */}\textcolor{preprocessor}{  \(\backslash\)}}
+\DoxyCodeLine{113 \textcolor{preprocessor}{    }\textcolor{comment}{/* We're also not going to enable acknowledgements: the basic labs will only use                    \(\backslash\)}}
+\DoxyCodeLine{114 \textcolor{comment}{     * controller-\/transmitter mode, and without interrupts we can't honor the ACK anyway. */}\textcolor{preprocessor}{            \(\backslash\)}}
+\DoxyCodeLine{115 \textcolor{preprocessor}{    }\textcolor{comment}{/* So we'll just enable TWI */}\textcolor{preprocessor}{                                                                      \(\backslash\)}}
+\DoxyCodeLine{116 \textcolor{preprocessor}{    TWCR = (1 << TWEN) | (1 << TWEA);                                                                   \(\backslash\)}}
+\DoxyCodeLine{117 \textcolor{preprocessor}{\} while(0)}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#define COWPI\_PB  0                 }}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#define D8\_D13    0                 }}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#define COWPI\_PC  1                 }}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#define A0\_A5     1                 }}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#define D14\_D19   1                 }}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#define A0\_A7     1                 }}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#define D14\_D21   1                 }}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#define COWPI\_PD  2                 }}
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#define D0\_D7     2                 }}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129 }
+\DoxyCodeLine{136 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{137     uint8\_t input;                      }
+\DoxyCodeLine{138     uint8\_t direction;                  }
+\DoxyCodeLine{139     uint8\_t output;                     }
+\DoxyCodeLine{140 \} \mbox{\hyperlink{structcowpi__ioport__t}{cowpi\_ioport\_t}};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{145 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{146     uint8\_t control;                    }
+\DoxyCodeLine{147     uint8\_t status;                     }
+\DoxyCodeLine{148     uint8\_t data;                       }
+\DoxyCodeLine{149 \} \mbox{\hyperlink{structcowpi__spi__t}{cowpi\_spi\_t}};}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{154 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{155     uint8\_t bit\_rate;                   }
+\DoxyCodeLine{156     uint8\_t status;                     }
+\DoxyCodeLine{157     uint8\_t address;                    }
+\DoxyCodeLine{158     uint8\_t data;                       }
+\DoxyCodeLine{159     uint8\_t control;                    }
+\DoxyCodeLine{160     uint8\_t peripheral\_address\_mask;    }
+\DoxyCodeLine{161 \} \mbox{\hyperlink{structcowpi__i2c__t}{cowpi\_i2c\_t}};}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{166 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{167     uint8\_t pci\_flags;                  }
+\DoxyCodeLine{168     uint8\_t ei\_flags;                   }
+\DoxyCodeLine{169     uint8\_t ei\_mask;                    }
+\DoxyCodeLine{170     uint8\_t DO\_NOT\_TOUCH[0x2A];         }
+\DoxyCodeLine{171     uint8\_t pci\_control;                }
+\DoxyCodeLine{172     uint8\_t ei\_control;                 }
+\DoxyCodeLine{173     uint8\_t :8;                         }
+\DoxyCodeLine{174     uint8\_t pci\_mask[3];                }
+\DoxyCodeLine{175 \} \mbox{\hyperlink{structcowpi__pininterrupt__t}{cowpi\_pininterrupt\_t}};}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{185 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{186     uint16\_t control;                   }
+\DoxyCodeLine{187     uint8\_t counter;                    }
+\DoxyCodeLine{188     uint8\_t compareA;                   }
+\DoxyCodeLine{189     uint8\_t compareB;                   }
+\DoxyCodeLine{190 \} \mbox{\hyperlink{structcowpi__timer8bit__t}{cowpi\_timer8bit\_t}};}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{199 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{200     uint32\_t control;                 }
+\DoxyCodeLine{201     uint16\_t counter;                 }
+\DoxyCodeLine{202     uint16\_t capture;                 }
+\DoxyCodeLine{203     uint16\_t compareA;                }
+\DoxyCodeLine{204     uint16\_t compareB;                }
+\DoxyCodeLine{205 \} \mbox{\hyperlink{structcowpi__timer16bit__t}{cowpi\_timer16bit\_t}};}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{209 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//COWPI\_ATMEGA328P\_H}}
+
+\end{DoxyCode}

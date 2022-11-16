@@ -1,0 +1,45 @@
+\hypertarget{cowpi__font__7segment_8h}{}\doxysection{cowpi\+\_\+font\+\_\+7segment.\+h File Reference}
+\label{cowpi__font__7segment_8h}\index{cowpi\_font\_7segment.h@{cowpi\_font\_7segment.h}}
+
+
+Provides a font to display approximations of printable ASCII characters on 7-\/segment displays.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{cowpi__font__7segment_8h_af3e0e343bc6b8fc3eae5c269ce9ccd43}\label{cowpi__font__7segment_8h_af3e0e343bc6b8fc3eae5c269ce9ccd43}} 
+uint8\+\_\+t {\bfseries cowpi\+\_\+font\+\_\+ascii\+\_\+to\+\_\+7segment} (char c)
+\item 
+\mbox{\Hypertarget{cowpi__font__7segment_8h_a961311a015eda71844339d0247941c1a}\label{cowpi__font__7segment_8h_a961311a015eda71844339d0247941c1a}} 
+uint8\+\_\+t $\ast$ {\bfseries cowpi\+\_\+font\+\_\+string\+\_\+to\+\_\+7segment} (uint8\+\_\+t $\ast$destination, const char $\ast$s)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const uint8\+\_\+t cowpi\+\_\+font\+\_\+7segment\mbox{[}0x80\mbox{]} \mbox{\hyperlink{group__font_ga27264a33b991dd36e5b7b0ea0266650f}{PROGMEM}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides a font to display approximations of printable ASCII characters on 7-\/segment displays. 
+
+\begin{DoxyAuthor}{Author}
+Christopher A. Bohn
+\end{DoxyAuthor}
+The mapping of bits to segment lines is\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ -\/-\/A-\/-\/}
+\DoxyCodeLine{|     |}
+\DoxyCodeLine{F     B}
+\DoxyCodeLine{|     |              bit      7 6 5 4 3 2 1 0}
+\DoxyCodeLine{ -\/-\/G-\/-\/           segment     DP A B C D E F G}
+\DoxyCodeLine{|     |}
+\DoxyCodeLine{E     C}
+\DoxyCodeLine{|     |}
+\DoxyCodeLine{ -\/-\/D-\/-\/   (DP)}
+
+\end{DoxyCode}
+ If your display follows the same mapping, you can use the functions\textquotesingle{} outputs directly. If the endianness of segments A-\/G are the same but your decimal point is bit 0, then you can left-\/shift the functions\textquotesingle{} outputs by 1 and only certain punctuation characters will be improperly displayed. If the mapping is any further off, then you will likely not be able to use these functions. 

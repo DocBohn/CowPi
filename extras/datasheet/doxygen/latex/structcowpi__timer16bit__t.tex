@@ -1,0 +1,39 @@
+\hypertarget{structcowpi__timer16bit__t}{}\doxysection{cowpi\+\_\+timer16bit\+\_\+t Struct Reference}
+\label{structcowpi__timer16bit__t}\index{cowpi\_timer16bit\_t@{cowpi\_timer16bit\_t}}
+
+
+Structure for 16-\/bit timer/counter (TIMER1).  
+
+
+
+
+{\ttfamily \#include $<$cowpi\+\_\+atmega328p.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcowpi__timer16bit__t_ae939b1eb2d41faef4b3edd78e771b7be}\label{structcowpi__timer16bit__t_ae939b1eb2d41faef4b3edd78e771b7be}} 
+uint32\+\_\+t {\bfseries control}
+\begin{DoxyCompactList}\small\item\em Timer/counter control registers A, B, \& C; register A is the low-\/order byte (Reserved TCCRxC TCCRxB TCCRxA) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__timer16bit__t_a2cdaf58009898499b65e07caca197041}\label{structcowpi__timer16bit__t_a2cdaf58009898499b65e07caca197041}} 
+uint16\+\_\+t {\bfseries counter}
+\begin{DoxyCompactList}\small\item\em Timer/counter register (TCNTxH TCNTxL, aka TCNTx) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__timer16bit__t_ae7b02e439caada6bb18bf5c0be76dbb1}\label{structcowpi__timer16bit__t_ae7b02e439caada6bb18bf5c0be76dbb1}} 
+uint16\+\_\+t {\bfseries capture}
+\begin{DoxyCompactList}\small\item\em Input capture register (ICRxH ICRxL, aka ICRx) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__timer16bit__t_aa733ca07095b7212226dc61c3bc98fbb}\label{structcowpi__timer16bit__t_aa733ca07095b7212226dc61c3bc98fbb}} 
+uint16\+\_\+t {\bfseries compareA}
+\begin{DoxyCompactList}\small\item\em Output compare register A (OCRx\+AH OCRx\+AL, aka OCRxA) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcowpi__timer16bit__t_a2da739bf8b51c8a4bb01df247c4f7cf1}\label{structcowpi__timer16bit__t_a2da739bf8b51c8a4bb01df247c4f7cf1}} 
+uint16\+\_\+t {\bfseries compareB}
+\begin{DoxyCompactList}\small\item\em Output compare register B (OCRx\+BH OCRx\+BL, aka OCRxB) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure for 16-\/bit timer/counter (TIMER1). 
+
+The timer/counter interrupt mask register (TIMSKx) and the timer/counter interrupt flag register (TIFRx) are not part of this structure. Does not include the general timer/counter control register (GTCCR). 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cowpi__atmega328p_8h}{cowpi\+\_\+atmega328p.\+h}}\end{DoxyCompactItemize}

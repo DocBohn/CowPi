@@ -47,7 +47,7 @@ The microcontroller communicates with the \displaymoduledescription display modu
 which input or output is connected to each of the \mcuboard's pins, as well as which general-purpose input/output register bit corresponds to each pin.
 
 \ifboolexpe{bool{spi}}{
-    \begin{figure}
+    \begin{figure}[p]
         \centering
         \includegraphics[scale=0.75]{pinouts/nano-spi}
         \caption{Pinout for the \hardwareversion\ Cow Pi development board using \mcuboard and the SPI serial communication protocol.}\label{fig:pinouts-nano-spi}
@@ -55,7 +55,7 @@ which input or output is connected to each of the \mcuboard's pins, as well as w
 }{}
 
 \ifboolexpe{bool{i2c}}{
-    \begin{figure}[h]
+    \begin{figure}[p]
         \centering
         \includegraphics[scale=0.75]{pinouts/nano-i2c}
         \caption{Pinout for a Cow Pi development board using the \mcuboard\ and the I$^2$C serial communication protocol.}\label{fig:pinouts-nano-i2c}

@@ -1,0 +1,131 @@
+\hypertarget{group__outputs}{}\doxysection{Simple Outputs}
+\label{group__outputs}\index{Simple Outputs@{Simple Outputs}}
+
+
+LEDs that can be written directly through pins.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__outputs_ga8e3925d5fa737ef8388f207201bb9c9d}{cowpi\+\_\+illuminate\+\_\+right\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the right LED, aka the external LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_gade721a7e0b657fbce4341e350af9a96a}{cowpi\+\_\+illuminate\+\_\+left\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the left LED, aka the built-\/in LED, aka the internal LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga6d27979ccb40bac26a3ca7b249c8ddbe}{cowpi\+\_\+deluminate\+\_\+right\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the right LED, aka the external LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga3f09051852585a58105de9bae863a165}{cowpi\+\_\+deluminate\+\_\+left\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the left LED, aka the built-\/in LED, aka the internal LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga22ccdc377705c63bf46c5679ee4d92e8}{cowpi\+\_\+illuminate\+\_\+external\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the external LED, aka the right LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga6f047955602459b995c47acdcc6daa04}{cowpi\+\_\+illuminate\+\_\+internal\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Illuminates the internal LED, aka the built-\/in LED, aka the left LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga9561c6d36126ef5cab2e11fc9f7f8c4d}{cowpi\+\_\+deluminate\+\_\+external\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the external LED, aka the right LED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__outputs_ga2a2fe1ec6842584b43ae6932abf6d4bf}{cowpi\+\_\+deluminate\+\_\+internal\+\_\+led}} (void)
+\begin{DoxyCompactList}\small\item\em Deluminates the internal LED, aka the built-\/in LED, aka the left LED. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LEDs that can be written directly through pins. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__outputs_ga9561c6d36126ef5cab2e11fc9f7f8c4d}\label{group__outputs_ga9561c6d36126ef5cab2e11fc9f7f8c4d}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_deluminate\_external\_led@{cowpi\_deluminate\_external\_led}}
+\index{cowpi\_deluminate\_external\_led@{cowpi\_deluminate\_external\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_deluminate\_external\_led()}{cowpi\_deluminate\_external\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+deluminate\+\_\+external\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Deluminates the external LED, aka the right LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the external LED is in Arduino pin D12. An LED deluminates when the pin is placed low, to match the semantics of Arduino\textquotesingle{}s built-\/in LED. \mbox{\Hypertarget{group__outputs_ga2a2fe1ec6842584b43ae6932abf6d4bf}\label{group__outputs_ga2a2fe1ec6842584b43ae6932abf6d4bf}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_deluminate\_internal\_led@{cowpi\_deluminate\_internal\_led}}
+\index{cowpi\_deluminate\_internal\_led@{cowpi\_deluminate\_internal\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_deluminate\_internal\_led()}{cowpi\_deluminate\_internal\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+deluminate\+\_\+internal\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Deluminates the internal LED, aka the built-\/in LED, aka the left LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the internal LED is in Arduino pin D13. The Arduino semantics are that an LED deluminates when the pin is placed low. \mbox{\Hypertarget{group__outputs_ga3f09051852585a58105de9bae863a165}\label{group__outputs_ga3f09051852585a58105de9bae863a165}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_deluminate\_left\_led@{cowpi\_deluminate\_left\_led}}
+\index{cowpi\_deluminate\_left\_led@{cowpi\_deluminate\_left\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_deluminate\_left\_led()}{cowpi\_deluminate\_left\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+deluminate\+\_\+left\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Deluminates the left LED, aka the built-\/in LED, aka the internal LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the internal LED is in Arduino pin D13. The Arduino semantics are that an LED deluminates when the pin is placed low. \mbox{\Hypertarget{group__outputs_ga6d27979ccb40bac26a3ca7b249c8ddbe}\label{group__outputs_ga6d27979ccb40bac26a3ca7b249c8ddbe}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_deluminate\_right\_led@{cowpi\_deluminate\_right\_led}}
+\index{cowpi\_deluminate\_right\_led@{cowpi\_deluminate\_right\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_deluminate\_right\_led()}{cowpi\_deluminate\_right\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+deluminate\+\_\+right\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Deluminates the right LED, aka the external LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the external LED is in Arduino pin D12. An LED deluminates when the pin is placed low, to match the semantics of Arduino\textquotesingle{}s built-\/in LED. \mbox{\Hypertarget{group__outputs_ga22ccdc377705c63bf46c5679ee4d92e8}\label{group__outputs_ga22ccdc377705c63bf46c5679ee4d92e8}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_illuminate\_external\_led@{cowpi\_illuminate\_external\_led}}
+\index{cowpi\_illuminate\_external\_led@{cowpi\_illuminate\_external\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_illuminate\_external\_led()}{cowpi\_illuminate\_external\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+illuminate\+\_\+external\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Illuminates the external LED, aka the right LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the external LED is in Arduino pin D12. An LED illuminates when the pin is placed high, to match the semantics of Arduino\textquotesingle{}s built-\/in LED. \mbox{\Hypertarget{group__outputs_ga6f047955602459b995c47acdcc6daa04}\label{group__outputs_ga6f047955602459b995c47acdcc6daa04}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_illuminate\_internal\_led@{cowpi\_illuminate\_internal\_led}}
+\index{cowpi\_illuminate\_internal\_led@{cowpi\_illuminate\_internal\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_illuminate\_internal\_led()}{cowpi\_illuminate\_internal\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+illuminate\+\_\+internal\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Illuminates the internal LED, aka the built-\/in LED, aka the left LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the internal LED is in Arduino pin D13. The Arduino semantics are that an LED illuminates when the pin is placed high. \mbox{\Hypertarget{group__outputs_gade721a7e0b657fbce4341e350af9a96a}\label{group__outputs_gade721a7e0b657fbce4341e350af9a96a}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_illuminate\_left\_led@{cowpi\_illuminate\_left\_led}}
+\index{cowpi\_illuminate\_left\_led@{cowpi\_illuminate\_left\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_illuminate\_left\_led()}{cowpi\_illuminate\_left\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+illuminate\+\_\+left\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Illuminates the left LED, aka the built-\/in LED, aka the internal LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the internal LED is in Arduino pin D13. The Arduino semantics are that an LED illuminates when the pin is placed high. \mbox{\Hypertarget{group__outputs_ga8e3925d5fa737ef8388f207201bb9c9d}\label{group__outputs_ga8e3925d5fa737ef8388f207201bb9c9d}} 
+\index{Simple Outputs@{Simple Outputs}!cowpi\_illuminate\_right\_led@{cowpi\_illuminate\_right\_led}}
+\index{cowpi\_illuminate\_right\_led@{cowpi\_illuminate\_right\_led}!Simple Outputs@{Simple Outputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_illuminate\_right\_led()}{cowpi\_illuminate\_right\_led()}}
+{\footnotesize\ttfamily void cowpi\+\_\+illuminate\+\_\+right\+\_\+led (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Illuminates the right LED, aka the external LED. 
+
+This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the external LED is in Arduino pin D12. An LED illuminates when the pin is placed high, to match the semantics of Arduino\textquotesingle{}s built-\/in LED. 

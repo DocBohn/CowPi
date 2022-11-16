@@ -1,0 +1,74 @@
+\hypertarget{cowpi__lcd1602_8h_source}{}\doxysection{cowpi\+\_\+lcd1602.\+h}
+\mbox{\hyperlink{cowpi__lcd1602_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/**************************************************************************/}}
+\DoxyCodeLine{25 \textcolor{comment}{/* CowPi (c) 2021-\/22 Christopher A. Bohn}}
+\DoxyCodeLine{26 \textcolor{comment}{ *}}
+\DoxyCodeLine{27 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{28 \textcolor{comment}{ * you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{29 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{30 \textcolor{comment}{ *     http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{31 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{32 \textcolor{comment}{ * distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{33 \textcolor{comment}{ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{34 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{35 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{36 \textcolor{comment}{ */}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef COWPI\_LCD1602\_H}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#define COWPI\_LCD1602\_H}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{44 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{86 \textcolor{keyword}{typedef} void (*\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\_lcd1602\_send\_halfbyte\_t}})(uint8\_t halfbyte, \textcolor{keywordtype}{bool} is\_command);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{100 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}{cowpi\_lcd1602\_set\_send\_halfbyte\_function}}(\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\_lcd1602\_send\_halfbyte\_t}} send\_halfbyte\_function);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{115 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_gaac3d8bfd7569cb5a36df66f699bdac11}{cowpi\_lcd1602\_place\_character}}(uint8\_t address, uint8\_t character);}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{129 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga421b4c3c2b4e2641020af3ad2f673951}{cowpi\_lcd1602\_place\_cursor}}(uint8\_t address);}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{143 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga4304971dec1e44982b41a314f6d7c68c}{cowpi\_lcd1602\_send\_command}}(uint8\_t command);}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{154 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}{cowpi\_lcd1602\_send\_character}}(uint8\_t character);}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{167 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}{cowpi\_lcd1602\_create\_character}}(uint8\_t encoding, \textcolor{keyword}{const} uint8\_t pixel\_vector[8]);}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{172 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga8fa284938496a713e3bdacd1c1af936e}{cowpi\_lcd1602\_clear\_display}}();}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{180 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_ga1df326e607e42e2fc72c853645e581b8}{cowpi\_lcd1602\_return\_home}}();}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{188 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__display_gad150d09d6b5a252c6a785dae42e89187}{cowpi\_lcd1602\_set\_backlight}}(\textcolor{keywordtype}{bool} backlight\_on);}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{192 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{193 \} \textcolor{comment}{// extern "{}C"{}}}
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 }
+\DoxyCodeLine{201 \textcolor{comment}{/* Entry Mode Commands */}}
+\DoxyCodeLine{202 \textcolor{preprocessor}{\#define LCDENTRY\_CURSORMOVESRIGHT   0x06    }}
+\DoxyCodeLine{203 \textcolor{preprocessor}{\#define LCDENTRY\_CURSORMOVESLEFT    0x04    }}
+\DoxyCodeLine{204 \textcolor{preprocessor}{\#define LCDENTRY\_TEXTSHIFTS         0x05    }}
+\DoxyCodeLine{205 \textcolor{preprocessor}{\#define LCDENTRY\_TEXTNOSHIFT        0x04    }}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207 \textcolor{comment}{/* Display On/Off Commands */}}
+\DoxyCodeLine{208 \textcolor{preprocessor}{\#define LCDONOFF\_DISPLAYON          0x0C    }}
+\DoxyCodeLine{209 \textcolor{preprocessor}{\#define LCDONOFF\_DISPLAYOFF         0x08    }}
+\DoxyCodeLine{210 \textcolor{preprocessor}{\#define LCDONOFF\_CURSORON           0x0A    }}
+\DoxyCodeLine{211 \textcolor{preprocessor}{\#define LCDONOFF\_CURSOROFF          0x08    }}
+\DoxyCodeLine{212 \textcolor{preprocessor}{\#define LCDONOFF\_BLINKON            0x09    }}
+\DoxyCodeLine{213 \textcolor{preprocessor}{\#define LCDONOFF\_BLINKOFF           0x08    }}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{comment}{/* Cursor or Display Shift Commands */}}
+\DoxyCodeLine{216 \textcolor{preprocessor}{\#define LCDSHIFT\_DISPLAYLEFT        0x18    }}
+\DoxyCodeLine{217 \textcolor{preprocessor}{\#define LCDSHIFT\_DISPLAYRIGHT       0x1C    }}
+\DoxyCodeLine{218 \textcolor{preprocessor}{\#define LCDSHIFT\_CURSORLEFT         0x10    }}
+\DoxyCodeLine{219 \textcolor{preprocessor}{\#define LCDSHIFT\_CURSORRIGHT        0x14    }}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{229 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//COWPI\_LCD1602\_H}}
+
+\end{DoxyCode}

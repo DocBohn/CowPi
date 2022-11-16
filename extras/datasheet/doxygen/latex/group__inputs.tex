@@ -1,0 +1,132 @@
+\hypertarget{group__inputs}{}\doxysection{Simple Inputs}
+\label{group__inputs}\index{Simple Inputs@{Simple Inputs}}
+
+
+Buttons and switches that can be read directly from pins.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{group__inputs_ga308eee9232481c14f3aabb96a162b421}{cowpi\+\_\+left\+\_\+button\+\_\+is\+\_\+pressed}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left button is pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gae9e2f08c0c783b461d6ba1916d808ac1}{cowpi\+\_\+right\+\_\+button\+\_\+is\+\_\+pressed}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right button is pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gac2228c317a761680fbcccdcbd95705b5}{cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+left\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left switch is in the left position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gabd7afea898d03f650dcb41bec5f7c1d4}{cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+left\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right switch is in the left position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_gaa1bd9c6fa20c5235b4cd7181703967bf}{cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+right\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the left switch is in the right position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{group__inputs_ga34dca1c2c42720a0ce20001355de9114}{cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+right\+\_\+position}} (void)
+\begin{DoxyCompactList}\small\item\em Reports whether the right switch is in the right position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Buttons and switches that can be read directly from pins. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__inputs_ga308eee9232481c14f3aabb96a162b421}\label{group__inputs_ga308eee9232481c14f3aabb96a162b421}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_left\_button\_is\_pressed@{cowpi\_left\_button\_is\_pressed}}
+\index{cowpi\_left\_button\_is\_pressed@{cowpi\_left\_button\_is\_pressed}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_left\_button\_is\_pressed()}{cowpi\_left\_button\_is\_pressed()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+left\+\_\+button\+\_\+is\+\_\+pressed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the left button is pressed. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the left button is in Arduino pin D8. A pressed button grounds a pulled-\/high input.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the button is pressed, {\ttfamily false} otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__inputs_gac2228c317a761680fbcccdcbd95705b5}\label{group__inputs_gac2228c317a761680fbcccdcbd95705b5}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_left\_switch\_in\_left\_position@{cowpi\_left\_switch\_in\_left\_position}}
+\index{cowpi\_left\_switch\_in\_left\_position@{cowpi\_left\_switch\_in\_left\_position}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_left\_switch\_in\_left\_position()}{cowpi\_left\_switch\_in\_left\_position()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+left\+\_\+position (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the left switch is in the left position. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I2C) is in use or if no protocol is in use; assumes the switch is in pin D11 if I2C (but not SPI) is in use. If both protocols are in use, then this function will always return {\ttfamily false}. A switch in the left position grounds a pulled-\/high input.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the switch is in the left position, {\ttfamily false} otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__inputs_gaa1bd9c6fa20c5235b4cd7181703967bf}\label{group__inputs_gaa1bd9c6fa20c5235b4cd7181703967bf}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_left\_switch\_in\_right\_position@{cowpi\_left\_switch\_in\_right\_position}}
+\index{cowpi\_left\_switch\_in\_right\_position@{cowpi\_left\_switch\_in\_right\_position}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_left\_switch\_in\_right\_position()}{cowpi\_left\_switch\_in\_right\_position()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+left\+\_\+switch\+\_\+in\+\_\+right\+\_\+position (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the left switch is in the right position. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I2C) is in use or if no protocol is in use; assumes the switch is in pin D11 if I2C (but not SPI) is in use. If both protocols are in use, then this function will always return {\ttfamily false}. A switch in the right position floats, allowing pulled-\/high input to remain high.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the switch is in the right position, {\ttfamily false} otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__inputs_gae9e2f08c0c783b461d6ba1916d808ac1}\label{group__inputs_gae9e2f08c0c783b461d6ba1916d808ac1}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_right\_button\_is\_pressed@{cowpi\_right\_button\_is\_pressed}}
+\index{cowpi\_right\_button\_is\_pressed@{cowpi\_right\_button\_is\_pressed}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_right\_button\_is\_pressed()}{cowpi\_right\_button\_is\_pressed()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+right\+\_\+button\+\_\+is\+\_\+pressed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the right button is pressed. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the right button is in Arduino pin D9. A pressed button grounds a pulled-\/high input.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the button is pressed, {\ttfamily false} otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__inputs_gabd7afea898d03f650dcb41bec5f7c1d4}\label{group__inputs_gabd7afea898d03f650dcb41bec5f7c1d4}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_right\_switch\_in\_left\_position@{cowpi\_right\_switch\_in\_left\_position}}
+\index{cowpi\_right\_switch\_in\_left\_position@{cowpi\_right\_switch\_in\_left\_position}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_right\_switch\_in\_left\_position()}{cowpi\_right\_switch\_in\_left\_position()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+left\+\_\+position (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the right switch is in the left position. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I2C) is in use or if no protocol is in use; assumes the switch is in pin D10 if I2C (but not SPI) is in use. If both protocols are in use, then this function will always return {\ttfamily false}. A switch in the left position grounds a pulled-\/high input.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the switch is in the left position, {\ttfamily false} otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__inputs_ga34dca1c2c42720a0ce20001355de9114}\label{group__inputs_ga34dca1c2c42720a0ce20001355de9114}} 
+\index{Simple Inputs@{Simple Inputs}!cowpi\_right\_switch\_in\_right\_position@{cowpi\_right\_switch\_in\_right\_position}}
+\index{cowpi\_right\_switch\_in\_right\_position@{cowpi\_right\_switch\_in\_right\_position}!Simple Inputs@{Simple Inputs}}
+\doxysubsubsection{\texorpdfstring{cowpi\_right\_switch\_in\_right\_position()}{cowpi\_right\_switch\_in\_right\_position()}}
+{\footnotesize\ttfamily bool cowpi\+\_\+right\+\_\+switch\+\_\+in\+\_\+right\+\_\+position (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reports whether the right switch is in the right position. 
+
+There is no debouncing. This is a portable implementation, not a memory-\/mapped implementation.
+
+Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I2C) is in use or if no protocol is in use; assumes the switch is in pin D10 if I2C (but not SPI) is in use. If both protocols are in use, then this function will always return {\ttfamily false}. A switch in the right position floats, allowing pulled-\/high input to remain high.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the switch is in the right position, {\ttfamily false} otherwise 
+\end{DoxyReturn}

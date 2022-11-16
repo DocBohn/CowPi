@@ -1,0 +1,89 @@
+\hypertarget{cowpi__atmega328p_8h}{}\doxysection{cowpi\+\_\+atmega328p.\+h File Reference}
+\label{cowpi__atmega328p_8h}\index{cowpi\_atmega328p.h@{cowpi\_atmega328p.h}}
+
+
+Macros and constants for the ATmega328P microcontroller (Arduino Uno, Arduino Nano)  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}cowpi\+\_\+setup.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcowpi__ioport__t}{cowpi\+\_\+ioport\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the general-\/purpose I/O pins. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__spi__t}{cowpi\+\_\+spi\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the SPI hardware. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__i2c__t}{cowpi\+\_\+i2c\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the TWI (aka I2C, IIC) hardware. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__pininterrupt__t}{cowpi\+\_\+pininterrupt\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for pin-\/based interrupts\+: pin change interrupts and external interrupts. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__timer8bit__t}{cowpi\+\_\+timer8bit\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for 8-\/bit timer/counter (TIMER0 or TIMER1). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__timer16bit__t}{cowpi\+\_\+timer16bit\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for 16-\/bit timer/counter (TIMER1). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__architecture_gac5f05a8b0c7f66ffb7e11a8ef1de1bd8}{cowpi\+\_\+spi\+\_\+enable}}
+\begin{DoxyCompactList}\small\item\em Enables the SPI hardware. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__architecture_ga3dae5b8d357c0640d6adda7c06de9055}{cowpi\+\_\+spi\+\_\+disable}}
+\begin{DoxyCompactList}\small\item\em Disables the SPI hardware. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__architecture_gab314b08101f23be49724fabd6ccc82ec}{cowpi\+\_\+initialize\+\_\+i2c}}
+\begin{DoxyCompactList}\small\item\em Configures and enables the TWI hardware. \end{DoxyCompactList}\item 
+\#define {\bfseries COWPI\+\_\+\+PB}~0
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PINB/\+DDRB/\+PORTB and PCMSK0. \end{DoxyCompactList}\item 
+\#define {\bfseries D8\+\_\+\+D13}~0
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PB corresponding to pins D8-\/\+D13 on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\#define {\bfseries COWPI\+\_\+\+PC}~1
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PINC/\+DDRC/\+PORTC / PCMSK1. \end{DoxyCompactList}\item 
+\#define {\bfseries A0\+\_\+\+A5}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\#define {\bfseries D14\+\_\+\+D19}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\#define {\bfseries A0\+\_\+\+A7}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\#define {\bfseries D14\+\_\+\+D21}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\#define {\bfseries COWPI\+\_\+\+PD}~2
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PIND/\+DDRD/\+PORTD and PCMSK2. \end{DoxyCompactList}\item 
+\#define {\bfseries D0\+\_\+\+D7}~2
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PD for corresponding to pins D0-\/\+D7 on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t $\ast$const \mbox{\hyperlink{group__architecture_ga81b5ad1a515cb49e738abf3d2110e02f}{cowpi\+\_\+io\+\_\+base}} = (uint8\+\_\+t $\ast$) 0x20
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Macros and constants for the ATmega328P microcontroller (Arduino Uno, Arduino Nano) 
+
+\begin{DoxyAuthor}{Author}
+Christopher A. Bohn
+\end{DoxyAuthor}
+This header provides the base address for memory-\/mapped I/O and data structures to conveniently access the I/O registers.
+
+Possibly-\/useful memory-\/mapped registers\+: \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Use   }&\cellcolor{\tableheadbgcolor}\textbf{ Datatype   }&\cellcolor{\tableheadbgcolor}\textbf{ Offset from {\ttfamily cowpi\+\_\+io\+\_\+base}    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Use   }&\cellcolor{\tableheadbgcolor}\textbf{ Datatype   }&\cellcolor{\tableheadbgcolor}\textbf{ Offset from {\ttfamily cowpi\+\_\+io\+\_\+base}    }\\\cline{1-3}
+\endhead
+\PBS\centering External pins   &\mbox{\hyperlink{structcowpi__ioport__t}{cowpi\+\_\+ioport\+\_\+t}}\mbox{[}3\mbox{]}   &0x03 (index with named constants)    \\\cline{1-3}
+\PBS\centering Pin-\/based interrupts   &\mbox{\hyperlink{structcowpi__pininterrupt__t}{cowpi\+\_\+pininterrupt\+\_\+t}}   &0x1B    \\\cline{1-3}
+\PBS\centering SPI protocol   &\mbox{\hyperlink{structcowpi__spi__t}{cowpi\+\_\+spi\+\_\+t}}   &0x2C    \\\cline{1-3}
+\PBS\centering I2C protocol   &\mbox{\hyperlink{structcowpi__i2c__t}{cowpi\+\_\+i2c\+\_\+t}}   &0x98    \\\cline{1-3}
+\PBS\centering Timer0   &\mbox{\hyperlink{structcowpi__timer8bit__t}{cowpi\+\_\+timer8bit\+\_\+t}}   &0x24    \\\cline{1-3}
+\PBS\centering Timer1   &\mbox{\hyperlink{structcowpi__timer16bit__t}{cowpi\+\_\+timer16bit\+\_\+t}}   &0x60    \\\cline{1-3}
+\PBS\centering Timer2   &\mbox{\hyperlink{structcowpi__timer8bit__t}{cowpi\+\_\+timer8bit\+\_\+t}}   &0x90    \\\cline{1-3}
+\PBS\centering Timer interrupt masks (TIMSKx)   &uint8\+\_\+t\mbox{[}3\mbox{]}   &0x4E (index with timer number)    \\\cline{1-3}
+\PBS\centering Timer interrupt flags (TIFRx)   &uint8\+\_\+t\mbox{[}3\mbox{]}   &0x35 (index with timer number)    \\\cline{1-3}
+\PBS\centering General timer/counter control register (GTCCR)   &uint8\+\_\+t   &0x23    \\\cline{1-3}
+\PBS\centering Asynchronous Status Register (ASSR)   &uint8\+\_\+t   &0x96   \\\cline{1-3}
+\end{longtabu}

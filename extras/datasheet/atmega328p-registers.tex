@@ -43,12 +43,12 @@ On the other hand, if \texttt{D10} were an output pin, then we could set the pin
 The CowPi library provides data structures to access the memory-mapped I/O registers in a more readable form.
 Specifically, the \lstinline{cowpi_ioport_t} structure eliminates the need to remember which I/O port registers are used for output to peripherals and which are used for input from peripherals.
 
-\lstinputlisting[linerange=130-140, firstnumber=130]{../../src/cowpi_atmega328p.h}
+\lstinputlisting[linerange=130-140, firstnumber=130, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
 The ATmega328P's three I/O ports are placed contiguously in the memory address space, which will allow us to create a pointer to the lowest-addressed port and then treat that pointer as an array of I/O ports.
 Some named constants that we can use to index that array further eliminate the need to remember which port corresponds to each \mcuboard\ pin.
 
-\lstinputlisting[linerange=119-127, firstnumber=119]{../../src/cowpi_atmega328p.h}
+\lstinputlisting[linerange=119-127, firstnumber=119, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
 We recommend using \lstinline{D0_D7}, \lstinline{D8_D13}, and \lstinline{D14_D19}.
 Using our earlier hypotheticals:
@@ -138,7 +138,7 @@ If you choose to expand the Cow Pi in such a manner that other I$^2$C modes are 
 The CowPi library provides data structures to access the memory-mapped I/O registers in a more readable form.
 Specifically, the \lstinline{cowpi_i2c_t} structure provides meaningfully-named fields in place of the 4--5-letter register names.
 
-\lstinputlisting[linerange=151-161, firstnumber=151]{../../src/cowpi_atmega328p.h}
+\lstinputlisting[linerange=151-161, firstnumber=151, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
 Unlike the I/O registers for the external pins, you will not have an array of \lstinline{cowpi_i2c_t} structures;
 you'll have just the one.

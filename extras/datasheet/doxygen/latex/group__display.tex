@@ -1,0 +1,418 @@
+\hypertarget{group__display}{}\doxysection{Display Modules}
+\label{group__display}\index{Display Modules@{Display Modules}}
+
+
+Functions for display modules.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__display_gaf4003fdc700480c3e654e1a5245d2e0f}\label{group__display_gaf4003fdc700480c3e654e1a5245d2e0f}} 
+\#define {\bfseries LCDENTRY\+\_\+\+CURSORMOVESRIGHT}~0x06
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the cursor right after a character is displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga0d4ce8138829f65ff69122989d83351e}\label{group__display_ga0d4ce8138829f65ff69122989d83351e}} 
+\#define {\bfseries LCDENTRY\+\_\+\+CURSORMOVESLEFT}~0x04
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the cursor left after a character is displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_gafdf7f89008087e4f535a539c9dd92d74}\label{group__display_gafdf7f89008087e4f535a539c9dd92d74}} 
+\#define {\bfseries LCDENTRY\+\_\+\+TEXTSHIFTS}~0x05
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the entire display after a character is displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga8e46fc36f92a144ea4b1ceaf308de94f}\label{group__display_ga8e46fc36f92a144ea4b1ceaf308de94f}} 
+\#define {\bfseries LCDENTRY\+\_\+\+TEXTNOSHIFT}~0x04
+\begin{DoxyCompactList}\small\item\em Instructs the display module not to shift the display after a character is displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_gac68931475690c957a40985f9af490850}\label{group__display_gac68931475690c957a40985f9af490850}} 
+\#define {\bfseries LCDONOFF\+\_\+\+DISPLAYON}~0x0C
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn on the display. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga5f3a876dbba06d426d42f4fb79ad9990}\label{group__display_ga5f3a876dbba06d426d42f4fb79ad9990}} 
+\#define {\bfseries LCDONOFF\+\_\+\+DISPLAYOFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn off the display. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga005efc2b1a2ff15f0b4ea1a3cae5cbbb}\label{group__display_ga005efc2b1a2ff15f0b4ea1a3cae5cbbb}} 
+\#define {\bfseries LCDONOFF\+\_\+\+CURSORON}~0x0A
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn on the underscore cursor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga1875292adc905c85843bb67638d90c9a}\label{group__display_ga1875292adc905c85843bb67638d90c9a}} 
+\#define {\bfseries LCDONOFF\+\_\+\+CURSOROFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn off the underscore cursor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga0adb1ec70701c8d29f13581d0e22cf0c}\label{group__display_ga0adb1ec70701c8d29f13581d0e22cf0c}} 
+\#define {\bfseries LCDONOFF\+\_\+\+BLINKON}~0x09
+\begin{DoxyCompactList}\small\item\em Instructs the display module to blink the cursor\textquotesingle{}s position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga8baf00d2d89236c4dcdc8e0092b96ceb}\label{group__display_ga8baf00d2d89236c4dcdc8e0092b96ceb}} 
+\#define {\bfseries LCDONOFF\+\_\+\+BLINKOFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module not to blink the cursor\textquotesingle{}s position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_gab57d448050f011589c1a98a0639507ae}\label{group__display_gab57d448050f011589c1a98a0639507ae}} 
+\#define {\bfseries LCDSHIFT\+\_\+\+DISPLAYLEFT}~0x18
+\begin{DoxyCompactList}\small\item\em Shifts the entire display to the left. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga475e0f240eee7be64ff8595ba24fb8a5}\label{group__display_ga475e0f240eee7be64ff8595ba24fb8a5}} 
+\#define {\bfseries LCDSHIFT\+\_\+\+DISPLAYRIGHT}~0x1C
+\begin{DoxyCompactList}\small\item\em Shifts the entire display to the right. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_gaee083e008fb76ed6ea6bde6e3500877e}\label{group__display_gaee083e008fb76ed6ea6bde6e3500877e}} 
+\#define {\bfseries LCDSHIFT\+\_\+\+CURSORLEFT}~0x10
+\begin{DoxyCompactList}\small\item\em Shifts the cursor to the left. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga13624db759d218da4389c676e8acfc05}\label{group__display_ga13624db759d218da4389c676e8acfc05}} 
+\#define {\bfseries LCDSHIFT\+\_\+\+CURSORRIGHT}~0x14
+\begin{DoxyCompactList}\small\item\em Shifts the cursor to the right. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}}) (uint8\+\_\+t halfbyte, bool is\+\_\+command)
+\begin{DoxyCompactList}\small\item\em Pointer to function that sends a halfbyte to the LCD1602 display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+send\+\_\+halfbyte\+\_\+function}} (\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}} send\+\_\+halfbyte\+\_\+function)
+\begin{DoxyCompactList}\small\item\em Reassigns the {\ttfamily cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte} function pointer to point to the specified function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gaac3d8bfd7569cb5a36df66f699bdac11}{cowpi\+\_\+lcd1602\+\_\+place\+\_\+character}} (uint8\+\_\+t address, uint8\+\_\+t character)
+\begin{DoxyCompactList}\small\item\em Places the specified character on the display at the specified location. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga421b4c3c2b4e2641020af3ad2f673951}{cowpi\+\_\+lcd1602\+\_\+place\+\_\+cursor}} (uint8\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Places the cursor at the specified location without updating the display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga4304971dec1e44982b41a314f6d7c68c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+command}} (uint8\+\_\+t command)
+\begin{DoxyCompactList}\small\item\em Sends a command to the LCD1602 display module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+character}} (uint8\+\_\+t character)
+\begin{DoxyCompactList}\small\item\em Displays a character at the cursor\textquotesingle{}s location on the LCD1602 display module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}{cowpi\+\_\+lcd1602\+\_\+create\+\_\+character}} (uint8\+\_\+t encoding, const uint8\+\_\+t pixel\+\_\+vector\mbox{[}8\mbox{]})
+\begin{DoxyCompactList}\small\item\em Creates a custom character for the LCD1602 display module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__display_ga8fa284938496a713e3bdacd1c1af936e}\label{group__display_ga8fa284938496a713e3bdacd1c1af936e}} 
+void {\bfseries cowpi\+\_\+lcd1602\+\_\+clear\+\_\+display} ()
+\begin{DoxyCompactList}\small\item\em Clears the display and places the cursor in row 0, column 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga1df326e607e42e2fc72c853645e581b8}{cowpi\+\_\+lcd1602\+\_\+return\+\_\+home}} ()
+\begin{DoxyCompactList}\small\item\em Places the cursor in row 0, column 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gad150d09d6b5a252c6a785dae42e89187}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+backlight}} (bool backlight\+\_\+on)
+\begin{DoxyCompactList}\small\item\em Turns the display module\textquotesingle{}s backlight on or off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga15e63ea649a3892b5e6e24ea17ae3fde}{cowpi\+\_\+max7219\+\_\+send}} (uint8\+\_\+t address, uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Sends a byte of data to be placed in the specified MAX7219 register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga30c0553f0a441d69a2cf1289dc3e6516}{cowpi\+\_\+max7219\+\_\+shutdown}} (void)
+\begin{DoxyCompactList}\small\item\em Shuts-\/down the MAX7219 display module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gaa81ca80864f3134cb09ca5308896d518}{cowpi\+\_\+max7219\+\_\+startup}} (void)
+\begin{DoxyCompactList}\small\item\em Takes the MAX7219 display module out of shutdown mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gaee464f14a219ae1aa82053633af97b8e}{cowpi\+\_\+max7219\+\_\+no\+\_\+decode}} (void)
+\begin{DoxyCompactList}\small\item\em Takes the MAX7219 out of decode mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga9e32599a6fb119050f087f2eed116aff}{cowpi\+\_\+max7219\+\_\+bcd\+\_\+decode}} (void)
+\begin{DoxyCompactList}\small\item\em Places the MAX7219 in decode mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gaf2e15951063fb6aa2eabd952e4524562}{cowpi\+\_\+max7219\+\_\+set\+\_\+intensity}} (uint8\+\_\+t intensity)
+\begin{DoxyCompactList}\small\item\em Sets the MAX7219 display module\textquotesingle{}s brightness level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}} \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte}} = NULL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for display modules. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}\label{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_send\_halfbyte\_t@{cowpi\_lcd1602\_send\_halfbyte\_t}}
+\index{cowpi\_lcd1602\_send\_halfbyte\_t@{cowpi\_lcd1602\_send\_halfbyte\_t}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_send\_halfbyte\_t}{cowpi\_lcd1602\_send\_halfbyte\_t}}
+{\footnotesize\ttfamily typedef void($\ast$ cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t) (uint8\+\_\+t halfbyte, bool is\+\_\+command)}
+
+
+
+Pointer to function that sends a halfbyte to the LCD1602 display. 
+
+The {\ttfamily cowpi\+\_\+lcd1602} utility functions all make use of the {\ttfamily \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte()}}} function pointer.
+
+Initially, {\ttfamily \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte()}}} is one of two default implementations, depending on the protocol specified in the argument to {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}. The SPI implementation is a portable software-\/only implementation that does not use SPI hardware, nor does it use memory-\/mapped I/O of any form. The I2C implementation currently makes use of the I2C hardware using avr-\/libc macros.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Finish implementing portable software-\/only I2C implementation.\end{DoxyRefDesc}
+
+
+Re-\/implementing this function to use SPI or I2C hardware is a possible part of a memory-\/mapped I/O lab assignment.
+
+SPI\+: Assumes the display module\textquotesingle{}s data-\/in line is connected to the microcontroller\textquotesingle{}s COPI pin (D11 on most Arduino boards), the display module\textquotesingle{}s serial-\/clock line is connected to the microcontroller\textquotesingle{}s SCK pin (D13 on most Arduino boards), and the display module\textquotesingle{}s chip-\/select line is connected to Arduino pin D10.
+
+I2C\+: Assumes the display module\textquotesingle{}s data line is connected to the microcontroller\textquotesingle{}s SDA pin (D18 on most Arduino boards) and the display module\textquotesingle{}s serial-\/clock line is connected to the microcontroller\textquotesingle{}s SCL pin (D19 on most Arduino boards).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+send\+\_\+halfbyte\+\_\+function}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em halfbyte} & the data to be sent to the display module \\
+\hline
+{\em is\+\_\+command} & indicates whether the data is part of a command ({\ttfamily true}) or part of a character ({\ttfamily false}) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}\label{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_create\_character@{cowpi\_lcd1602\_create\_character}}
+\index{cowpi\_lcd1602\_create\_character@{cowpi\_lcd1602\_create\_character}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_create\_character()}{cowpi\_lcd1602\_create\_character()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+create\+\_\+character (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{encoding,  }\item[{const uint8\+\_\+t}]{pixel\+\_\+vector\mbox{[}8\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Creates a custom character for the LCD1602 display module. 
+
+The encoding can be a value between 0 and 7, inclusive. Each element of the pixel vector corresponds to a row of the 5x8 character matrix (thus, only 5 bits of each element are used).
+
+
+\begin{DoxyParams}{Parameters}
+{\em encoding} & the value used to represent the character \\
+\hline
+{\em pixel\+\_\+vector} & identifies which LCDs are \char`\"{}on\char`\"{} or \char`\"{}off\char`\"{} for the custom character. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_gaac3d8bfd7569cb5a36df66f699bdac11}\label{group__display_gaac3d8bfd7569cb5a36df66f699bdac11}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_place\_character@{cowpi\_lcd1602\_place\_character}}
+\index{cowpi\_lcd1602\_place\_character@{cowpi\_lcd1602\_place\_character}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_place\_character()}{cowpi\_lcd1602\_place\_character()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+place\+\_\+character (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{character }\end{DoxyParamCaption})}
+
+
+
+Places the specified character on the display at the specified location. 
+
+The character is an ASCII or \char`\"{}extended-\/\+ASCII\char`\"{} character, or a custom character created by using {\ttfamily \mbox{\hyperlink{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}{cowpi\+\_\+lcd1602\+\_\+create\+\_\+character()}}}.
+
+Note that the base address of the top row is 0x00, and the base address of the bottom row is 0x40.
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & the address of the desired location \\
+\hline
+{\em character} & the character to be displayed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga421b4c3c2b4e2641020af3ad2f673951}\label{group__display_ga421b4c3c2b4e2641020af3ad2f673951}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_place\_cursor@{cowpi\_lcd1602\_place\_cursor}}
+\index{cowpi\_lcd1602\_place\_cursor@{cowpi\_lcd1602\_place\_cursor}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_place\_cursor()}{cowpi\_lcd1602\_place\_cursor()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+place\+\_\+cursor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address }\end{DoxyParamCaption})}
+
+
+
+Places the cursor at the specified location without updating the display. 
+
+While the cursor will move to the specified location, it will only be visibly there if the cursor is on.
+
+Note that the base address of the top row is 0x00, and the base address of the bottom row is 0x40.
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & the address of the desired location \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga1df326e607e42e2fc72c853645e581b8}\label{group__display_ga1df326e607e42e2fc72c853645e581b8}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_return\_home@{cowpi\_lcd1602\_return\_home}}
+\index{cowpi\_lcd1602\_return\_home@{cowpi\_lcd1602\_return\_home}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_return\_home()}{cowpi\_lcd1602\_return\_home()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+return\+\_\+home (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Places the cursor in row 0, column 0. 
+
+If the display was shifted, the display is shifted back to its original position. The contents of each character position remain unchanged. \mbox{\Hypertarget{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}\label{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_send\_character@{cowpi\_lcd1602\_send\_character}}
+\index{cowpi\_lcd1602\_send\_character@{cowpi\_lcd1602\_send\_character}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_send\_character()}{cowpi\_lcd1602\_send\_character()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+send\+\_\+character (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{character }\end{DoxyParamCaption})}
+
+
+
+Displays a character at the cursor\textquotesingle{}s location on the LCD1602 display module. 
+
+The character is an ASCII or \char`\"{}extended-\/\+ASCII\char`\"{} character, or one of the eight custom characters created by using {\ttfamily \mbox{\hyperlink{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}{cowpi\+\_\+lcd1602\+\_\+create\+\_\+character()}}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & the character to be displayed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga4304971dec1e44982b41a314f6d7c68c}\label{group__display_ga4304971dec1e44982b41a314f6d7c68c}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_send\_command@{cowpi\_lcd1602\_send\_command}}
+\index{cowpi\_lcd1602\_send\_command@{cowpi\_lcd1602\_send\_command}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_send\_command()}{cowpi\_lcd1602\_send\_command()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+send\+\_\+command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{command }\end{DoxyParamCaption})}
+
+
+
+Sends a command to the LCD1602 display module. 
+
+The command is a bitwise disjunction of named constants to specify the entry mode (cursor and text movement to occur after characters are sent), a disjunction of named constants to specify the display mode (whether the display is on, whether the underscore cursor is displayed, and whether the cursor\textquotesingle{}s location blinks), or one shift command (shift display left/right or shift cursor left/right).
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_gad150d09d6b5a252c6a785dae42e89187}\label{group__display_gad150d09d6b5a252c6a785dae42e89187}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_set\_backlight@{cowpi\_lcd1602\_set\_backlight}}
+\index{cowpi\_lcd1602\_set\_backlight@{cowpi\_lcd1602\_set\_backlight}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_set\_backlight()}{cowpi\_lcd1602\_set\_backlight()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+set\+\_\+backlight (\begin{DoxyParamCaption}\item[{bool}]{backlight\+\_\+on }\end{DoxyParamCaption})}
+
+
+
+Turns the display module\textquotesingle{}s backlight on or off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em backlight\+\_\+on} & indicates whether the backlight should be on ({\ttfamily true}) or off ({\ttfamily false}) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}\label{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_set\_send\_halfbyte\_function@{cowpi\_lcd1602\_set\_send\_halfbyte\_function}}
+\index{cowpi\_lcd1602\_set\_send\_halfbyte\_function@{cowpi\_lcd1602\_set\_send\_halfbyte\_function}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_set\_send\_halfbyte\_function()}{cowpi\_lcd1602\_set\_send\_halfbyte\_function()}}
+{\footnotesize\ttfamily void cowpi\+\_\+lcd1602\+\_\+set\+\_\+send\+\_\+halfbyte\+\_\+function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}}}]{send\+\_\+halfbyte\+\_\+function }\end{DoxyParamCaption})}
+
+
+
+Reassigns the {\ttfamily cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte} function pointer to point to the specified function. 
+
+During setup, this function is used to assign one of the two default {\ttfamily cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t} implementations to {\ttfamily cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte}, unless it was previously used to assign a re-\/implementation. I can also later be used to assign a re-\/implementation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em send\+\_\+halfbyte\+\_\+function} & the function to be used to send halfbytes to the LCD1602 display module \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga9e32599a6fb119050f087f2eed116aff}\label{group__display_ga9e32599a6fb119050f087f2eed116aff}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_bcd\_decode@{cowpi\_max7219\_bcd\_decode}}
+\index{cowpi\_max7219\_bcd\_decode@{cowpi\_max7219\_bcd\_decode}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_bcd\_decode()}{cowpi\_max7219\_bcd\_decode()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+bcd\+\_\+decode (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Places the MAX7219 in decode mode. 
+
+This function places 0x\+FF in the MAX7219\textquotesingle{}s Decode-\/\+Mode register, causing the display to interpret the data register bits as BCD values and place the corresponding decimal numeral on the digits.
+
+This function should not be called when using an 8x8 LED matrix -- there\textquotesingle{}s no harm in doing so, but decode mode really is meant for 7-\/segment displays.
+
+\begin{DoxySeeAlso}{See also}
+cowpi\+\_\+max\+\_\+bcd\+\_\+decode 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__display_gaee464f14a219ae1aa82053633af97b8e}\label{group__display_gaee464f14a219ae1aa82053633af97b8e}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_no\_decode@{cowpi\_max7219\_no\_decode}}
+\index{cowpi\_max7219\_no\_decode@{cowpi\_max7219\_no\_decode}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_no\_decode()}{cowpi\_max7219\_no\_decode()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+no\+\_\+decode (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Takes the MAX7219 out of decode mode. 
+
+This function places 0 in the MAX7219\textquotesingle{}s Decode-\/\+Mode register, causing the display to map the data register bits directly to the digits\textquotesingle{} segments.
+
+\begin{DoxySeeAlso}{See also}
+cowpi\+\_\+max\+\_\+bcd\+\_\+decode 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__display_ga15e63ea649a3892b5e6e24ea17ae3fde}\label{group__display_ga15e63ea649a3892b5e6e24ea17ae3fde}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_send@{cowpi\_max7219\_send}}
+\index{cowpi\_max7219\_send@{cowpi\_max7219\_send}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_send()}{cowpi\_max7219\_send()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+send (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address,  }\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Sends a byte of data to be placed in the specified MAX7219 register. 
+
+The firmware program should only need to send data to addresses 1-\/8, the digit registers. Most other registers are handled by specific {\ttfamily cowpi\+\_\+max7219} functions.
+
+This is a portable software-\/only implementation; it does not use SPI hardware, nor does it use memory-\/mapped I/O of any form. Re-\/implementing this function (using a different function name) to use SPI hardware is a possible part of a memory-\/mapped I/O lab assignment.
+
+\begin{DoxyAttention}{Attention}
+A re-\/implementation that uses the SPI hardware must invoke {\ttfamily cowpi\+\_\+spi\+\_\+enable} at the start of the function and {\ttfamily cowpi\+\_\+spi\+\_\+disable} at the end.
+\end{DoxyAttention}
+The necessity to enable and disable the SPI hardware is because on most Arduino boards, the external LED is on the pin that also serves as the CIPO pin. When enabled, the SPI hardware forces the CIPO pin to be an input pin.
+
+Assumes the display module\textquotesingle{}s data-\/in line is connected to the microcontroller\textquotesingle{}s COPI pin (D11 on most Arduino boards), the display module\textquotesingle{}s serial-\/clock line is connected to the microcontroller\textquotesingle{}s SCK pin (D13 on most Arduino boards), and the display module\textquotesingle{}s chip-\/select line is connected to Arduino pin D10.
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & the register to be updated \\
+\hline
+{\em data} & the byte to place in that register \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_gaf2e15951063fb6aa2eabd952e4524562}\label{group__display_gaf2e15951063fb6aa2eabd952e4524562}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_set\_intensity@{cowpi\_max7219\_set\_intensity}}
+\index{cowpi\_max7219\_set\_intensity@{cowpi\_max7219\_set\_intensity}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_set\_intensity()}{cowpi\_max7219\_set\_intensity()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+set\+\_\+intensity (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{intensity }\end{DoxyParamCaption})}
+
+
+
+Sets the MAX7219 display module\textquotesingle{}s brightness level. 
+
+This function places the argument in the MAX7219\textquotesingle{}s Intensity register. The MAX7219 ignores the upper four bits, so there are 16 levels of brightness.
+
+
+\begin{DoxyParams}{Parameters}
+{\em intensity} & the desired brightness level \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__display_ga30c0553f0a441d69a2cf1289dc3e6516}\label{group__display_ga30c0553f0a441d69a2cf1289dc3e6516}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_shutdown@{cowpi\_max7219\_shutdown}}
+\index{cowpi\_max7219\_shutdown@{cowpi\_max7219\_shutdown}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_shutdown()}{cowpi\_max7219\_shutdown()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+shutdown (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Shuts-\/down the MAX7219 display module. 
+
+This function places a 0 in the MAX7219\textquotesingle{}s Shutdown register, causing the display to blank. Data in the digit and control registers remain unchanged.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__display_gaa81ca80864f3134cb09ca5308896d518}{cowpi\+\_\+max7219\+\_\+startup}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__display_gaa81ca80864f3134cb09ca5308896d518}\label{group__display_gaa81ca80864f3134cb09ca5308896d518}} 
+\index{Display Modules@{Display Modules}!cowpi\_max7219\_startup@{cowpi\_max7219\_startup}}
+\index{cowpi\_max7219\_startup@{cowpi\_max7219\_startup}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_max7219\_startup()}{cowpi\_max7219\_startup()}}
+{\footnotesize\ttfamily void cowpi\+\_\+max7219\+\_\+startup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Takes the MAX7219 display module out of shutdown mode. 
+
+This function places a 1 in the MAX7219\textquotesingle{}s Shutdown register, causing the display to resume.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__display_ga30c0553f0a441d69a2cf1289dc3e6516}{cowpi\+\_\+max7219\+\_\+shutdown}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{group__display_ga4c164ee952d12e22d3874d2c0c909711}\label{group__display_ga4c164ee952d12e22d3874d2c0c909711}} 
+\index{Display Modules@{Display Modules}!cowpi\_lcd1602\_send\_halfbyte@{cowpi\_lcd1602\_send\_halfbyte}}
+\index{cowpi\_lcd1602\_send\_halfbyte@{cowpi\_lcd1602\_send\_halfbyte}!Display Modules@{Display Modules}}
+\doxysubsubsection{\texorpdfstring{cowpi\_lcd1602\_send\_halfbyte}{cowpi\_lcd1602\_send\_halfbyte}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}} cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte = NULL}
+
+Pointer to function that sends a halfbyte to the LCD1602 display.
+
+The {\ttfamily cowpi\+\_\+lcd1602} utility functions all make use of the {\ttfamily \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte()}}} function pointer.
+
+Initially, {\ttfamily \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte()}}} is one of two default implementations, depending on the protocol specified in the argument to {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}. The SPI implementation is a portable software-\/only implementation that does not use SPI hardware, nor does it use memory-\/mapped I/O of any form. The I2C implementation currently makes use of the I2C hardware using avr-\/libc macros.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Finish implementing portable software-\/only I2C implementation.\end{DoxyRefDesc}
+
+
+Re-\/implementing this function to use SPI or I2C hardware is a possible part of a memory-\/mapped I/O lab assignment.
+
+SPI\+: Assumes the display module\textquotesingle{}s data-\/in line is connected to the microcontroller\textquotesingle{}s COPI pin (D11 on most Arduino boards), the display module\textquotesingle{}s serial-\/clock line is connected to the microcontroller\textquotesingle{}s SCK pin (D13 on most Arduino boards), and the display module\textquotesingle{}s chip-\/select line is connected to Arduino pin D10.
+
+I2C\+: Assumes the display module\textquotesingle{}s data line is connected to the microcontroller\textquotesingle{}s SDA pin (D18 on most Arduino boards) and the display module\textquotesingle{}s serial-\/clock line is connected to the microcontroller\textquotesingle{}s SCL pin (D19 on most Arduino boards).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+send\+\_\+halfbyte\+\_\+function}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em halfbyte} & the data to be sent to the display module \\
+\hline
+{\em is\+\_\+command} & indicates whether the data is part of a command ({\ttfamily true}) or part of a character ({\ttfamily false}) \\
+\hline
+\end{DoxyParams}

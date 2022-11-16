@@ -1,0 +1,140 @@
+\hypertarget{group__configuration}{}\doxysection{Configuration Functions and Constants}
+\label{group__configuration}\index{Configuration Functions and Constants@{Configuration Functions and Constants}}
+
+
+Functions and constants used to configure the Cow Pi hardware and library at the start of a program.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__configuration_gaadd93900fc87105fa3ef514675d4133b}\label{group__configuration_gaadd93900fc87105fa3ef514675d4133b}} 
+\#define {\bfseries SPI}~0x0001u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} to configure the library for the SPI protocol. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_ga457a9aa93dbb216459873a30bdb4d84a}\label{group__configuration_ga457a9aa93dbb216459873a30bdb4d84a}} 
+\#define {\bfseries I2C}~0x0002u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} to configure the library for the I2C protocol. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_gad187c2e378a2c713ac586f5e084e8f90}\label{group__configuration_gad187c2e378a2c713ac586f5e084e8f90}} 
+\#define {\bfseries IIC}~0x0002u
+\begin{DoxyCompactList}\small\item\em Alias of {\ttfamily I2C} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_ga82dd285d848c7aa4c9ee6ae8910c5e89}\label{group__configuration_ga82dd285d848c7aa4c9ee6ae8910c5e89}} 
+\#define {\bfseries TWI}~0x0002u
+\begin{DoxyCompactList}\small\item\em Alias of {\ttfamily I2C} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_ga2f05f6ac187e0d865c9a2f29a275631e}\label{group__configuration_ga2f05f6ac187e0d865c9a2f29a275631e}} 
+\#define {\bfseries MAX7219}~0x0080u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} to configure the library for a MAX7219-\/based display module and to configure the display module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_ga157b0f652a5bc262e4adf2ffbf3f71b5}\label{group__configuration_ga157b0f652a5bc262e4adf2ffbf3f71b5}} 
+\#define {\bfseries LCD1602}~0x0040u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} to configure the library for an LCD1602 display module and to configure the display module. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_gadb2dc4153df9d01459138d5cf499373f}\label{group__configuration_gadb2dc4153df9d01459138d5cf499373f}} 
+\#define {\bfseries COWPI\+\_\+\+DEFAULT}~0x8000u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga02e764c97862eca443df369048a62f25}{cowpi\+\_\+set\+\_\+display\+\_\+dialect()}}} to configure the library to use the common mapping of protocol bits to display module bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__configuration_gaa096e5808f960edbc1e5d425e93ae8a0}\label{group__configuration_gaa096e5808f960edbc1e5d425e93ae8a0}} 
+\#define {\bfseries ADAFRUIT}~0x4000u
+\begin{DoxyCompactList}\small\item\em Instructs {\ttfamily \mbox{\hyperlink{group__configuration_ga02e764c97862eca443df369048a62f25}{cowpi\+\_\+set\+\_\+display\+\_\+dialect()}}} to configure the library for \href{https://www.adafruit.com/product/292}{\texttt{ Adafruit\textquotesingle{}s I2\+C/\+SPI character LCD backpack}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup}} (unsigned int configuration)
+\begin{DoxyCompactList}\small\item\em Configures the microcontroller\textquotesingle{}s pins for the expected hardware setup, and configures the library to work with the specified display module and communication protocol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__configuration_ga02e764c97862eca443df369048a62f25}{cowpi\+\_\+set\+\_\+display\+\_\+dialect}} (unsigned int dialect)
+\begin{DoxyCompactList}\small\item\em Sets the \char`\"{}dialect,\char`\"{} or the mapping of protocol bits to display module bits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__configuration_ga8d3c4958d24333b91847fb26c8840542}{cowpi\+\_\+stdio\+\_\+setup}} (unsigned long baud)
+\begin{DoxyCompactList}\small\item\em Configures the Cow\+Pi library to use {\ttfamily stdio.\+h} functions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__configuration_ga7d4f5d9ab81e3dd55134d880d4a99aa5}{cowpi\+\_\+set\+\_\+display\+\_\+i2c\+\_\+address}} (uint8\+\_\+t peripheral\+\_\+address)
+\begin{DoxyCompactList}\small\item\em Sets the I2C address for an I2\+C-\/driven display module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions and constants used to configure the Cow Pi hardware and library at the start of a program. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__configuration_ga02e764c97862eca443df369048a62f25}\label{group__configuration_ga02e764c97862eca443df369048a62f25}} 
+\index{Configuration Functions and Constants@{Configuration Functions and Constants}!cowpi\_set\_display\_dialect@{cowpi\_set\_display\_dialect}}
+\index{cowpi\_set\_display\_dialect@{cowpi\_set\_display\_dialect}!Configuration Functions and Constants@{Configuration Functions and Constants}}
+\doxysubsubsection{\texorpdfstring{cowpi\_set\_display\_dialect()}{cowpi\_set\_display\_dialect()}}
+{\footnotesize\ttfamily void cowpi\+\_\+set\+\_\+display\+\_\+dialect (\begin{DoxyParamCaption}\item[{unsigned int}]{dialect }\end{DoxyParamCaption})}
+
+
+
+Sets the \char`\"{}dialect,\char`\"{} or the mapping of protocol bits to display module bits. 
+
+Some display modules ({\itshape e.\+g.}, MAX7219-\/based modules) have only one possible mapping, and calling this function has no effect for those modules. For other display modules, the {\ttfamily COWPI\+\_\+\+DEFAULT} dialect is the default; this function does not need to be called if the {\ttfamily COWPI\+\_\+\+DEFAULT} dialect will be used.
+
+\begin{DoxyAttention}{Attention}
+If this function is called, it must be called before {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} so that the display module can be properly configured.
+\end{DoxyAttention}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__query_gae947db4718a64614edb9da497a77ac3d}{cowpi\+\_\+get\+\_\+display\+\_\+dialect}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em dialect} & a named constant specifying which mapping of protocol bits to display module bits shall be used \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__configuration_ga7d4f5d9ab81e3dd55134d880d4a99aa5}\label{group__configuration_ga7d4f5d9ab81e3dd55134d880d4a99aa5}} 
+\index{Configuration Functions and Constants@{Configuration Functions and Constants}!cowpi\_set\_display\_i2c\_address@{cowpi\_set\_display\_i2c\_address}}
+\index{cowpi\_set\_display\_i2c\_address@{cowpi\_set\_display\_i2c\_address}!Configuration Functions and Constants@{Configuration Functions and Constants}}
+\doxysubsubsection{\texorpdfstring{cowpi\_set\_display\_i2c\_address()}{cowpi\_set\_display\_i2c\_address()}}
+{\footnotesize\ttfamily void cowpi\+\_\+set\+\_\+display\+\_\+i2c\+\_\+address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{peripheral\+\_\+address }\end{DoxyParamCaption})}
+
+
+
+Sets the I2C address for an I2\+C-\/driven display module. 
+
+Because the I2C (aka IIC, TWI) protocol uses addresses to select the peripheral that the microcontroller is communicating with, the display module\textquotesingle{}s address needs to be set. If the SPI protocol is being used, then there is no need to call this function.
+
+The common PCF8574-\/based interfaces used with LCD1602 display modules typically have an address of 0x27, but this can readily be changed.
+
+\begin{DoxyAttention}{Attention}
+If this function is called, it must be called before {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}} so that the display module can be properly configured.
+\end{DoxyAttention}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__query_gade796a8a3161e57a842551d1d9c934af}{cowpi\+\_\+get\+\_\+display\+\_\+i2c\+\_\+address}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em peripheral\+\_\+address} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}\label{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}} 
+\index{Configuration Functions and Constants@{Configuration Functions and Constants}!cowpi\_setup@{cowpi\_setup}}
+\index{cowpi\_setup@{cowpi\_setup}!Configuration Functions and Constants@{Configuration Functions and Constants}}
+\doxysubsubsection{\texorpdfstring{cowpi\_setup()}{cowpi\_setup()}}
+{\footnotesize\ttfamily void cowpi\+\_\+setup (\begin{DoxyParamCaption}\item[{unsigned int}]{configuration }\end{DoxyParamCaption})}
+
+
+
+Configures the microcontroller\textquotesingle{}s pins for the expected hardware setup, and configures the library to work with the specified display module and communication protocol. 
+
+\begin{DoxyAttention}{Attention}
+If a non-\/{\ttfamily COWPI\+\_\+\+DEFAULT} dialect is used, then {\ttfamily \mbox{\hyperlink{group__configuration_ga02e764c97862eca443df369048a62f25}{cowpi\+\_\+set\+\_\+display\+\_\+dialect()}}} must be called {\itshape before} {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}.
+
+If the {\ttfamily I2C} (or {\ttfamily IIC} or {\ttfamily TWI}) protocol is used, then {\ttfamily \mbox{\hyperlink{group__configuration_ga7d4f5d9ab81e3dd55134d880d4a99aa5}{cowpi\+\_\+set\+\_\+display\+\_\+i2c\+\_\+address()}}} must be called {\itshape before} {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}.
+\end{DoxyAttention}
+If {\ttfamily printf()} and/or {\ttfamily scanf()} will be used, then we recommend that {\ttfamily \mbox{\hyperlink{group__configuration_ga8d3c4958d24333b91847fb26c8840542}{cowpi\+\_\+stdio\+\_\+setup()}}} be called before {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}; however, this is not required.
+
+
+\begin{DoxyParams}{Parameters}
+{\em configuration} & bitwise disjunction of named constants, specifying the display module and protocol \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__configuration_ga8d3c4958d24333b91847fb26c8840542}\label{group__configuration_ga8d3c4958d24333b91847fb26c8840542}} 
+\index{Configuration Functions and Constants@{Configuration Functions and Constants}!cowpi\_stdio\_setup@{cowpi\_stdio\_setup}}
+\index{cowpi\_stdio\_setup@{cowpi\_stdio\_setup}!Configuration Functions and Constants@{Configuration Functions and Constants}}
+\doxysubsubsection{\texorpdfstring{cowpi\_stdio\_setup()}{cowpi\_stdio\_setup()}}
+{\footnotesize\ttfamily void cowpi\+\_\+stdio\+\_\+setup (\begin{DoxyParamCaption}\item[{unsigned long}]{baud }\end{DoxyParamCaption})}
+
+
+
+Configures the Cow\+Pi library to use {\ttfamily stdio.\+h} functions. 
+
+Configures {\ttfamily printf()} to write to, and {\ttfamily scanf()} to read from, the serial interface between the microcontroller and the host computer. Calls to {\ttfamily printf()} and {\ttfamily scanf()} that occur before the call to {\ttfamily \mbox{\hyperlink{group__configuration_ga8d3c4958d24333b91847fb26c8840542}{cowpi\+\_\+stdio\+\_\+setup()}}} will have no effect.
+
+
+\begin{DoxyParams}{Parameters}
+{\em baud} & the USART signal rate \\
+\hline
+\end{DoxyParams}

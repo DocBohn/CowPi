@@ -1,0 +1,159 @@
+\hypertarget{group__architecture}{}\doxysection{Microcontroller-\/\+Specific Definitions}
+\label{group__architecture}\index{Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}}
+
+
+Macros and constants that are specific to a particular microcontroller.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcowpi__ioport__t}{cowpi\+\_\+ioport\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the general-\/purpose I/O pins. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__spi__t}{cowpi\+\_\+spi\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the SPI hardware. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__i2c__t}{cowpi\+\_\+i2c\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the TWI (aka I2C, IIC) hardware. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__pininterrupt__t}{cowpi\+\_\+pininterrupt\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for pin-\/based interrupts\+: pin change interrupts and external interrupts. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__timer8bit__t}{cowpi\+\_\+timer8bit\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for 8-\/bit timer/counter (TIMER0 or TIMER1). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcowpi__timer16bit__t}{cowpi\+\_\+timer16bit\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for 16-\/bit timer/counter (TIMER1). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__architecture_gac5f05a8b0c7f66ffb7e11a8ef1de1bd8}{cowpi\+\_\+spi\+\_\+enable}}
+\begin{DoxyCompactList}\small\item\em Enables the SPI hardware. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__architecture_ga3dae5b8d357c0640d6adda7c06de9055}{cowpi\+\_\+spi\+\_\+disable}}
+\begin{DoxyCompactList}\small\item\em Disables the SPI hardware. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__architecture_gab314b08101f23be49724fabd6ccc82ec}{cowpi\+\_\+initialize\+\_\+i2c}}
+\begin{DoxyCompactList}\small\item\em Configures and enables the TWI hardware. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga80f5eee679a4948d1caecea85c6515bb}\label{group__architecture_ga80f5eee679a4948d1caecea85c6515bb}} 
+\#define {\bfseries COWPI\+\_\+\+PB}~0
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PINB/\+DDRB/\+PORTB and PCMSK0. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga0fd4cd62abe44571c15f402d1be53d38}\label{group__architecture_ga0fd4cd62abe44571c15f402d1be53d38}} 
+\#define {\bfseries D8\+\_\+\+D13}~0
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PB corresponding to pins D8-\/\+D13 on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_gaec0de6e12ee1b9a7fa3bb65df3fbf896}\label{group__architecture_gaec0de6e12ee1b9a7fa3bb65df3fbf896}} 
+\#define {\bfseries COWPI\+\_\+\+PC}~1
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PINC/\+DDRC/\+PORTC / PCMSK1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga78160d9b3e934f1a07df8c9260a37bf9}\label{group__architecture_ga78160d9b3e934f1a07df8c9260a37bf9}} 
+\#define {\bfseries A0\+\_\+\+A5}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga1ffd8cc06300926e158e437c6653080c}\label{group__architecture_ga1ffd8cc06300926e158e437c6653080c}} 
+\#define {\bfseries D14\+\_\+\+D19}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_gaa649adce5fd071e0fd625e532cfc90d3}\label{group__architecture_gaa649adce5fd071e0fd625e532cfc90d3}} 
+\#define {\bfseries A0\+\_\+\+A7}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_gaae183590b947c6c97c820b576f0f7305}\label{group__architecture_gaae183590b947c6c97c820b576f0f7305}} 
+\#define {\bfseries D14\+\_\+\+D21}~1
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PC for corresponding to pins D14-\/\+D19 (A0-\/\+A5) on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga9a09abef1c55986f63c495c2ba97dac5}\label{group__architecture_ga9a09abef1c55986f63c495c2ba97dac5}} 
+\#define {\bfseries COWPI\+\_\+\+PD}~2
+\begin{DoxyCompactList}\small\item\em Index for arrays to access PIND/\+DDRD/\+PORTD and PCMSK2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__architecture_ga151bafe798a20a204a1c68c2a82a85c3}\label{group__architecture_ga151bafe798a20a204a1c68c2a82a85c3}} 
+\#define {\bfseries D0\+\_\+\+D7}~2
+\begin{DoxyCompactList}\small\item\em Alias of COWPI\+\_\+\+PD for corresponding to pins D0-\/\+D7 on the Arduino Uno \& Arduino Nano. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t $\ast$const \mbox{\hyperlink{group__architecture_ga81b5ad1a515cb49e738abf3d2110e02f}{cowpi\+\_\+io\+\_\+base}} = (uint8\+\_\+t $\ast$) 0x20
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Macros and constants that are specific to a particular microcontroller. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__architecture_gab314b08101f23be49724fabd6ccc82ec}\label{group__architecture_gab314b08101f23be49724fabd6ccc82ec}} 
+\index{Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}!cowpi\_initialize\_i2c@{cowpi\_initialize\_i2c}}
+\index{cowpi\_initialize\_i2c@{cowpi\_initialize\_i2c}!Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}}
+\doxysubsubsection{\texorpdfstring{cowpi\_initialize\_i2c}{cowpi\_initialize\_i2c}}
+{\footnotesize\ttfamily \#define cowpi\+\_\+initialize\+\_\+i2c}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                                                       \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* Set SCL Frequency [100kHz] = CPU Clock Frequency [16MHz] / (16 + 2 * TWBR * prescaler [1]) */}    \(\backslash\)}
+\DoxyCodeLine{    TWBR = 72;                                                                                          \(\backslash\)}
+\DoxyCodeLine{    TWSR \&= \string~((1 << TWPS1) | (1 << TWPS0));                                                             \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* We won't rely on interrupts since students will work with display before knowing interrupts. */}  \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* We're also not going to enable acknowledgements: the basic labs will only use                    \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{     * controller-\/transmitter mode, and without interrupts we can't honor the ACK anyway. */}            \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* So we'll just enable TWI */}                                                                      \(\backslash\)}
+\DoxyCodeLine{    TWCR = (1 << TWEN) | (1 << TWEA);                                                                   \(\backslash\)}
+\DoxyCodeLine{\} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Configures and enables the TWI hardware. 
+
+Sets the bitrate at 100 k\+Hz and configures the hardware not to generate interrupts.
+
+Application should not need to invoke this macro, as it is invoked during setup; however, there is no harm in doing so. \mbox{\Hypertarget{group__architecture_ga3dae5b8d357c0640d6adda7c06de9055}\label{group__architecture_ga3dae5b8d357c0640d6adda7c06de9055}} 
+\index{Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}!cowpi\_spi\_disable@{cowpi\_spi\_disable}}
+\index{cowpi\_spi\_disable@{cowpi\_spi\_disable}!Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}}
+\doxysubsubsection{\texorpdfstring{cowpi\_spi\_disable}{cowpi\_spi\_disable}}
+{\footnotesize\ttfamily \#define cowpi\+\_\+spi\+\_\+disable}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                                                          \(\backslash\)}
+\DoxyCodeLine{    SPCR = 0;                                                                                           \(\backslash\)}
+\DoxyCodeLine{\} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Disables the SPI hardware. 
+
+This macro should be invoked immediately after using the SPI hardware to restore the program-\/defined (or library-\/defined) pin directions and to desensitize the SPI hardware to inputs on the CS pin (if the CS pin is set for inputs).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__architecture_gac5f05a8b0c7f66ffb7e11a8ef1de1bd8}{cowpi\+\_\+spi\+\_\+enable}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__architecture_gac5f05a8b0c7f66ffb7e11a8ef1de1bd8}\label{group__architecture_gac5f05a8b0c7f66ffb7e11a8ef1de1bd8}} 
+\index{Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}!cowpi\_spi\_enable@{cowpi\_spi\_enable}}
+\index{cowpi\_spi\_enable@{cowpi\_spi\_enable}!Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}}
+\doxysubsubsection{\texorpdfstring{cowpi\_spi\_enable}{cowpi\_spi\_enable}}
+{\footnotesize\ttfamily \#define cowpi\+\_\+spi\+\_\+enable}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{                                                                           \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* Enable SPI, Controller, set clock rate fck/16 [1MHz] */}                                          \(\backslash\)}
+\DoxyCodeLine{    SPCR = \mbox{\hyperlink{group__query_ga5948b4f7773a35155eb9b6df025bf547}{cowpi\_is\_spi\_lsbfirst}}()  ? (1 << SPE) | (1 << DORD) | (1 << MSTR) | (1 << SPR0)              \(\backslash\)}
+\DoxyCodeLine{                                    : (1 << SPE) |               (1 << MSTR) | (1 << SPR0);             \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* By repeating myself, both constants will be generated at compile time */}                         \(\backslash\)}
+\DoxyCodeLine{\} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+Enables the SPI hardware. 
+
+Sets the bitrate at 1 MHz, and configures the hardware not to generate interrupts and to transmit MSB-\/first or LSB-\/first, depending on the display module and dialect.
+
+This macro should be invoked only immediately before using the SPI hardware because\+:
+
+\begin{DoxyAttention}{Attention}
+Enabling SPI hardware automatically configures COPI pin and SCK pin as output, the CIPO pin as input, and will cause the SPI hardware to assume there is another controller if a low input is received on the CS pin, (if the CS pin is set for inputs) causing it to stop transmitting on COPI.
+\end{DoxyAttention}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group__architecture_ga3dae5b8d357c0640d6adda7c06de9055}{cowpi\+\_\+spi\+\_\+disable}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{group__architecture_ga81b5ad1a515cb49e738abf3d2110e02f}\label{group__architecture_ga81b5ad1a515cb49e738abf3d2110e02f}} 
+\index{Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}!cowpi\_io\_base@{cowpi\_io\_base}}
+\index{cowpi\_io\_base@{cowpi\_io\_base}!Microcontroller-\/Specific Definitions@{Microcontroller-\/Specific Definitions}}
+\doxysubsubsection{\texorpdfstring{cowpi\_io\_base}{cowpi\_io\_base}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ const cowpi\+\_\+io\+\_\+base = (uint8\+\_\+t $\ast$) 0x20}
+
+Constant pointer to the memory address corresponding to the start of the memory-\/mapped I/O registers. 

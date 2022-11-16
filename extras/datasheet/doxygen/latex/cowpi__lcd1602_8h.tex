@@ -1,0 +1,81 @@
+\hypertarget{cowpi__lcd1602_8h}{}\doxysection{cowpi\+\_\+lcd1602.\+h File Reference}
+\label{cowpi__lcd1602_8h}\index{cowpi\_lcd1602.h@{cowpi\_lcd1602.h}}
+
+
+Utility functions for 2-\/row/16-\/column display modules with 5x8 LCD characters.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries LCDENTRY\+\_\+\+CURSORMOVESRIGHT}~0x06
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the cursor right after a character is displayed. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDENTRY\+\_\+\+CURSORMOVESLEFT}~0x04
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the cursor left after a character is displayed. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDENTRY\+\_\+\+TEXTSHIFTS}~0x05
+\begin{DoxyCompactList}\small\item\em Instructs the display module to shift the entire display after a character is displayed. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDENTRY\+\_\+\+TEXTNOSHIFT}~0x04
+\begin{DoxyCompactList}\small\item\em Instructs the display module not to shift the display after a character is displayed. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+DISPLAYON}~0x0C
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn on the display. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+DISPLAYOFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn off the display. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+CURSORON}~0x0A
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn on the underscore cursor. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+CURSOROFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module to turn off the underscore cursor. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+BLINKON}~0x09
+\begin{DoxyCompactList}\small\item\em Instructs the display module to blink the cursor\textquotesingle{}s position. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDONOFF\+\_\+\+BLINKOFF}~0x08
+\begin{DoxyCompactList}\small\item\em Instructs the display module not to blink the cursor\textquotesingle{}s position. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDSHIFT\+\_\+\+DISPLAYLEFT}~0x18
+\begin{DoxyCompactList}\small\item\em Shifts the entire display to the left. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDSHIFT\+\_\+\+DISPLAYRIGHT}~0x1C
+\begin{DoxyCompactList}\small\item\em Shifts the entire display to the right. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDSHIFT\+\_\+\+CURSORLEFT}~0x10
+\begin{DoxyCompactList}\small\item\em Shifts the cursor to the left. \end{DoxyCompactList}\item 
+\#define {\bfseries LCDSHIFT\+\_\+\+CURSORRIGHT}~0x14
+\begin{DoxyCompactList}\small\item\em Shifts the cursor to the right. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}}) (uint8\+\_\+t halfbyte, bool is\+\_\+command)
+\begin{DoxyCompactList}\small\item\em Pointer to function that sends a halfbyte to the LCD1602 display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__display_ga18f5bebdbf08051471dd713d7dcf2edb}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+send\+\_\+halfbyte\+\_\+function}} (\mbox{\hyperlink{group__display_ga6e04aef0d02791f527d2ae06dd5ca79c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte\+\_\+t}} send\+\_\+halfbyte\+\_\+function)
+\begin{DoxyCompactList}\small\item\em Reassigns the {\ttfamily cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte} function pointer to point to the specified function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gaac3d8bfd7569cb5a36df66f699bdac11}{cowpi\+\_\+lcd1602\+\_\+place\+\_\+character}} (uint8\+\_\+t address, uint8\+\_\+t character)
+\begin{DoxyCompactList}\small\item\em Places the specified character on the display at the specified location. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga421b4c3c2b4e2641020af3ad2f673951}{cowpi\+\_\+lcd1602\+\_\+place\+\_\+cursor}} (uint8\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Places the cursor at the specified location without updating the display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga4304971dec1e44982b41a314f6d7c68c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+command}} (uint8\+\_\+t command)
+\begin{DoxyCompactList}\small\item\em Sends a command to the LCD1602 display module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+character}} (uint8\+\_\+t character)
+\begin{DoxyCompactList}\small\item\em Displays a character at the cursor\textquotesingle{}s location on the LCD1602 display module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga11dc8270d51c9697e4acc8d79dc07a70}{cowpi\+\_\+lcd1602\+\_\+create\+\_\+character}} (uint8\+\_\+t encoding, const uint8\+\_\+t pixel\+\_\+vector\mbox{[}8\mbox{]})
+\begin{DoxyCompactList}\small\item\em Creates a custom character for the LCD1602 display module. \end{DoxyCompactList}\item 
+void {\bfseries cowpi\+\_\+lcd1602\+\_\+clear\+\_\+display} ()
+\begin{DoxyCompactList}\small\item\em Clears the display and places the cursor in row 0, column 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_ga1df326e607e42e2fc72c853645e581b8}{cowpi\+\_\+lcd1602\+\_\+return\+\_\+home}} ()
+\begin{DoxyCompactList}\small\item\em Places the cursor in row 0, column 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__display_gad150d09d6b5a252c6a785dae42e89187}{cowpi\+\_\+lcd1602\+\_\+set\+\_\+backlight}} (bool backlight\+\_\+on)
+\begin{DoxyCompactList}\small\item\em Turns the display module\textquotesingle{}s backlight on or off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility functions for 2-\/row/16-\/column display modules with 5x8 LCD characters. 
+
+\begin{DoxyAuthor}{Author}
+Christopher A. Bohn
+\end{DoxyAuthor}
+If {\ttfamily LCD1602} is part of the argument to {\ttfamily \mbox{\hyperlink{group__configuration_ga0195991b9a0da4e8d6db820b9cf87d2a}{cowpi\+\_\+setup()}}}, then the display module will be placed in 4-\/bit mode, and\+:
+\begin{DoxyItemize}
+\item With each character, increment the cursor\textquotesingle{}s location but do not shift the display
+\item Turn the display on, the cursor off, and no blinking
+\item Clear the display
+\end{DoxyItemize}
+
+The LCD1602 is complex enough that the firmware program should call {\ttfamily \mbox{\hyperlink{group__display_ga4304971dec1e44982b41a314f6d7c68c}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+command()}}}, {\ttfamily \mbox{\hyperlink{group__display_ga7c8af4a4dd511977a86fef33b728c8ee}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+character()}}}, or another more-\/specific function. These functions will take care of dividing the data into halfbytes, managing timing, and other complexities, and will call {\ttfamily \mbox{\hyperlink{group__display_ga4c164ee952d12e22d3874d2c0c909711}{cowpi\+\_\+lcd1602\+\_\+send\+\_\+halfbyte()}}}. 
