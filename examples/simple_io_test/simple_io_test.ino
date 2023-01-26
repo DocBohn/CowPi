@@ -3,6 +3,7 @@
 void setup() {
     cowpi_stdio_setup(9600);
     char s[83];
+    printf("CowPi library version %s\n", COWPI_VERSION);
     printf("%s", strcpy_P(s, PSTR("This demonstration makes no assumptions about your CowPi's display module,\n")));
     printf("%s", strcpy_P(s, PSTR("\tso your display module may display garbage -- that's okay.\n")));
     printf("%s", strcpy_P(s, PSTR("The `cowpi_setup` function will be called with either `SPI` or `I2C` so that\n")));

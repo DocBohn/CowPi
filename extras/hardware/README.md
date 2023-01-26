@@ -91,7 +91,7 @@ Changes from mk1b:
 ![Cow Pi mk1d](mk1d.jpg)
 
 - Microcontroller board: Arduino Nano
-- Display module: 2x16 character LCD dot-matrix display (I^2^C)
+- Display module: 2x16 character LCD dot-matrix display (I2C)
 
 ### Future Mark 1 Models
 
@@ -147,14 +147,14 @@ demonstrations.
 A single 11-socket female header can accept a MAX7219-based 8x8 LED matrix
 face-up (SPI, sockets 1-5), a MAX7219-based 8-digit 7-segment display face-up
 (SPI, sockets 5-9), or a common serial adapter for an LCD1602 display mounted
-piggyback on the face-up display (I^2^C, sockets 8-11) -- though we soon
+piggyback on the face-up display (I2C, sockets 8-11) -- though we soon
 discovered that the weight of the LCD1602 would cause the Arduino Uno to tip
 over. Other display modules are also usable (such as an SPI adapter for the
 LCD1602) but they might have to be connected by Dupont wires instead of being
 directly inserted into the sockets.
 
 A DPDT dip switch changes the toggle-able switches' input pins to free-up the
-pins needed for SPI or for I^2^C, depending on which communication protocol
+pins needed for SPI or for I2C, depending on which communication protocol
 needs to be used. Because of this flexibility, the mk2b can be quickly
 configured to be equivalent to the mk1b/mk1c, to the mk1d, and to other
 configurations that are not available in the Mark 1 series. This flexibility was
@@ -170,11 +170,11 @@ we really don't consider this to be a failure -- just a missed opportunity).
 ![Cow Pi mk2c](mk2c.jpg)
 
 - Microcontroller board: Arduino Nano or Arduino Nano Every
-- Display module: 2x16 character LCD dot-matrix display (SPI or I^2^C)
+- Display module: 2x16 character LCD dot-matrix display (SPI or I2C)
 
 The impetus for the Cow Pi mk2c was to create a durable version of the mk1d, but
 as part of preparing for the mk3a, we included the ability to switch between the
-I^2^C adapter component and a 74HC595-based SPI adapter circuit for the
+I2C adapter component and a 74HC595-based SPI adapter circuit for the
 LCD1602. We also, as part of experimentation with ARM-based microcontrollers and
 the display modules, incorporated options to change between 5V and 3.3V at
 various stages between the microcontroller board and the display module.
@@ -203,9 +203,9 @@ Pis).
 ![Populated and unpopulated Cow Pi mk3a printed circuit boards](mk3a.jpg)
 
 - Microcontroller board: Arduino Nano or Arduino Nano Every
-- Display module: 2x16 character LCD dot-matrix display (SPI or I^2^C)
+- Display module: 2x16 character LCD dot-matrix display (SPI or I2C)
 
-The Cow Pi mk3a is configurable *at assembly time* to use SPI or I^2^C; the
+The Cow Pi mk3a is configurable *at assembly time* to use SPI or I2C; the
 selection will be based on which components are soldered to the board.
 Dynamically changing the protocol (like the mk2b) will not be possible. Like the
 mk2c, the is sixteen tactile switches, though sixteen diodes replace the four
@@ -222,7 +222,7 @@ header. For example, to use the MAX7219-based 8-digit 7-segment display:
 
 - If the board is configured for SPI then place the `SPI-LCD1602 Enable/Disable`
   shunt jumper to the `Disable` position.
-- If the board is configured for I^2^C then slide both slide-switches to the right.
+- If the board is configured for I2C then slide both slide-switches to the right.
 - Use jumper wires to connect the display module's `VCC` pin to `5V`, `GND` to `GND`, `DIN` to `COPI-D11`, `CS` to `CS-D10`, and `CLK` to `SCK-D13`.
   - You can, of course, use a different Arduino pin for `CS` which would
     eliminate the need to disable the LCD1602 when the board is configured for
@@ -232,12 +232,12 @@ header. For example, to use the MAX7219-based 8-digit 7-segment display:
 
 #### LIBRARY NOTE
 
-The CowPi library v0.3.0 works just fine with the ubiquitous I^2^C-LCD1602
-interface module used that the mk3a board uses when it's configured for I^2^C. The
+The CowPi library v0.3.0 works just fine with the ubiquitous I2C-LCD1602
+interface module used that the mk3a board uses when it's configured for I2C. The
 CowPi library v0.3.0 works just fine with the mapping of shift register bits to
-LCD1602 bits when using the AdaFruit SPI/I^2^C-LCD1602 interface module in SPI
+LCD1602 bits when using the AdaFruit SPI/I2C-LCD1602 interface module in SPI
 mode. For the Cow Pi Mark 3 and 4 series, we elected to have the SPI bit mapping
-match the I^2^C bit mapping, and we haven't yet updated the library's LCD1602
+match the I2C bit mapping, and we haven't yet updated the library's LCD1602
 SPI functions to use this particular mapping. Naturally, you can expect this
 mapping to be supported in the next library update. (Also, this being a board to
 support labs in which students will write their own functions, you can always do

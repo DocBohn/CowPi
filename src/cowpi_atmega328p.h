@@ -51,11 +51,10 @@
  *  @{*/
 
 /**
- * Constant pointer to the memory address corresponding to the start of the
+ * The memory address corresponding to the start of the
  * memory-mapped I/O registers.
  */
-uint8_t *const cowpi_io_base = (uint8_t *) 0x20;
-
+#define COWPI_IO_BASE   ((uint8_t *) 0x20)
 
 /**
  * @brief Enables the SPI hardware.

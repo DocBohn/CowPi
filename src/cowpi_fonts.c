@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-22 Christopher A. Bohn
+/* CowPi (c) 2021-23 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include "cowpi_font_7segment.h"
+#include "cowpi_font_7segment_internalfonts.h"
 #include "cowpi_font_dotmatrix.h"
+#include "cowpi_font_dotmatrix_internalfonts.h"
 
 /* 7-Segment Functions */
 
