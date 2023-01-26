@@ -9,18 +9,14 @@ void setup() {
 //    protocol = SPI;
     protocol = I2C;
 
-    /* If SPI, then set the dialect (SPI-to-LCD1602 mapping) because right now
-     * only the ADAFRUIT dialect is supported, but I don't want to imply that
-     * there won't be another default anytime soon */
-    if (protocol == SPI) {
-        cowpi_set_display_dialect(ADAFRUIT);
-    }
+    /* The COWPI_DEFAULT mapping from the serial adapter to the LCD1602 module does not need to be
+     * explicitly set, but if a different mapping needs to be used, then uncomment this next line. */
+//    cowpi_set_display_dialect(ADAFRUIT);
 
     /* If I2C, then the I2C address and possibly dialect (I2C-to-LCD1602 mapping)
      * need to be set before calling `cowpi_setup`. */
     if (protocol == I2C) {
         cowpi_set_display_i2c_address(0x27);
-//        cowpi_set_display_dialect(ADAFRUIT);
     }
 
     cowpi_setup(LCD1602 | protocol);

@@ -151,12 +151,28 @@ void cowpi_lcd1602_set_4bit_mode(unsigned int configuration) {
 }
 
 static void cowpi_lcd1602_send_halfbyte_spi(uint8_t halfbyte, bool is_command) {
-    // we'll use the AdaFruit mapping for its SPI+I2C interface -- probably will add other dialect(s) later
-    /* LSB    QH  QG  QF  QE  QD  QC  QB  QA  MSB *
-     * LSB  LITE  D4  D5  D6  D7  EN  RS  xx  MSB */
-    uint8_t rs = is_command ? 0 : 1 << 6;
-    uint8_t en = 1 << 5;
-    uint8_t packet = rs | (halfbyte << 1) | (is_backlit ? 1 : 0);
+    uint8_t packet = 0, rs = 0, en = 0;
+    unsigned int dialect = cowpi_get_display_dialect();
+    if (dialect == COWPI_DEFAULT) {
+        // unlike I2C, there doesn't seem to be a "typical" mapping for SPI
+        // We'll make our lives simpler by using the same default mapping for SPI that we're using for I2C
+        /* MSB  P7  P6  P5  P4  P3  P2  P1  P0  LSB *
+         * MSB  D7  D6  D5  D4 LITE EN  RW  RS  LSB */
+        rs = is_command ? 0 : 1;
+        en = 1 << 2;
+        packet = rs | (halfbyte << 4) | (is_backlit ? 1 << 3 : 0);
+    } else if (dialect == ADAFRUIT) {
+        // this mapping is used with AdaFruit's SPI+I2C interface
+        // https://github.com/adafruit/Adafruit_LiquidCrystal
+        /* LSB    QH  QG  QF  QE  QD  QC  QB  QA  MSB *
+         * LSB  LITE  D4  D5  D6  D7  EN  RS  xx  MSB */
+        rs = is_command ? 0 : 1 << 6;
+        en = 1 << 5;
+        packet = rs | (halfbyte << 1) | (is_backlit ? 1 : 0);
+    } else {
+        char s[73];
+        cowpi_error(strcpy_P(s, PSTR("CowPi only knows COWPI_DEFAULT and ADAFRUIT dialects for I2C-to-LCD1602 mapping.")));
+    }
     // place data on the line
     digitalWrite(SPI_CHIP_SELECT, LOW);
     shiftOut(MOSI, SCK, cowpi_is_spi_lsbfirst() ? LSBFIRST : MSBFIRST, packet);
