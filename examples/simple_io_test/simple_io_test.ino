@@ -26,8 +26,8 @@ void loop() {
     printf("Keypad:      %c        Column pins:  %d%d%d%d    Keypad NAND: %d\n", (c = cowpi_get_keypress()) ? c : ' ',
            digitalRead(14), digitalRead(15), digitalRead(16), digitalRead(17), digitalRead(3));
     printf("Left switch: %s    Right switch: %s\n",
-           cowpi_left_switch_in_left_position() ? "LEFT " : "RIGHT",
-           cowpi_right_switch_in_left_position() ? "LEFT " : "RIGHT");
+           cowpi_left_switch_is_in_left_position() ? "LEFT " : "RIGHT",
+           cowpi_right_switch_is_in_left_position() ? "LEFT " : "RIGHT");
     printf("Left button: %s    Right button: %s",
            cowpi_left_button_is_pressed() ? "DOWN " : "UP   ",
            cowpi_right_button_is_pressed() ? "DOWN " : "UP   ");
@@ -35,14 +35,14 @@ void loop() {
     printf("   Button NAND: %d", digitalRead(2));
 #endif
     printf("\n");
-    if (cowpi_left_button_is_pressed() && cowpi_left_switch_in_right_position()) {
+    if (cowpi_left_button_is_pressed() && cowpi_left_switch_is_in_right_position()) {
         left_led = true;
         cowpi_illuminate_left_led();
     } else {
         left_led = false;
         cowpi_deluminate_left_led();
     }
-    if (cowpi_right_button_is_pressed() && cowpi_right_switch_in_right_position()) {
+    if (cowpi_right_button_is_pressed() && cowpi_right_switch_is_in_right_position()) {
         right_led = true;
         cowpi_illuminate_right_led();
     } else {

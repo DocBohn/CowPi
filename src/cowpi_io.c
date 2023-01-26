@@ -27,8 +27,8 @@
 
 
 static bool cowpi_pin_is_output(uint8_t pin);
-static bool cowpi_switch_in_left_position(uint8_t default_pin, uint8_t alternate_pin);
-static bool cowpi_switch_in_right_position(uint8_t default_pin, uint8_t alternate_pin);
+static bool cowpi_switch_is_in_left_position(uint8_t default_pin, uint8_t alternate_pin);
+static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alternate_pin);
 
 char cowpi_get_keypress(void) {
     // returns character corresponding to that on a 4x4 matrix keypad's face (0-9, A-D, *, #)
@@ -68,20 +68,20 @@ bool cowpi_right_button_is_pressed(void) {
     return !digitalRead(RIGHT_BUTTON);
 }
 
-bool cowpi_left_switch_in_left_position(void) {
-    return cowpi_switch_in_left_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
+bool cowpi_left_switch_is_in_left_position(void) {
+    return cowpi_switch_is_in_left_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
 }
 
-bool cowpi_right_switch_in_left_position(void) {
-    return cowpi_switch_in_left_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
+bool cowpi_right_switch_is_in_left_position(void) {
+    return cowpi_switch_is_in_left_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
 }
 
-bool cowpi_left_switch_in_right_position(void) {
-    return cowpi_switch_in_right_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
+bool cowpi_left_switch_is_in_right_position(void) {
+    return cowpi_switch_is_in_right_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
 }
 
-bool cowpi_right_switch_in_right_position(void) {
-    return cowpi_switch_in_right_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
+bool cowpi_right_switch_is_in_right_position(void) {
+    return cowpi_switch_is_in_right_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
 }
 
 void cowpi_illuminate_right_led(void) {
@@ -120,7 +120,7 @@ static inline bool cowpi_pin_is_output(uint8_t pin) {
     return *portModeRegister(digitalPinToPort(pin)) & digitalPinToBitMask(pin);
 }
 
-static bool cowpi_switch_in_left_position(uint8_t default_pin, uint8_t alternate_pin) {
+static bool cowpi_switch_is_in_left_position(uint8_t default_pin, uint8_t alternate_pin) {
     if (!cowpi_pin_is_output(default_pin)) {            // if default isn't used for I2C then it's used for the switch
         return !digitalRead(default_pin);
     } else if (!cowpi_pin_is_output(alternate_pin)) {   // not using default but make sure alternate not used for SPI
@@ -130,7 +130,7 @@ static bool cowpi_switch_in_left_position(uint8_t default_pin, uint8_t alternate
     }
 }
 
-static bool cowpi_switch_in_right_position(uint8_t default_pin, uint8_t alternate_pin) {
+static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alternate_pin) {
     if (!cowpi_pin_is_output(default_pin)) {            // if default isn't used for I2C then it's used for the switch
         return digitalRead(default_pin);
     } else if (!cowpi_pin_is_output(alternate_pin)) {   // not using default but make sure alternate not used for SPI

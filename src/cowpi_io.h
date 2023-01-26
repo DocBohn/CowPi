@@ -96,7 +96,7 @@ bool cowpi_right_button_is_pressed(void);
  *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
-bool cowpi_left_switch_in_left_position(void);
+bool cowpi_left_switch_is_in_left_position(void);
 
 /**
  * @brief Reports whether the right switch is in the left position.
@@ -114,7 +114,7 @@ bool cowpi_left_switch_in_left_position(void);
  *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
-bool cowpi_right_switch_in_left_position(void);
+bool cowpi_right_switch_is_in_left_position(void);
 
 /**
  * @brief Reports whether the left switch is in the right position.
@@ -132,7 +132,7 @@ bool cowpi_right_switch_in_left_position(void);
  *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
-bool cowpi_left_switch_in_right_position(void);
+bool cowpi_left_switch_is_in_right_position(void);
 
 /**
  * @brief Reports whether the right switch is in the right position.
@@ -150,7 +150,7 @@ bool cowpi_left_switch_in_right_position(void);
  *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
-bool cowpi_right_switch_in_right_position(void);
+bool cowpi_right_switch_is_in_right_position(void);
 
 /**
  * @brief Illuminates the right LED, aka the external LED.
