@@ -28,7 +28,7 @@
 #if defined ARDUINO_AVR_UNO || defined ARDUINO_AVR_NANO
 #include "cowpi_atmega328p.h"
 #elif defined ARDUINO_AVR_NANO_EVERY
-uint8_t * const cowpi_io_base = (uint8_t *)0x0;
+#define COWPI_IO_BASE   ((uint8_t *) 0x0)
 #error Arduino Nano Every is not yet supported for CowPi
 #elif defined ARDUINO_NANO33BLE
 // TODO: double-check whether Nano 33 BLE Sense is a distinct board wrt IDE

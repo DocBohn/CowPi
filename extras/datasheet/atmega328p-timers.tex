@@ -85,7 +85,7 @@ Table~\ref{tab:timer0registers} shows the mapping of TIMER0's registers to the \
 Creating a pointer to TIMER0's memory-mapped registers is as simple as
 \begin{lstlisting}
     volatile cowpi_timer8bit_t *timer
-            = (cowpi_timer8bit_t *)(cowpi_io_base + 0x24);
+            = (cowpi_timer8bit_t *)(COWPI_IO_BASE + 0x24);
 \end{lstlisting}
 Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer8bit_t}'s fields.
 
@@ -159,7 +159,7 @@ Table~\ref{tab:timer1registers} shows the mapping of TIMER1's registers to the \
 Creating a pointer to TIMER1's memory-mapped registers is as simple as
 \begin{lstlisting}
     volatile cowpi_timer16bit_t *timer
-            = (cowpi_timer16bit_t *)(cowpi_io_base + 0x60);
+            = (cowpi_timer16bit_t *)(COWPI_IO_BASE + 0x60);
 \end{lstlisting}
 Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer16bit_t}'s fields.
 
@@ -237,7 +237,7 @@ Table~\ref{tab:timer2registers} shows the mapping of TIMER2's registers to the \
 Creating a pointer to TIMER2's memory-mapped registers is as simple as
 \begin{lstlisting}
     volatile cowpi_timer8bit_t *timer
-            = (cowpi_timer8bit_t *)(cowpi_io_base + 0x90);
+            = (cowpi_timer8bit_t *)(COWPI_IO_BASE + 0x90);
 \end{lstlisting}
 Having creating that pointer, you can access the registers using the \lstinline{cowpi_timer8bit_t}'s fields.
 
@@ -313,7 +313,7 @@ Table~\ref{tab:timerInterrupt} shows the bits of the Timer Interrupt Mask regist
 To access these as memory-mapped registers, create a \lstinline{uint8_t} pointer, and assign that pointer to the lowest address of these registers:
 
 \begin{lstlisting}
-    volatile uint8_t *timer_interrupt_masks = cowpi_io_base + 0x4E;
+    volatile uint8_t *timer_interrupt_masks = COWPI_IO_BASE + 0x4E;
 \end{lstlisting}
 
 This pointer can then be used as a 3-element array, indexed by the timer number.

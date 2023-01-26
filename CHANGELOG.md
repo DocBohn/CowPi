@@ -14,8 +14,7 @@ and this project adheres to
 
 ## [Unreleased]
 
-- LCD1602 default dialect for SPI
-- Bit-banged I^2^C implementation
+- Bit-banged I2C implementation
 - Microcontroller-dependent code other than that for ATMega328P
 
 <!--
@@ -27,20 +26,37 @@ and this project adheres to
 - `Security` in case of vulnerabilities.
 -->
 
+## [0.4.0] - 2023-01-26
+
+### Added
+
+- LCD1602 default dialect for SPI
+
+### Changed
+
+- Renamed `right/left_switch_in_right/left_position()` functions to `right/left_switch_is_in_right/left_position()`
+- Renamed `cowpi_io_base` to `COWPI_IO_BASE`
+
+### Fixed
+
+- Removed I2C false-error detection
+  - Accept risk of failure to detect true error
+- Symbol duplication when student code spans multiple files
+
 ## [0.3.0] - 2022-08-01
 
 ### Added
 
 - Replaced single header file with library
   - Default implementations for reading inputs and writing outputs
-    - Most are microcontroller-independent; I^2^C is still ATMega328P-only
+    - Most are microcontroller-independent; I2C is still ATMega328P-only
   - Microcontroller-dependent code (*e.g.* memory-mapped I/O structures)
     isolated from microcontroller-independent code
   - Framework to allow polling I/O code and memory-mapped I/O code to be graded
     distinctly
 - 7-segment and dot-matrix fonts
 - Framework to control LCD1602 display module; students only need to write code
-  to use SPI or I^2^C hardware
+  to use SPI or I2C hardware
 - Setup code to enable `printf`/`scanf` for AVR microcontrollers
 - Example code
   - Replace test code in construction instructions with examples

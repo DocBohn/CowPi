@@ -11,7 +11,7 @@
  * data structures to conveniently access the I/O registers.
  *
  * Possibly-useful memory-mapped registers:
- * | Use                                            | Datatype              | Offset from `cowpi_io_base`       |
+ * | Use                                            | Datatype              | Offset from `COWPI_IO_BASE`       |
  * |:----------------------------------------------:|:----------------------|:----------------------------------|
  * | External pins                                  | cowpi_ioport_t[3]     | 0x03 (index with named constants) |
  * | Pin-based interrupts                           | cowpi_pininterrupt_t  | 0x1B                              |

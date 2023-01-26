@@ -1,6 +1,6 @@
 # CowPi Library
 
-version 0.3
+version 0.4
 
 ## What is the Cow Pi?
 

@@ -3,7 +3,7 @@ however, it also has a much more extensive set of memory-mapped input/output reg
 We recommend using the memory-mapped I/O registers and describe them here.
 
 The tables in Section~\ref{sec:IOregisterDescriptions} include each register's address offset, in bytes, from the base address of the I/O region of the ATmega328P's memory address space.
-The CowPi library provides a constant pointer to that base address, \lstinline{uint8_t *const cowpi_io_base}.
+The CowPi library provides a constant pointer to that base address, \lstinline{uint8_t *const COWPI_IO_BASE}.
 
 \subsection{External Pins Input/Output}
 
@@ -56,7 +56,7 @@ Using our earlier hypotheticals:
 If \texttt{D10} were an input pin, then we could determine the pin's logic level with C code similar to this:
 \begin{lstlisting}
     volatile cowpi_ioport_t *ioports =
-        (cowpi_ioport_t *)(cowpi_io_base + 0x3); // an array of I/O ports
+        (cowpi_ioport_t *)(COWPI_IO_BASE + 0x3); // an array of I/O ports
     uint8_t logic_level = ioports[D8_D13].input & (1 << (10-8));
 \end{lstlisting}
 In the first line, we created our array of \lstinline{cowpi_ioport_t} structures and assigned the array's base address to three bytes above the I/O base address.
@@ -82,7 +82,7 @@ or double-negate:
 On the other hand, if \texttt{D10} were an output pin, then we could set the pin's logic level with C code similar to this:
 \begin{lstlisting}
     volatile cowpi_ioport_t *ioports =
-        (cowpi_ioport_t *)(cowpi_io_base + 0x3); // an array of I/O ports
+        (cowpi_ioport_t *)(COWPI_IO_BASE + 0x3); // an array of I/O ports
     // to clear pin 10 to a 0:
     ioports[D8_D13].output &= ~(1 << (10-8));
     // to set pin 10 to a 1:
@@ -146,7 +146,7 @@ Create a pointer to a \lstinline{cowpi_i2c_t} structure that points to the lowes
 For example, if we wanted to determine if a status had been set and then set the TWI Enable bit (TWEN), then we could do so with C code similar to this:
 
 \begin{lstlisting}
-    volatile cowpi_i2c_t *i2c = (cowpi_i2c_t *)(cowpi_io_base + 0x98);
+    volatile cowpi_i2c_t *i2c = (cowpi_i2c_t *)(COWPI_IO_BASE + 0x98);
     uint8_t status = i2c->status & 0xF8; // mask-off the irrelevant bits
     i2c->control = 0x4; // Set the Enable bit
 \end{lstlisting}

@@ -229,16 +229,3 @@ header. For example, to use the MAX7219-based 8-digit 7-segment display:
     SPI, but the CowPi library's built-in MAX7219 functions assume that `D10` is
     used. Fortunately, the point of this board is to support labs in which
     students will write their own functions, so there you go.
-
-#### LIBRARY NOTE
-
-The CowPi library v0.3.0 works just fine with the ubiquitous I2C-LCD1602
-interface module used that the mk3a board uses when it's configured for I2C. The
-CowPi library v0.3.0 works just fine with the mapping of shift register bits to
-LCD1602 bits when using the AdaFruit SPI/I2C-LCD1602 interface module in SPI
-mode. For the Cow Pi Mark 3 and 4 series, we elected to have the SPI bit mapping
-match the I2C bit mapping, and we haven't yet updated the library's LCD1602
-SPI functions to use this particular mapping. Naturally, you can expect this
-mapping to be supported in the next library update. (Also, this being a board to
-support labs in which students will write their own functions, you can always do
-that.)
