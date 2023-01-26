@@ -230,29 +230,29 @@ static void cowpi_lcd1602_send_halfbyte_i2c(uint8_t halfbyte, bool is_command) {
     }
     // start bit
     TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTA);
-    while (!(TWCR & (1<<TWINT)));
-    if ((TWSR & 0xF8) != 0x08) cowpi_error("Controller did not send I2C start!");
+    while (!(TWCR & (1<<TWINT))) {}
+//    if ((TWSR & 0xF8) != 0x08) cowpi_error("Controller did not send I2C start!");
     // I2C address + /w
     TWDR = cowpi_get_display_i2c_address() << 1;
     TWCR = (1<<TWINT) | (1<<TWEN);
-    while (!(TWCR & (1<<TWINT)));
-    if ((TWSR & 0xF8) != 0x18) cowpi_error("I2C peripheral did not receive address!");
+    while (!(TWCR & (1<<TWINT))) {}
+//    if ((TWSR & 0xF8) != 0x18) cowpi_error("I2C peripheral did not receive address!");
     // place data on the line
     TWDR = packet;
     TWCR = (1<<TWINT) | (1<<TWEN);
-    while (!(TWCR & (1<<TWINT)));
-    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive data!");
+    while (!(TWCR & (1<<TWINT))) {}
+//    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive data!");
     // pulse
     TWDR = packet | en;
     TWCR = (1<<TWINT) | (1<<TWEN);
-    while (!(TWCR & (1<<TWINT)));
-    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive leading edge of the pulse!");
+    while (!(TWCR & (1<<TWINT))) {}
+//    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive leading edge of the pulse!");
     delayMicroseconds(1);
     // end the pulse
     TWDR = packet;
     TWCR = (1<<TWINT) | (1<<TWEN);
-    while (!(TWCR & (1<<TWINT)));
-    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive the trailing edge of the pulse!");
+    while (!(TWCR & (1<<TWINT))) {}
+//    if ((TWSR & 0xF8)!= 0x28) cowpi_error("I2C peripheral did not receive the trailing edge of the pulse!");
     // stop bit
     TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
 /*
