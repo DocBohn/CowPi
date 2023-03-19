@@ -1,5 +1,5 @@
 %%
-%% Cow Pi Datasheet (c) 2021-22 Christopher A. Bohn
+%% Cow Pi Datasheet (c) 2021-23 Christopher A. Bohn
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -16,25 +16,28 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{arydshln}
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{etoolbox}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[procnames]{listings}
+\usepackage{multirow}
 \usepackage{setspace}
 \usepackage{subfig}
 \usepackage{textcomp}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric}
 \usepackage{xcolor}
+\usepackage{multirow}
 
 \lstset{language=C, tabsize=4, upquote=true, basicstyle=\ttfamily, numberstyle=\color{gray}, numbers=left, showspaces=false, showstringspaces=false}
 \newcommand{\function}[1]{\textbf{\lstinline{#1}}}
 \newcommand{\functionitem}[3]{\item \hypertarget{function:#2}{\lstinline{#1} \function{#2} \lstinline{(#3)}}\addcontentsline{toc}{subsubsection}{\function{#2}}}
 \hypersetup{colorlinks=true}
 
-\input{macros.tex}
+\input{macros}
 
 \begin{document}
     \pagestyle{fancy}
@@ -42,13 +45,15 @@
     \lhead{Cow Pi \cowpiversion\ Development Board}
     \rhead{CowPi v\softwareversion\ Library}
     \cfoot{\thepage}
-    \title{Cow Pi, \hardwareversion\footnote{The Cow Pi hardware design, library, example code, and documentation \copyright 2021--22, Christopher A. Bohn}}
+    \title{Cow Pi, \hardwareversion\footnote{The Cow Pi hardware design, library, example code, and documentation \\ \copyright 2021--23, Christopher A. Bohn\tiny{, and licensed under the Apache~2.0 License. See \url{https://github.com/DocBohn/CowPi/} for details.}}}
     \author{Datasheet}
     \date{}
     \maketitle
 
     The \hardwareversion\ Cow Pi is a member of the Cow Pi product line from Eclectic Electronics\footnote{
-        Eclectic Electronics is a joint subsidiary of The Pleistocene Petting Zoo, a Limited-Reality Corporation, and of Babbage's Analytic Engines, a Frankly-Figmentary Partnership.}
+        Eclectic Electronics is a joint subsidiary of The Pleistocene Petting Zoo, a Limited-Reality Corporation, and of Babbage's Analytic Engines, a Frankly-Figmentary Partnership. \\
+        \tiny{(These are fictional companies imagined by Christopher Bohn for course assignments. You didn't think they really existed, did you? \\ Christopher Bohn, however, really does exist and can be contacted at \href{mailto:bohn@unl.edu}{bohn@unl.edu}.)}
+    }
     and is guaranteed to bring you minutes of fun.
     Whether you need a 4-function calculator to count your terror bird eggs before they hatch, an electronic combination lock to secure your wildly-dangerous experimental robots, or a motion alarm to protect yourself from zombie gourds, using the Cow Pi development board is your best option.
 

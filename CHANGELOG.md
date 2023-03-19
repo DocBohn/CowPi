@@ -16,6 +16,10 @@ and this project adheres to
 
 - Bit-banged I2C implementation
 - Microcontroller-dependent code other than that for ATMega328P
+- Implementation that uses Raspberry Pi Pico SDK
+- Code to detect keypresses without interrupts
+- Plug-and-play debouncing code
+- Place an entire string on an LCD1602 row
 
 <!--
 - `Added` for new features.

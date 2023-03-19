@@ -1,10 +1,12 @@
-# Datasheet Placeholder
+# Datasheet
 
-We appreciate your confidence in us that we'd have a consolidated datasheet
-ready. Since it needs to be ready before the relevant labs this semester, you
-can be assured that it'll be ready soon.
+As with many things, the datasheet is a work-in-progress.
 
-Meanwhile, here are the original datasheets:
+The datasheet combines information about the Cow Pi hardware and the CowPi library.
+The hardware version can be specified through the Makefile target (`make mk1c`, `make mk1d`, or `make mk3a`).
+The library information will be for the most-current version of the library (currently, v0.4) that is relevant to the specified hardware version.
+
+If you're interested, here are the original datasheets:
 
 - [ATmega328P](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf)
 - [MAX7219](https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf)

@@ -3,7 +3,7 @@ however, it also has a much more extensive set of memory-mapped input/output reg
 We recommend using the memory-mapped I/O registers and describe them here.
 
 The tables in Section~\ref{sec:IOregisterDescriptions} include each register's address offset, in bytes, from the base address of the I/O region of the ATmega328P's memory address space.
-The CowPi library provides a constant pointer to that base address, \lstinline{uint8_t *const COWPI_IO_BASE}.
+The CowPi library provides a constant for that base address, \lstinline{COWPI_IO_BASE}.
 
 \subsection{External Pins Input/Output}
 
@@ -14,7 +14,7 @@ Table~\ref{tab:IOregisters} shows these nine registers and their corresponding a
 \textit{You do not need to configure the pins' directions for input or output;
 the \function{cowpi_setup()} function takes care of all necessary configuration.}
 
-\begin{table}[b]
+\begin{table}[t]
     \centering \footnotesize
     \begin{tabular}{|r|c||c|c|c|c|c|c|c|c|}
         \hline
@@ -38,17 +38,17 @@ For example, pin \texttt{D10} is labeled ``PB2'' indicating that it is part of p
 If \texttt{D10} were an input pin, then we could determine the pin's logic level by using a bitmask to examine \texttt{PINB}'s bit 2.
 On the other hand, if \texttt{D10} were an output pin, then we could set the pin's logic level to high or low by assigning a 1 or 0, respectively, to \texttt{PORTB}'s bit 2, using the read/modify/write pattern.
 
-\subsubsection{Structure for Memory-Mapped Input/Output}
+\subsubsection{Structure for Memory-Mapped Input/Output} \label{subsubsec:mmap_io_struct}
 
 The CowPi library provides data structures to access the memory-mapped I/O registers in a more readable form.
 Specifically, the \lstinline{cowpi_ioport_t} structure eliminates the need to remember which I/O port registers are used for output to peripherals and which are used for input from peripherals.
 
-\lstinputlisting[linerange=130-140, firstnumber=130, basicstyle=\small]{../../src/cowpi_atmega328p.h}
+\lstinputlisting[linerange=129-139, firstnumber=129, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
-The ATmega328P's three I/O ports are placed contiguously in the memory address space, which will allow us to create a pointer to the lowest-addressed port and then treat that pointer as an array of I/O ports.
+The ATmega328P's three I/O ports are placed contiguously in the memory address space, which will allow us to create a pointer to the lowest-addressed port (0x03 bytes above \lstinline{COWPI_IO_BASE}, per Table~\ref{tab:IOregisters}) and then treat that pointer as an array of I/O ports.
 Some named constants that we can use to index that array further eliminate the need to remember which port corresponds to each \mcuboard\ pin.
 
-\lstinputlisting[linerange=119-127, firstnumber=119, basicstyle=\small]{../../src/cowpi_atmega328p.h}
+\lstinputlisting[linerange=118-126, firstnumber=118, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
 We recommend using \lstinline{D0_D7}, \lstinline{D8_D13}, and \lstinline{D14_D19}.
 Using our earlier hypotheticals:
@@ -59,9 +59,9 @@ If \texttt{D10} were an input pin, then we could determine the pin's logic level
         (cowpi_ioport_t *)(COWPI_IO_BASE + 0x3); // an array of I/O ports
     uint8_t logic_level = ioports[D8_D13].input & (1 << (10-8));
 \end{lstlisting}
-In the first line, we created our array of \lstinline{cowpi_ioport_t} structures and assigned the array's base address to three bytes above the I/O base address.
+In the first two lines, we created our array of \lstinline{cowpi_ioport_t} structures and assigned the array's base address to three bytes above the I/O base address.
 Most likely, you would only need to do this once per program.
-In the second line, we indexed the array using a named constant.
+In the final line, we indexed the array using a named constant.
 The convenient mapping of the \mcuboard's pins to the ATMega328P's I/O registers allows us to use named constants whose names help us remember which constant is appropriate for the pin we're using.
 After indexing the array, we select the \lstinline{input} field because in this hypothetical, pin \texttt{D10} is an input pin.
 We use a bitmask so that we only capture the logic level of the pin we're interested in.
@@ -80,6 +80,7 @@ or double-negate:
 \end{lstlisting}
 
 On the other hand, if \texttt{D10} were an output pin, then we could set the pin's logic level with C code similar to this:
+\newpage
 \begin{lstlisting}
     volatile cowpi_ioport_t *ioports =
         (cowpi_ioport_t *)(COWPI_IO_BASE + 0x3); // an array of I/O ports
@@ -90,7 +91,7 @@ On the other hand, if \texttt{D10} were an output pin, then we could set the pin
 \end{lstlisting}
 
 This code uses the read/modify/write pattern:
-Obtain the existing output values for the relevant bank of pins, then a 0 or 1 to the specific bit while preserving all of the other pins' output values, and then assign the resulting bit vector to the bank's output register.
+Obtain the existing output values for the relevant bank of pins, then create a bit vector that can be used to set 0 or 1 in the specific bit while preserving all of the other pins' output values, and then finally assign the resulting bit vector to the bank's output register.
 If the new logic level is in a variable and you don't know whether you're assigning a 0 or a 1, a good choice would be to clear the relevant bit to 0 and then use a bitwise OR to assign the appropriate value to the specific bit:
 \begin{lstlisting}[firstnumber=3]
     uint8_t logic_level = ... // assume logic_level is strictly 0 or 1
@@ -99,6 +100,30 @@ If the new logic level is in a variable and you don't know whether you're assign
 \end{lstlisting}
 
 % add SPI ... later
+
+\subsubsection{Mapping Input/Output Devices to I/O Port Array}
+
+% add SPI ... later
+
+Section~\ref{subsubsec:mmap_io_struct} describes the I/O ports, a structure definition, and named constants that can be used to access the inputs and outputs attached to the \mcuboard's pins.
+Figure~\ref{fig:pinouts-nano-i2c} in Section~\ref{subsec:theboard} shows which input/output devices are attached to the various \mcuboard\ pins.
+Combining this information, we arrive at the mapping in Table~\ref{tab:map_devices_to_array}.
+
+\begin{table}[h]
+    \centering \footnotesize
+    \begin{tabular}{|r|l||p{1.25cm}|p{1.25cm}|p{1.25cm}|p{1.25cm}|p{1.25cm}|p{1.25cm}|p{1.25cm}|p{1.25cm}|}
+        \hline
+        \textbf{Array Element}              & \textbf{Field}    & \textbf{Bit 7}    & \textbf{Bit 6}    & \textbf{Bit 5}    & \textbf{Bit 4}    & \textbf{Bit 3}    & \textbf{Bit 2}    & \textbf{Bit 1}    & \textbf{Bit 0}    \\ \hline\hline
+        \multirow{4}{*}{ioports[D0\_D7]}    & .input            & \textemdash       & \textemdash       & \textemdash       & \textemdash       & Keypad NAND       & Button NAND       & \textemdash       & \textemdash       \\ \cdashline{2-10}[0.5pt/5pt]
+                                            & .output           & Keypad Row *      & Keypad Row 7      & Keypad Row 4      & Keypad Row 1      & \textemdash       & \textemdash       & \textemdash       & \textemdash       \\ \hline\hline
+        \multirow{4}{*}{ioports[D8\_D13]}   & .input            & \textemdash       & \textemdash       & \textemdash       & \textemdash       & Left Switch       & Right Switch      & Right Button      & Left Button       \\ \cdashline{2-10}[0.5pt/5pt]
+                                            & .output           & \textemdash       & \textemdash       & Left LED          & Right LED         & \textemdash       & \textemdash       & \textemdash       & \textemdash       \\ \hline\hline
+        \multirow{3}{*}{ioports[D14\_D19]}  & .input            & \textemdash       & \textemdash       & \multicolumn{2}{c|}{\multirow{3}{*}{controlled by I$^2$C}} & Keypad Col A     & Keypad Col 3      & Keypad Col 2      & Keypad Col 1      \\ \cdashline{2-4}[0.5pt/5pt]\cdashline{7-10}[0.5pt/5pt]
+                                            & .output           & \textemdash       & \textemdash       & \multicolumn{2}{c|}{for display module}                   & \textemdash       & \textemdash       & \textemdash       & \textemdash       \\ \hline
+    \end{tabular}
+    \caption{A mapping of input/output devices to fields in the I/O ports array elements. \label{tab:map_devices_to_array}}
+\end{table}
+
 
 \subsection{Inter-Integrated Circuit Protocol}
 
@@ -138,11 +163,12 @@ If you choose to expand the Cow Pi in such a manner that other I$^2$C modes are 
 The CowPi library provides data structures to access the memory-mapped I/O registers in a more readable form.
 Specifically, the \lstinline{cowpi_i2c_t} structure provides meaningfully-named fields in place of the 4--5-letter register names.
 
-\lstinputlisting[linerange=151-161, firstnumber=151, basicstyle=\small]{../../src/cowpi_atmega328p.h}
+\newpage
+\lstinputlisting[linerange=150-160, firstnumber=150, basicstyle=\small]{../../src/cowpi_atmega328p.h}
 
 Unlike the I/O registers for the external pins, you will not have an array of \lstinline{cowpi_i2c_t} structures;
 you'll have just the one.
-Create a pointer to a \lstinline{cowpi_i2c_t} structure that points to the lowest-addressed register (TWBR).
+Create a pointer to a \lstinline{cowpi_i2c_t} structure that points to the lowest-addressed register (TWBR, 0x98 bytes above \lstinline{COWPI_IO_BASE}, per Table~\ref{tab:TWIregisters}).
 For example, if we wanted to determine if a status had been set and then set the TWI Enable bit (TWEN), then we could do so with C code similar to this:
 
 \begin{lstlisting}
@@ -152,15 +178,17 @@ For example, if we wanted to determine if a status had been set and then set the
 \end{lstlisting}
 
 %%% Hmm... we could divide the status field into three bit fields, prescaler:2, anonymous:1, status:5, thereby eliminating the need to mask-off irrelevant TWSR bits
+%%% But since we're not doing error-checking anymore, there's not much gain to be had by doing so
 
 You may have noticed that this code does not use the read/modify/write pattern.
 Because of the particular uses of the control bits, you may find it easier to explicitly assign each control bit value afresh, rather than modify the pre-existing values.
 
-\subsubsection{Control, Status, and Data Bits} \label{subsubsec:TWIbits}
+%\subsubsection{Control, Status, and Data Bits} \label{subsubsec:TWIbits}
+\subsubsection{Control and Data Bits} \label{subsubsec:TWIbits}
 
 Table~\ref{tab:TWIregisters} identifies the particular bits in each of the I$^2$C registers.
 
-\begin{table}
+\begin{table}[b]
     \centering \footnotesize
     \begin{tabular}{|r|c||c|c|c|c|c|c|c|c|}
         \hline
@@ -181,7 +209,8 @@ Table~\ref{tab:TWIregisters} identifies the particular bits in each of the I$^2$
     \caption{ATmega328P ``Two Wire Interface'' registers. \tiny Original data from ATmega382P datasheet, §21.9.\cite{ATmega328P} \label{tab:TWIregisters}}
 \end{table}
 
-In this section we shall describe only the control, status, and data bits.
+%In this section we shall describe only the control, status, and data bits.
+In this section we shall describe only the control and data bits.
 If you need information about the setting the bit rate, or configuring the peripheral address and address mask, see Section~21.9 of the ATmega328P datasheet\cite{ATmega328P} for the bit descriptions, and Chapter~21 generally for the bits' uses.
 
 \paragraph{Data Bits}
@@ -218,27 +247,27 @@ There are seven bits that either allow a program to control the I$^2$C hardware 
         The \function{cowpi_setup()} function initially disables TWI interrupts.
 \end{description}
 
-\paragraph{Status Bits}
-
-Only the upper five bits of the status register are used to provide the status of I$^2$C operations.
-When reading the status register, use a bitmask to capture only the upper five bits, as shown in Section~\ref{subsubsec:TWIstruct}.
-
-When the I$^2$C hardware is in controller transmitter mode, the possible status values are:
-
-\begin{description}
-    \item[0x08] A Start Bit has been transmitted.
-    \item[0x10] A ``Repeated Start'' Bit has been transmitted.
-        A Repeated Start Bit is used when the controller is going to address a different peripheral, or when the controller is going to change modes, without giving up control of the I$^2$C bus.
-        (Normal Cow Pi use will not require a program to send a Repeated Start Bit.)
-    \item[0x18] The address of the desired peripheral's address has been transmitted, along with the bit indicating that the mode is controller transmitter, and the controller received an ACK\@.
-    \item[0x20] The address of the desired peripheral's address has been transmitted, along with the bit indicating that the mode is controller transmitter, and the controller received a NACK\@.
-    \item[0x28] The data byte has been transmitted, and the controller received an ACK\@.
-    \item[0x30] The data byte has been transmitted, and the controller received a NACK\@.
-    \item[0x38] The controller was not able to claim control of the I$^2$C bus, but a Start Bit will be transmitted when the bus becomes available.
-        (In normal Cow Pi use, there will not be another controller using the bus.)
-\end{description}
-
-See Table~21.4 of the ATmega382P datasheet\cite{ATmega328P} for controller receiver status values, Table~21.5 for peripheral receiver status values, and Table~21.6 for peripheral transmitter status values.
+%\paragraph{Status Bits}
+%
+%Only the upper five bits of the status register are used to provide the status of I$^2$C operations.
+%When reading the status register, use a bitmask to capture only the upper five bits, as shown in Section~\ref{subsubsec:TWIstruct}.
+%
+%When the I$^2$C hardware is in controller transmitter mode, the possible status values are:
+%
+%\begin{description}
+%    \item[0x08] A Start Bit has been transmitted.
+%    \item[0x10] A ``Repeated Start'' Bit has been transmitted.
+%        A Repeated Start Bit is used when the controller is going to address a different peripheral, or when the controller is going to change modes, without giving up control of the I$^2$C bus.
+%        (Normal Cow Pi use will not require a program to send a Repeated Start Bit.)
+%    \item[0x18] The address of the desired peripheral's address has been transmitted, along with the bit indicating that the mode is controller transmitter, and the controller received an ACK\@.
+%    \item[0x20] The address of the desired peripheral's address has been transmitted, along with the bit indicating that the mode is controller transmitter, and the controller received a NACK\@.
+%    \item[0x28] The data byte has been transmitted, and the controller received an ACK\@.
+%    \item[0x30] The data byte has been transmitted, and the controller received a NACK\@.
+%    \item[0x38] The controller was not able to claim control of the I$^2$C bus, but a Start Bit will be transmitted when the bus becomes available.
+%        (In normal Cow Pi use, there will not be another controller using the bus.)
+%\end{description}
+%
+%See Table~21.4 of the ATmega382P datasheet\cite{ATmega328P} for controller receiver status values, Table~21.5 for peripheral receiver status values, and Table~21.6 for peripheral transmitter status values.
 
 \subsubsection{Controller Transmitter Sequence} \label{subsubsec:controllerTransmitterSequence}
 
@@ -323,6 +352,7 @@ i2c->control := bitwise_or(control_bits, shift_left(1,4))
 The \function{cowpi_setup()} function configures the display module so that it can be controlled with 8~bits in parallel.
 One of the tradeoffs is that each character or command byte must be transmitted as two halfbytes.
 The CowPi library's \function{cowpi_lcd1602_send_command()} and \function{cowpi_lcd1602_send_character()} functions take care of dividing the full byte into two halfbytes, and passing each halfbyte to \function{cowpi_lcd1602_send_halfbyte()} in the appropriate order.
+\textit{\textbf{When a halfbyte is passed to }}\function{cowpi_lcd1602_send_halfbyte()}\textit{\textbf{, it will be in the lower 4 bits of the }}\lstinline{halfbyte}\textit{\textbf{ argument}}, regardless of which of the two halfbytes it is.
 
 The I$^2$C adapter\cite{i2cAdapter} converts the serial data coming from the microcontroller into the parallel data that the display module requires.
 For this to be effective, the \function{cowpi_lcd1602_send_halfbyte()} function must pack the bits in the order that the I$^2$C adapter expects.
@@ -339,7 +369,7 @@ When constructing a byte to place in the I$^2$C Data Register:
     \begin{tabular}{|r||c|c|c|c|c|c|c|c|} \hline
         Data Register   & Bit 7 & Bit 6 & Bit 5 & Bit 4 & Bit 3 & Bit 2 & Bit 1 & Bit 0 \\ \hline
         LCD1602 Bit     & D7    & D6    & D5    & D4    & BT    & EN    & RW    & RS    \\ \hline
-        Bit source      & \multicolumn{4}{|c|}{\lstinline{shift_left(halfbyte,4)}} & backlight on/off & latch data & read/write & \texttt{is\_command} \\ \hline % LaTeX isn't happy with lstinline in that last cell
+        Bit source      & \multicolumn{4}{|c|}{\lstinline{shift_left(halfbyte,4)}} & backlight on/off & latch data & read/write & \texttt{!is\_command} \\ \hline % LaTeX isn't happy with lstinline in that last cell
     \end{tabular}
     \caption{The \lstinline{COWPI_DEFAULT} mapping of I$^2$C data bits to LCD1602 bits. \label{tab:LCD1602bits}}
 \end{table}
@@ -352,7 +382,7 @@ When constructing a byte to place in the I$^2$C Data Register:
     \item[Bit 1] Bit 1 informs the LCD1602 whether data is being sent to it, or if a data request is being made of it;
         while it is possible to query the display module's memory, the Cow Pi library does not support this feature, and bit 1 should always be 0.
     \item[Bit 0] Bit 0 informs the LCD1602 whether the halfbyte that it receives is part of a command or is part of a character;
-        the \lstinline{is_command} argument passed to \function{cowpi_lcd1602_send_halfbyte()} should be placed in this bit.
+        if the \lstinline{is_command} argument passed to \function{cowpi_lcd1602_send_halfbyte()} is true, then bit~0 should be 0; otherwise, bit~0 should be 1.
 \end{description}
 
 \paragraph{Data Byte Sequence}

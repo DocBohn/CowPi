@@ -2,7 +2,7 @@
 
 This section describes the \hardwareversion\ Cow Pi development board, describes the theory of operation for its components, and summarizes the features of its display module.
 
-\subsection{Cow Pi Development Board}
+\subsection{Cow Pi Development Board}\label{subsec:theboard}
 
 The Cow Pi development board consists of a microcontroller board (\mcuboard), a display module (\displaymoduledescription), a $4 \times 4$ matrix keypad, two momentary buttons, two toggleable switches, and two LEDs.
 The board is assembled on a \construction; see Figure~\ref{fig:photograph}.
@@ -135,7 +135,7 @@ When a key is pressed, its column will then become low.
 \end{figure}
 
 A keypress, thus, can be detected based on the values read from the columns' pins.
-An pin-change interrupt that is triggered by a change on the columns' pins can be used to indicate that a key has been pressed;
+A pin-change interrupt that is triggered by a change on the columns' pins can be used to indicate that a key has been pressed;
 however, for the \hardwareversion~Cow Pi, it is probably easier to use an external interrupt that is triggered by a change in the output of the NAND gate that is also connected to the keypad's columns (see Section~\ref{sec:Interrupts}).
 As an alternative to using an interrupt, an application programmer can poll the four columns' pins.
 If, collectively, they produce the bit vector 0xF, then no key is being pressed;
@@ -227,20 +227,21 @@ For example, if you need to return a character that corresponds to the face valu
 If the keypad is wired to the \mcuboard\ such that four contiguous output pins are connected to the rows and four contiguous input pins are connected to the columns (as is the case for the Cow Pi), then this pseudocode will scan the keypad and determine which key, if any, is pressed:
 Note that this pseudocode will report at most one key pressed;
 it would have to be modified to report multiple keys pressed.
-(This is not a limitation for mark~1 Cow Pis, as their keypads are wired without protection against shorting power to ground when two keys are pressed simultaneously.)
+(This software limitation is not a limitation for mark~1 Cow Pis, as mark~1 Cow Pis have a hardware limitation:
+their keypads have no protection against shorting power to ground when two keys are pressed simultaneously.)
 
-\begin{lstlisting}[language=pascal,basicstyle=\rmfamily\footnotesize,literate={:=}{{$\gets$}}1 {<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1 {->}{{$\succ$}}1]
+\begin{lstlisting}[language=pascal,basicstyle=\rmfamily\footnotesize,literate={:=}{{$\gets$}}1 {<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1 {->}{{$\succ$}}1, escapechar=`]
 for each row:
     row_bit_vector := 0b1111    (* set all rows to 1 *)
     row_bit_vector(row) := 0    (* except the row we're currently examining *)
-    wait at least one microcontroller clock cycle
+    wait at least one microcontroller clock cycle   `\label{line:keypad_delay}`
     for each column:
         if (column_bit_vector(column) = 0):
             key_pressed := keys(row,column)
 row_bit_vector := 0b0000        (* set all rows to 0 to detect the next keypress *)
 \end{lstlisting}
 
-The delay shown in line 4 is sometimes, but not always necessary.
+The delay shown in line~\ref{line:keypad_delay} is sometimes, but not always necessary.
 There is a slight delay between setting a pin's output value and being able to detect the change by reading a different pin's input value.
 Some realizations of the pseudocode attempt to read the change before it can be read reliably;
 this usually manifests as one of the keypad's columns not being readable.

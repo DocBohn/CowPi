@@ -34,7 +34,7 @@ More complete documentation can be obtained by processing the library's source c
             Sets the I$^2$C address for an I$^2$C-driven display module. \\ \\
             Because the I$^2$C protocol uses addresses to select the peripheral that the microcontroller is communicating with, the display module's address needs to be set.
             If the SPI protocol is being used, then there is no need to call this function. \\ \\
-            The common PCF8574-based interfaces used with LCD1602 display modules typically have an address of 0x27, but this can readily be changed.
+            The common PCF8574-based interfaces used with LCD1602 display modules typically have an address of 0x27, and we have encountered some interfaces with an address of 0x3F, but these addresses can readily be changed.
             \begin{description}
                 \item[parameters] \
                 \begin{description}
@@ -162,7 +162,7 @@ More complete documentation can be obtained by processing the library's source c
         Reports whether the right switch is in the right position. \\ \\
         There is no debouncing.
         This is a portable implementation, not a memory-mapped implementation. \\ \\
-        Assumes the right switch is in Arduino pin A5 (D1i) if SPI (but not I$^2$C) is in use or if no protocol is in use;
+        Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I$^2$C) is in use or if no protocol is in use;
         assumes the switch is in pin D10 if I$^2$C (but not SPI) is in use.
         If both protocols are in use, then this function will always return \lstinline{false}.
         A switch in the right position floats, allowing a pulled-high input to remain high.
@@ -340,7 +340,7 @@ More complete documentation can be obtained by processing the library's source c
                 Initially, \function{cowpi_lcd1602_send_halfbyte()} is one of two default implementations, depending on the protocol specified in the argument to \function{cowpi_setup()}.
                 The SPI implementation is a portable software-only implementation that does not use SPI hardware, nor does it use memory-mapped I/O of any form.
                 The I$^2$C implementation currently makes use of the I$^2$C hardware using avr-libc macros. \\ \\
-                Re-implementing this function to use SPI or I2C hardware is a possible part of a memory-mapped I/O lab assignment. \\ \\
+                Re-implementing this function to use SPI or I$^2$C hardware is a possible part of a memory-mapped I/O lab assignment. \\ \\
                 SPI: Assumes the display module's data-in line is connected to the microcontroller's COPI pin (D11 on most Arduino boards), the display module's serial-clock line is connected to the microcontroller's SCK pin (D13 on most Arduino boards), and the display module's chip-select line is connected to Arduino pin D10. \\ \\
                 I$^2$C: Assumes the display module's data line is connected to the microcontroller's SDA pin (D18 on most Arduino boards) and the display module's serial-clock line is connected to the microcontroller's SCL pin (D19 on most Arduino boards).
                 \begin{description}

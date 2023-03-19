@@ -32,7 +32,7 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
     The simplest way to use \function{printf()} is to use it like you would on a desktop system or server (lines 7--8).
 
     Due to the limited amount of SRAM, you may wish to store string constants in flash memory instead of SRAM.
-    While avr-gcc will place string constants in flash memory by default microcontrollers that map instruction memory into the data memory address space, such as the ATmega4809, it does not do so for microcontrollers that have fully-distinct instruction and data address spaces.
+    While avr-gcc will place string constants in flash memory by default microcontrollers that map instruction memory into the data memory address space, such as the ATmega4809, it does not do so for microcontrollers that have fully-distinct instruction and data address spaces, such as the ATmega328P.
     The Arduino toolchain includes the \function{F()} macro that places string constants in flash memory and generates pointers that can be used by \function{Serial.printXX()} functions (lines 10--11).
     The \function{F()} macro does not work with \function{printf()}, but a work-around is shown in lines 13--19:
     \begin{itemize}
@@ -58,20 +58,20 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
     \lstinputlisting{../../examples/simple_io_test/simple_io_test.ino}
 
     Because this program does not use the display module, the call to \hyperlink{function:cowpi_setup}{\function{cowpi_setup()}} does not specify a display module.
-    We do, however, need to specify which serial communication protocol will be used with the display module (lines 12--13) because that affects which pins the toggleable switches are connected to for Arduino-based Cow Pi development boards.
+    We do, however, need to specify which serial communication protocol will be used with the display module (lines 13--14) because that affects which pins the toggleable switches are connected to for Arduino-based Cow Pi development boards.
     For the Cow Pi \cowpiversion, specify \ifdefstring{\cowpiversion}{mk3a}{whichever protocol the board is configured for}{the \ifboolexpe{bool{spi}}{SPI}{}\ifboolexpe{bool{i2c}}{I$^2$C}{} protocol}.
 
-    The function calls on lines~26 and 34 are to \function{digitalRead()} from the Arduino toolchain.
+    The function calls on lines~27 and 35 are to \function{digitalRead()} from the Arduino toolchain.
     If you're using the CowPi library, using \function{digitalRead()} (and \function{digitalWrite()}) is generally frowned-upon.
     Much more efficient code is possible by using I/O registers (see Section~\ref{sec:IOregisterDescriptions});
     however, in this case we wanted the example to be portable across many microcontrollers.
     Directly reading individual keypad column pins or the NAND pins isn't a likely scenario in application code, so the CowPi library doesn't have functions to support it.
     (Reading the keypad column pins would be part of code that scans the keypad, and the NAND pins would be used to trigger external interrupts (see Section~\ref{sec:Interrupts})).
 
-    The call to \hyperlink{function:cowpi_get_keypress}{\function{cowpi_get_keypress()}} on line 25 (truncated here but fully-visible in the copy available through the Arduino IDE's *Examples* menu) demonstrates that the function behaves as specified: it returns a \texttt{NUL} character when no key is pressed, and a printable character when a key is pressed.
-    We see on lines 28--29, 37, and 44, that the left and right switches can be independently checked for being in the left or right position.
-    Similarly, on lines 31--32, 37, and 44, we see that the left and right buttons can be independently checked to determine whether one is pressed.
-    Finally, on lines 39, 42, 46, and 49, we see that the left and right LEDs can be independently illuminated and deluminated.
+    The call to \hyperlink{function:cowpi_get_keypress}{\function{cowpi_get_keypress()}} on line 26 (truncated here but fully-visible in the copy available through the Arduino IDE's *Examples* menu) demonstrates that the function behaves as specified: it returns a \texttt{NUL} character when no key is pressed, and a printable character when a key is pressed.
+    We see on lines 29--30, 38, and 45, that the left and right switches can be independently checked for being in the left or right position.
+    Similarly, on lines 32--33, 38, and 45, we see that the left and right buttons can be independently checked to determine whether one is pressed.
+    Finally, on lines 40, 43, 47, and 50, we see that the left and right LEDs can be independently illuminated and deluminated.
 
 \ifboolexpe{bool{max7219matrix}}{\dots\dots Show max7219\_matrix\_hello\_world, pointing out the font functions \dots\dots the font functions need to be added to the software section \dots\dots}{}
 
@@ -84,29 +84,29 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
 
     \lstinputlisting{../../examples/lcd1602_hello_world/lcd1602_hello_world.ino}
 
-    In general, there is no need to setup \texttt{stdio} (line~4); however in this case we do so that we can provide information to someone who is assembling a Cow Pi development board (lines~28--29).
+    In general, there is no need to setup \texttt{stdio} (line~4); however in this case we do so that we can provide information to someone who is assembling a Cow Pi development board (lines~24--25).
 
-    Unlike the simple I/O demonstration, since this example uses a display module, we do need to specify which display module we're using on line~26 so that the display module can be configured properly.
+    Unlike the simple I/O demonstration, since this example uses a display module, we do need to specify which display module we're using on line~22 so that the display module can be configured properly.
     We also specify whether to use SPI or I$^2$C.
-    If using I$^2$C, we need to call \hyperlink{function:cowpi_set_display_i2c_address}{\function{cowpi_set_display_i2c_address()}} (line~22) before calling \function{cowpi_setup()}.
-    For LCD1602 serial adapters, specifying \texttt{0x27} as the address is a very good choice unless you know that your adapter has been modified to use a different address.
-    If \texttt{0x27} doesn't work when assembling a Cow Pi development board, double-check the wiring;
+    If using I$^2$C, we need to call \hyperlink{function:cowpi_set_display_i2c_address}{\function{cowpi_set_display_i2c_address()}} (line~19) before calling \function{cowpi_setup()}.
+    For LCD1602 serial adapters, specifying \texttt{0x27} as the address is a very good choice, and \texttt{0x3F} is a good choice if \texttt{0x27} does not work for an unmodified serial adapter, unless you know that your adapter has been modified to use a different address.
+    If \texttt{0x27} and \texttt{0x3F} don't work when assembling a Cow Pi development board, double-check the wiring;
     if the wiring is good, then run a program to scan the I$^2$C for peripherals and report their addresses.\footnote{
         Such a program is available on the Arduino website: \url{https://playground.arduino.cc/Main/I2cScanner/}.}
 
     Some of the functionality demonstrated in this program is:
     \begin{itemize}
-        \item Using \hyperlink{function:cowpi_lcd1602_place_cursor}{\function{cowpi_lcd1602_place_cursor()}} (line~33) to position the cursor on the bottom row, column 15
-        \item Using \hyperlink{function:cowpi_lcd1602_return_home}{\function{cowpi_lcd1602_return_home()}} (line~42) to position the cursor on the top row, column 0
-        \item Using \hyperlink{function:cowpi_lcd1602_send_command}{\function{cowpi_lcd1602_send_command()}} (lines~34 \& 43) to change the direction that the cursor moves after placing a character
+        \item Using \hyperlink{function:cowpi_lcd1602_place_cursor}{\function{cowpi_lcd1602_place_cursor()}} (line~29) to position the cursor on the bottom row, column 15
+        \item Using \hyperlink{function:cowpi_lcd1602_return_home}{\function{cowpi_lcd1602_return_home()}} (line~38) to position the cursor on the top row, column 0
+        \item Using \hyperlink{function:cowpi_lcd1602_send_command}{\function{cowpi_lcd1602_send_command()}} (lines~30 \& 39) to change the direction that the cursor moves after placing a character
             \begin{itemize}
                 \item Note that since we didn't specify whether the text should shift after placing a character, the display module defaults to the text remaining stationary on the display
             \end{itemize}
-        \item Using \hyperlink{function:cowpi_lcd1602_send_character}{\function{cowpi_lcd1602_send_character()}} (lines~35, 36, 40 \& 48)
+        \item Using \hyperlink{function:cowpi_lcd1602_send_character}{\function{cowpi_lcd1602_send_character()}} (lines~31, 32, 36 \& 44)
             \begin{itemize}
-                \item On lines 35--36 we are obtaining the character representation of the address's hexadecimal address by adding the integer value of the character \textquotesingle 0\textquotesingle\ to each of the address's halfbyte
-                \item Notice that on lines 35--41 we are printing a ``backwards message'' from right to left, so that it appears correct when read from left to right
-                \item Note the idiom used in lines~39--41 and 47--49 to iterate over a string;
+                \item On lines 31--32 we are obtaining the character representation of the address's hexadecimal address by adding the integer value of the character \textquotesingle 0\textquotesingle\ to each of the address's halfbyte\footnote{These lines have a bug in that they will not correctly display hex digits \texttt{A}--\texttt{F}.}
+                \item Notice that on lines 31--37 we are printing a ``backwards message'' from right to left, so that it appears correct when read from left to right
+                \item Note the idiom used in lines~35--37 and 43--45 to iterate over a string;
                     alternatively: \\ % for some reason, \begin{lstlisting} and \end{lstlisting} doesn't work inside the ifboolexpe block
                     \texttt{for (const char *c = the\_message; c != \textquotesingle\textbackslash 0\textquotesingle; c++) \{ \\
                     \hspace*{1cm}cowpi\_lcd1602\_send\_character(c); \\
@@ -126,10 +126,10 @@ The CowPi v\softwareversion\ library has a few example programs to demonstrate t
 
     We'll examine creating custom characters after looking at some other aspects of the program.
     \begin{itemize}
-        \item This program uses \hyperlink{function:cowpi_lcd1602_place_character}{\function{cowpi_lcd1602_place_character()}} (lines~40, 47, \& 56) instead of \function{cowpi_lcd1602_send_character()};
+        \item This program uses \hyperlink{function:cowpi_lcd1602_place_character}{\function{cowpi_lcd1602_place_character()}} (lines~36, 43, \& 52) instead of \function{cowpi_lcd1602_send_character()};
             the difference is that \function{cowpi_lcd1602_send_character()} places a character at the cursor's location and then moves the cursor, whereas \function{cowpi_lcd1602_place_character()} places a character at a location specified in its arguments and does not change the cursor's location
-        \item On lines~48 \& 50, we check whether the next position would be located off of the 16-column screen (column 16 is a valid off-screen column but we don't want to place our stick figure someplace that we can't see it)
-        \item The custom characters are programmed into the display module with \hyperlink{function:cowpi_lcd1602_create_character}{\function{cowpi_lcd1602_create_character()}} (line~37)
+        \item On lines~44 \& 46, we check whether the next position would be located off of the 16-column screen (column 16 is a valid off-screen column but we don't want to place our stick figure someplace that we can't see it)
+        \item The custom characters are programmed into the display module with \hyperlink{function:cowpi_lcd1602_create_character}{\function{cowpi_lcd1602_create_character()}} (line~33)
     \end{itemize}
 
     The second argument to \function{cowpi_lcd1602_create_character()} is an 8-element array of bitvectors.
