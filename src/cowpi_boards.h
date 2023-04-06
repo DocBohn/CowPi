@@ -25,6 +25,8 @@
 #ifndef COWPI_BOARDS_H
 #define COWPI_BOARDS_H
 
+#include <stdint.h>
+
 #if defined ARDUINO_AVR_UNO || defined ARDUINO_AVR_NANO
 #include "cowpi_atmega328p.h"
 #elif defined ARDUINO_AVR_NANO_EVERY

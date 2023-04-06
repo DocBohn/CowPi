@@ -38,6 +38,7 @@
 #ifndef COWPI_LCD1602_H
 #define COWPI_LCD1602_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #ifdef __cplusplus

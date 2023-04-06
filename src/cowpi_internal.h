@@ -24,6 +24,8 @@
 #ifndef COWPI_INTERNAL_H
 #define COWPI_INTERNAL_H
 
+#include <stdint.h>
+
 /** @cond */
 
 /* Constants */

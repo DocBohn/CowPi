@@ -29,6 +29,7 @@
 
 #include <stdint.h>
 #include <avr/pgmspace.h>
+#include <stdint.h>
 
 /** @addtogroup font
  *  @{

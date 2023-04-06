@@ -28,6 +28,8 @@
 #ifndef COWPI_IO_H
 #define COWPI_IO_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

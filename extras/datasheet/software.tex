@@ -78,8 +78,8 @@ More complete documentation can be obtained by processing the library's source c
                 \item[returns] n/a
                 \item[notes] \
                 \begin{itemize}
-                    \item By default, \function{printf()} will not format floating point numbers;
-                        to override this behavior, add \texttt{\#define printf} to the start of your program
+                    \item By default, \function{printf()} will not format floating point numbers%;
+                        %to override this behavior, add \texttt{\#define printf} to the start of your program <-- for mbed -- also, maybe #undefine? -- but for avr-libc, requires linking to a library (https://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html)
                 \end{itemize}
             \end{description}
         }{}

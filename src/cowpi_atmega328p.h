@@ -45,6 +45,7 @@
 
 #include <Arduino.h>
 #include <avr/pgmspace.h>
+#include <stdint.h>
 #include "cowpi_setup.h"
 
 /** @addtogroup architecture

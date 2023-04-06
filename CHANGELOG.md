@@ -30,6 +30,12 @@ and this project adheres to
 - `Security` in case of vulnerabilities.
 -->
 
+## [0.4.1] - 2023-04-06
+
+### Fixed
+
+- Nested header files are not dependent on the order in which they are #include'd
+
 ## [0.4.0] - 2023-01-26
 
 ### Added

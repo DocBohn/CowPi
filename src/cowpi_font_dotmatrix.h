@@ -28,6 +28,7 @@
 #ifndef COWPI_FONT_DOTMATRIX_H
 #define COWPI_FONT_DOTMATRIX_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #ifdef __cplusplus

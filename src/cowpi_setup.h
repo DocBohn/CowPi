@@ -25,6 +25,8 @@
 #ifndef COWPI_SETUP_H
 #define COWPI_SETUP_H
 
+#include <stdbool.h>
+#include <stdint.h>
 
 /* Public-facing function prototypes */
 

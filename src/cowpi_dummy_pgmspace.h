@@ -17,6 +17,8 @@
 #ifndef COWPI_DUMMY_PGMSPACE_H
 #define COWPI_DUMMY_PGMSPACE_H
 
+#include <stdint.h>
+
 // One last protection against accidental misuse
 #ifndef ARDUINO_ARCH_AVR
 
