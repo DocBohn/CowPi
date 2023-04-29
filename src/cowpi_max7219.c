@@ -25,6 +25,7 @@
 #include "cowpi_max7219.h"
 #include "cowpi_internal.h"
 #include "cowpi_setup.h"
+#include "cowpi_dummy_pgmspace.h"
 
 
 /** @private */

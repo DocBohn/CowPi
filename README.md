@@ -22,7 +22,7 @@ We decided to create a library for three reasons:
   be able to work on polling logic using some of the functions in the library
   and then later replace those with functions that use memory-mapped I/O. Or
   they can start with memory-mapped I/O and then move on to the polling logic.
-  Before they library, students had no choice but to start with memory-mapped
+  Before the library, students had no choice but to start with memory-mapped
   I/O.
 - It allows us to replace parameterized macros with functions.
 - We can use more complex display modules. Originally, the Cow Pi's display

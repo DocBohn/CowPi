@@ -26,6 +26,7 @@
 #include "cowpi_setup.h"
 #include "cowpi_lcd1602.h"
 #include "cowpi_internal.h"
+#include "cowpi_dummy_pgmspace.h"
 
 
 #define ENTRY_MODE_MARKER 0x4

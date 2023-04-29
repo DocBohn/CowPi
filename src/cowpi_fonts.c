@@ -27,6 +27,7 @@
 #include "cowpi_font_7segment_internalfonts.h"
 #include "cowpi_font_dotmatrix.h"
 #include "cowpi_font_dotmatrix_internalfonts.h"
+#include "cowpi_dummy_pgmspace.h"
 
 /* 7-Segment Functions */
 

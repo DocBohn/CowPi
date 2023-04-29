@@ -30,23 +30,28 @@ extern "C" {
 
 #define PROGMEM
 
-inline char *strcpy_P(const char *destination, const char *source) __attribute__((__always_inline__));
-inline char *strcpy_P(const char *destination, const char *source) {
+static inline char *strcpy_P(const char *destination, const char *source) __attribute__((__always_inline__));
+static inline char *strcpy_P(const char *destination, const char *source) {
     return source;
 }
 
-inline const char *PSTR(const char *s) __attribute__((__always_inline__));
-inline const char *PSTR(const char *s) {
+static inline void *memcpy_P(const void *destination, const void* source, size_t size) __attribute((__always_inline__));
+static inline void *memcpy_P(const void *destination, const void* source, size_t size) {
+    return source;
+}
+
+static inline const char *PSTR(const char *s) __attribute__((__always_inline__));
+static inline const char *PSTR(const char *s) {
     return s;
 }
 
-inline uint8_t pgm_read_byte(const uint8_t *p) __attribute__((__always_inline__));
-inline uint8_t pgm_read_byte(const uint8_t *p) {
+static inline uint8_t pgm_read_byte(const uint8_t *p) __attribute__((__always_inline__));
+static inline uint8_t pgm_read_byte(const uint8_t *p) {
     return *p;
 }
 
-inline uint8_t pgm_read_word(const uint8_t *p) __attribute__((__always_inline__));
-inline uint8_t pgm_read_word(const uint8_t *p) {
+static inline uint8_t pgm_read_word(const uint8_t *p) __attribute__((__always_inline__));
+static inline uint8_t pgm_read_word(const uint8_t *p) {
     return *p;
 }
 

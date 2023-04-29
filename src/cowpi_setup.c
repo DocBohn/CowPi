@@ -26,6 +26,7 @@
 #include "cowpi_internal.h"
 #include "cowpi_setup.h"
 #include "cowpi_boards.h"
+#include "cowpi_dummy_pgmspace.h"
 
 
 static unsigned int cowpi_display_device_and_dialect = COWPI_DEFAULT;

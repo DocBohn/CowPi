@@ -98,6 +98,7 @@ ethumbs.db
 *.fdb_latexmk
 *.bbl
 *.blg
+*.toc   # all-powerful .gitignore forgot this
 
 # C files
 *.o
