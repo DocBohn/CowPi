@@ -30,6 +30,32 @@ and this project adheres to
 - `Security` in case of vulnerabilities.
 -->
 
+### Staging for v0.5
+
+#### Added
+
+- n/a
+
+#### Changed
+
+- n/a
+
+#### Deprecated
+
+- n/a
+
+#### Removed
+
+- n/a
+
+#### Fixed
+
+- n/a
+
+#### Security
+
+- n/a
+
 ## [0.4.1] - 2023-04-06
 
 ### Fixed

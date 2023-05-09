@@ -9,7 +9,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-22 Christopher A. Bohn
+/* CowPi (c) 2021-23 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,20 +93,6 @@ void cowpi_set_display_dialect(unsigned int dialect);
  *      configured dialect
  */
 unsigned int cowpi_get_display_dialect(void);
-
-/**
- * @brief Configures the CowPi library to use `stdio.h` functions.
- *
- * Configures `printf()` to write to, and `scanf()` to read from, the serial
- * interface between the microcontroller and the host computer. Calls to
- * `printf()` and `scanf()` that occur before the call to `cowpi_stdio_setup()`
- * will have no effect.
- *
- * @ingroup configuration
- *
- * @param baud the USART signal rate
- */
-void cowpi_stdio_setup(unsigned long baud);
 
 /**
  * @brief Identifies whether the SPI hardware will send the

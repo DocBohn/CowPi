@@ -114,6 +114,7 @@
 #include <Arduino.h>
 #include "cowpi_boards.h"
 #include "cowpi_setup.h"
+#include "cowpi_stdio.h"
 #include "cowpi_io.h"
 #include "cowpi_fonts.h"
 #include "cowpi_max7219.h"

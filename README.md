@@ -97,7 +97,7 @@ We have plans to make it work with the Arduino Mega 2560, the Arduino Nano
 Every, the Arduino Nano 33 IOT, and the Raspberry Pi Pico (both using the
 Arduino framework and using the Pico SDK). Probably the Raspberry Pi 4 and 400,
 too. Eventually the Arduino Nano 33 BLE Sense, the Arduino RP2040 Connect, and
-the Arduino Uno WiFi (but we don't have samples of any of these laying
+the Arduino Uno WiFi & Arduino Uno R4 (but we don't have samples of any of these laying
 around).
 
 ### What about the STM32 "Blue Pill," or something in the Adafruit Feather family, or the SparkFun Teensy family, or...?
