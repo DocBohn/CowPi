@@ -1,4 +1,6 @@
 #include "CowPi.h"
+#include <stdint.h>
+#include <string.h>
 
 const char too_long_string[] = "There are too many characters in this line!!    \n";
 const uint8_t backslash = 0x01;   // ROM Code A00 has a Yen symbol instead of '\\'

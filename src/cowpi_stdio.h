@@ -4,12 +4,9 @@
  *
  * @author Christopher A. Bohn
  *
- * @brief Configures file streams to allow use of familiar stdio functions.
+ * @brief @copybrief cowpi_stdio_setup
  *
- * Configures `stdout` and `stdin` `printf()` to write to, and `scanf()` to
- * read from, the serial interface between the microcontroller and the host
- * computer. Configures additional file streams to allow `fprintf()` to work
- * with the display module.
+ * @copydetails cowpi_stdio_setup
  *
  ******************************************************************************/
 
@@ -35,6 +32,7 @@
 /* File streams for using fprintf with display modules */
 
 extern FILE *cowpi_lcd1602_row[2];
+extern FILE *cowpi_lcd1602;
 
 /* Public-facing function prototypes */
 
@@ -45,10 +43,11 @@ extern "C" {
 /**
  * @brief Configures the CowPi library to use `stdio.h` functions.
  *
- * Configures `printf()` to write to, and `scanf()` to read from, the serial
- * interface between the microcontroller and the host computer. Calls to
- * `printf()` and `scanf()` that occur before the call to `cowpi_stdio_setup()`
- * will have no effect.
+ * Configures `stdout` and `stdin` `printf()` to write to, and `scanf()` to
+ * read from, the serial interface between the microcontroller and the host
+ * computer. Configures additional file streams to allow `fprintf()` to work
+ * with the display module. Calls to stdio functions that occur before the
+ * call to `cowpi_stdio_setup()` will have no effect.
  *
  * @ingroup configuration
  *

@@ -120,6 +120,6 @@
 #include "cowpi_max7219.h"
 #include "cowpi_lcd1602.h"
 
-#define COWPI_VERSION ("0.4.1")
+#define COWPI_VERSION ("0.4.99")
 
 #endif //COWPI_H
