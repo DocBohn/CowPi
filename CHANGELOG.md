@@ -34,7 +34,8 @@ and this project adheres to
 
 #### Added
 
-- n/a
+- File streams to use with `fprintf` to send strings to the LCD1602 display
+- Register interrupt service routines for changes on any digital pin on Arduino Nano
 
 #### Changed
 
