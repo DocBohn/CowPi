@@ -19,7 +19,6 @@ and this project adheres to
 - Implementation that uses Raspberry Pi Pico SDK
 - Code to detect keypresses without interrupts
 - Plug-and-play debouncing code
-- Place an entire string on an LCD1602 row
 
 <!--
 - `Added` for new features.
@@ -35,7 +34,7 @@ and this project adheres to
 #### Added
 
 - File streams to use with `fprintf` to send strings to the LCD1602 display
-- Register interrupt service routines for changes on any digital pin on Arduino Nano
+- Register interrupt service routines for changes on any digital pin on Arduino Nano (uses pin change interrupts)
 
 #### Changed
 

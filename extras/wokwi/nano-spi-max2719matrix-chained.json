@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "author": "Chris Bohn",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-nano", "id": "nano", "top": -26.67, "left": -100.77, "attrs": {} },
+    {
+      "type": "wokwi-membrane-keypad",
+      "id": "keypad1",
+      "top": -416.11,
+      "left": 90.4,
+      "attrs": {
+        "keys": [
+          "1", "2", "3", "A",
+          "4", "5", "6", "B",
+          "7", "8", "9", "C",
+          "*", "0", "#", "D"
+        ]
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "keypadText",
+      "top": -467.09,
+      "left": 80.64,
+      "attrs": { "text": "press any key with mouse\nafter that, use mouse or keyboard key" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -230,
+      "left": -105.37,
+      "attrs": { "color": "orange", "flip": "1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -230,
+      "left": 9.46,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -310,
+      "left": -32.51,
+      "rotate": 90,
+      "attrs": { "color": "yellow", "key": "ArrowRight" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": -310,
+      "left": -98.57,
+      "rotate": 90,
+      "attrs": { "color": "blue", "key": "ArrowLeft" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "buttonText",
+      "top": -395.53,
+      "left": -102.36,
+      "attrs": { "text": "click with mouse, or" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "leftButtonText",
+      "top": -370,
+      "left": -85.5,
+      "attrs": { "text": "left\narrow" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "rightButtonText",
+      "top": -370,
+      "left": -17.76,
+      "attrs": { "text": "right\narrow" }
+    },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": -300, "left": -169.47, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "sw2", "top": -300, "left": -225.5, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "switchText",
+      "top": -331.89,
+      "left": -240.29,
+      "attrs": { "text": "click with mouse" }
+    },
+    {
+      "type": "wokwi-max7219-matrix",
+      "id": "matrix1",
+      "top": -481.08,
+      "left": -269.36,
+      "rotate": 180,
+      "attrs": { "chain": "4", "layout": "fc16" }
+    }
+  ],
+  "connections": [
+    [ "keypad1:R1", "nano:4", "gray", [ "v22.05", "h-136.72" ] ],
+    [ "keypad1:R2", "nano:5", "gray", [ "v26.88", "h-2.59" ] ],
+    [ "keypad1:R3", "nano:6", "gray", [ "v33.05", "h-26.81" ] ],
+    [ "keypad1:R4", "nano:7", "gray", [ "v40.17", "h-54.83" ] ],
+    [ "keypad1:C4", "nano:A3", "gray", [ "v128.97", "h-281.37" ] ],
+    [ "keypad1:C3", "nano:A2", "gray", [ "v137.01", "h-281.22" ] ],
+    [ "keypad1:C2", "nano:A1", "gray", [ "v145.05", "h-281.07" ] ],
+    [ "keypad1:C1", "nano:A0", "gray", [ "v153.1", "h-281.17" ] ],
+    [ "nano:GND.2", "led2:C", "black", [ "v-41.93", "h-24.77" ] ],
+    [ "led2:C", "led1:C", "black", [ "v0" ] ],
+    [ "led2:A", "nano:12", "green", [ "v117.88", "h-30.15" ] ],
+    [ "led1:A", "nano:13", "orange", [ "v112.68", "h-19.62", "v123.93", "h28.92" ] ],
+    [ "led2:C", "btn1:2.r", "black", [ "v-0.87", "h-19.57" ] ],
+    [ "btn2:1.r", "btn1:2.r", "black", [ "v0" ] ],
+    [ "btn2:2.r", "nano:8", "blue", [ "v20.65", "h30.15", "v176.81", "h-0.25" ] ],
+    [ "btn1:1.r", "nano:9", "yellow", [ "v20.65", "h0.34", "v169.36", "h-65.1" ] ],
+    [ "btn2:1.r", "sw1:1", "black", [ "v12.55", "h-27.58" ] ],
+    [ "sw1:1", "sw2:1", "black", [ "v27.99", "h-27.32" ] ],
+    [ "sw1:2", "nano:A5", "violet", [ "v200.66", "h248.03" ] ],
+    [ "sw2:2", "nano:A4", "#8f4814", [ "v208.16", "h248.03" ] ],
+    [ "matrix1:CS", "nano:10", "limegreen", [ "h-41.81", "v358.5", "h247.46" ] ],
+    [ "matrix1:CLK", "nano:13", "purple", [ "h-70.54", "v472.28", "h256.99" ] ],
+    [ "matrix1:DIN", "nano:11", "cyan", [ "h-56.7", "v356.58", "h252.75" ] ],
+    [ "matrix1:GND", "nano:GND.1", "black", [ "h-30.1", "v486.09", "h341.35" ] ],
+    [ "nano:5V", "matrix1:V+", "red", [ "v52.05", "h-308.32", "v-511.46" ] ]
+  ],
+  "dependencies": {}
+}
