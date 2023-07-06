@@ -1,0 +1,46 @@
+{
+  "name": "CowPi",
+  "version": "0.4.99",
+  "description": "The Cow Pi hardware kit is used to teach memory-mapped I/O, polling, and interrupts. The CowPi library takes care of details unrelated to those learning objectives and provides (non-memory-mapped) input/output functions to bootstrap student code.",
+  "keywords": [
+    "cowpi",
+    "cow_pi",
+    "memory_mapped",
+    "input",
+    "output",
+    "button",
+    "switch",
+    "keypad",
+    "led",
+    "timer",
+    "interrupt"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DocBohn/CowPi"
+  },
+  "authors": {
+    "name": "Christopher Bohn",
+    "email": "bohn@unl.edu",
+    "url": "https://github.com/DocBohn/",
+    "maintainer": true
+  },
+  "license": "Apache-2.0",
+  "frameworks": "Arduino",
+  "headers": "CowPi.h",
+  "examples": [
+    {
+      "name": "pin_interrupts",
+      "base": "examples/pin_interrupts",
+      "files": ["pin_interrupts.ino"]
+    },
+    {
+      "name": "simple_io_test",
+      "base": "examples/simple_io_test",
+      "files": ["simple_io_test.ino"]
+    }
+  ],
+  "dependencies" : {
+    "docbohn/CowPi_stdio": ">=0.5.0"
+  }
+}

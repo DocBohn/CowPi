@@ -37,7 +37,7 @@ FILE *cowpi_lcd1602;
 static int cowpi_stdin_getc(FILE *stream);
 static int cowpi_stdout_putc(char c, FILE *stream);
 static int cowpi_lcd1602_row_putc(char c, FILE *stream);
-static int cowpi_lcd1602_putc(char c, FILE *stream);
+static int cowpi_lcd1602_putc(char c, __attribute__((unused)) FILE *stream);
 
 
 void cowpi_stdio_setup(unsigned long baud) {

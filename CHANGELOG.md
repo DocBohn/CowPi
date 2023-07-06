@@ -7,18 +7,8 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!--
-
 ## [major.minor.patch] - yyyy-mm-dd
-
 -->
-
-## [Unreleased]
-
-- Bit-banged I2C implementation
-- Microcontroller-dependent code other than that for ATMega328P
-- Implementation that uses Raspberry Pi Pico SDK
-- Code to detect keypresses without interrupts
-- Plug-and-play debouncing code
 
 <!--
 - `Added` for new features.
@@ -29,32 +19,25 @@ and this project adheres to
 - `Security` in case of vulnerabilities.
 -->
 
-### Staging for v0.5
+<!--
+## [TODO]
+- Bit-banged I2C implementation
+- Microcontroller-dependent code other than that for ATMega328P
+- Implementation that uses Raspberry Pi Pico SDK
+- Code to detect keypresses without interrupts
+- Plug-and-play debouncing code
+-->
 
-#### Added
+## [Unreleased]
 
-- File streams to use with `fprintf` to send strings to the LCD1602 display
+### Added
+
 - Register interrupt service routines for changes on any digital pin on Arduino Nano (uses pin change interrupts)
 
-#### Changed
+### Changed
 
-- n/a
-
-#### Deprecated
-
-- n/a
-
-#### Removed
-
-- n/a
-
-#### Fixed
-
-- n/a
-
-#### Security
-
-- n/a
+- Migrated AVR `printf`/`scanf` code from CowPi library to CowPi_stdio library
+- Migrated code for controlling MAX7219- and HD44780-based display modules migrated from CowPi library to CowPi_stdio library
 
 ## [0.4.1] - 2023-04-06
 

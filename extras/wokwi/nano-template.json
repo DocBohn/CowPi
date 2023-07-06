@@ -52,7 +52,7 @@
       "top": -310,
       "left": -32.51,
       "rotate": 90,
-      "attrs": { "color": "yellow", "key": "ArrowRight" }
+      "attrs": { "color": "yellow", "bounce": "1", "key": "ArrowRight" }
     },
     {
       "type": "wokwi-pushbutton",
@@ -60,7 +60,7 @@
       "top": -310,
       "left": -98.57,
       "rotate": 90,
-      "attrs": { "color": "blue", "key": "ArrowLeft" }
+      "attrs": { "color": "blue", "bounce": "1", "key": "ArrowLeft" }
     },
     {
       "type": "wokwi-text",
@@ -119,8 +119,8 @@
       "rotate": 270,
       "attrs": { "text": "data\nclock\nchip select" }
     },
-    { "type": "wokwi-slide-switch", "id": "sw1", "top": -300, "left": -169.47, "attrs": {} },
-    { "type": "wokwi-slide-switch", "id": "sw2", "top": -300, "left": -225.5, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": -300, "left": -169.47, "attrs": { "bounce": "1" } },
+    { "type": "wokwi-slide-switch", "id": "sw2", "top": -300, "left": -225.5, "attrs": { "bounce": "1" } },
     {
       "type": "wokwi-text",
       "id": "switchText",
@@ -164,5 +164,6 @@
     [ "i2c-dipsw:1b", "spi-dipsw:1b", "cyan", [ "v-14.12", "h-5.58" ] ],
     [ "i2c-dipsw:2b", "spi-dipsw:2b", "purple", [ "v-21.51", "h-12.02" ] ]
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "serialMonitor": { "display": "always", "newline": "lf" }
 }

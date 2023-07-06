@@ -22,7 +22,7 @@
       "type": "wokwi-text",
       "id": "keypadText",
       "top": -467.09,
-      "left": 80.64,
+      "left": 120,
       "attrs": { "text": "press any key with mouse\nafter that, use mouse or keyboard key" }
     },
     {
@@ -81,17 +81,16 @@
     {
       "type": "wokwi-text",
       "id": "switchText",
-      "top": -331.89,
-      "left": -240.29,
+      "top": -348.53,
+      "left": -240.96,
       "attrs": { "text": "click with mouse" }
     },
     {
-      "type": "wokwi-max7219-matrix",
-      "id": "matrix1",
-      "top": -481.08,
-      "left": -269.36,
-      "rotate": 180,
-      "attrs": { "chain": "4", "layout": "fc16" }
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -555.77,
+      "left": -251.41,
+      "attrs": { "pins": "i2c" }
     }
   ],
   "connections": [
@@ -113,13 +112,12 @@
     [ "btn1:1.r", "nano:9", "yellow", [ "v20.65", "h0.34", "v169.36", "h-65.1" ] ],
     [ "btn2:1.r", "sw1:1", "black", [ "v12.55", "h-27.58" ] ],
     [ "sw1:1", "sw2:1", "black", [ "v27.99", "h-27.32" ] ],
-    [ "sw1:2", "nano:A5", "violet", [ "v200.66", "h248.03" ] ],
-    [ "sw2:2", "nano:A4", "#8f4814", [ "v208.16", "h248.03" ] ],
-    [ "matrix1:CS", "nano:10", "limegreen", [ "h-41.81", "v358.5", "h247.46" ] ],
-    [ "matrix1:CLK", "nano:13", "purple", [ "h-70.54", "v472.28", "h256.99" ] ],
-    [ "matrix1:DIN", "nano:11", "cyan", [ "h-56.7", "v356.58", "h252.75" ] ],
-    [ "matrix1:GND", "nano:GND.1", "black", [ "h-30.1", "v486.09", "h341.35" ] ],
-    [ "nano:5V", "matrix1:V+", "red", [ "v52.05", "h-308.32", "v-511.46" ] ]
+    [ "sw1:2", "nano:10", "violet", [ "v213.78", "h91.6" ] ],
+    [ "sw2:2", "nano:11", "#8f4814", [ "v226.33", "h138.03" ] ],
+    [ "lcd1:SCL", "nano:A5", "purple", [ "h-13.51", "v580.25", "h243.05" ] ],
+    [ "lcd1:SDA", "nano:A4", "cyan", [ "h-25.27", "v598.38", "h61.94" ] ],
+    [ "lcd1:VCC", "nano:5V", "red", [ "h-38.08", "v618.91", "h203.42" ] ],
+    [ "lcd1:GND", "nano:GND.1", "black", [ "h-46.26", "v637.77", "h144.97" ] ]
   ],
   "dependencies": {},
   "serialMonitor": { "display": "always", "newline": "lf" }

@@ -45,7 +45,7 @@
       "top": -310,
       "left": -32.51,
       "rotate": 90,
-      "attrs": { "color": "yellow", "key": "ArrowRight" }
+      "attrs": { "color": "yellow", "bounce": "1", "key": "ArrowRight" }
     },
     {
       "type": "wokwi-pushbutton",
@@ -53,7 +53,7 @@
       "top": -310,
       "left": -98.57,
       "rotate": 90,
-      "attrs": { "color": "blue", "key": "ArrowLeft" }
+      "attrs": { "color": "blue", "bounce": "1", "key": "ArrowLeft" }
     },
     {
       "type": "wokwi-text",
@@ -76,8 +76,8 @@
       "left": -17.76,
       "attrs": { "text": "right\narrow" }
     },
-    { "type": "wokwi-slide-switch", "id": "sw1", "top": -300, "left": -169.47, "attrs": {} },
-    { "type": "wokwi-slide-switch", "id": "sw2", "top": -300, "left": -225.5, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": -300, "left": -169.47, "attrs": { "bounce": "1" } },
+    { "type": "wokwi-slide-switch", "id": "sw2", "top": -300, "left": -225.5, "attrs": { "bounce": "1" } },
     {
       "type": "wokwi-text",
       "id": "switchText",
@@ -85,7 +85,7 @@
       "left": -226.94,
       "attrs": { "text": "click with mouse" }
     },
-    { "type": "board-ssd1306", "id": "oled1", "top": -452.63, "left": -230.66, "attrs": {} }
+    { "type": "board-ssd1306", "id": "oled1", "top": -452.63, "left": -230.66, "attrs": { "bounce": "1" } }
   ],
   "connections": [
     [ "keypad1:R1", "nano:4", "gray", [ "v22.05", "h-136.72" ] ],
@@ -113,5 +113,6 @@
     [ "oled1:VCC", "nano:5V", "red", [ "v-30", "h-79.35", "v576.13", "h286.92" ] ],
     [ "oled1:GND", "nano:GND.1", "black", [ "v-20", "h-50.55", "v550.41", "h286.77" ] ]
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "serialMonitor": { "display": "always", "newline": "lf" }
 }

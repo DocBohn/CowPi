@@ -6,6 +6,7 @@ Upload the CowPi library's files from the library's `src/` directory to the proj
 
 - After we register the library with Arduino Library Manager, you won't need to copy the library's files into the project.
 - If you use the Wokwi VS Code plugin (currently in beta), be sure to copy (and possibly edit) `wokwi.toml` into the project.
+  - It seems that for best results, `diagram.json` and `wokwi.toml` should be at the top of the project's directory tree.
 
 ## The files
 
@@ -15,6 +16,8 @@ Upload the CowPi library's files from the library's `src/` directory to the proj
 - `nano-spi-max2719matrix-chained.json` -- Identical to `nano-spi-max2719matrix.json`, except that it has four **daisy-chained MAX7219-based 8x8 LED matrices**, forming a 32x8 LED matrix.
 - `nano-i2c-lcd1602.json` -- Has two pushbuttons (tactile switches), two slider switches in the I2C configuration (*i.e.*, the switches are attached to pins D10 and D11), and a **HH44780-based 16x2 LCD character display** that uses the I2C protocol.
     Wokwi has the serial adapter mapped to the LCD1602's pins using the `COWPI_DEFAULT` dialect.
+- `nano-i2c-lcd2004.json` -- Identical to `nano-i2c-lcd1602`, except that the HH44780 is driving a 20x4 LCD character display.
+  - I still need to do some testing, but it looks like the upper 20 addresses for rows 0 & 1 become the addresses for rows 2 & 3.
 - `nano-i2c-oled128x64.json` -- Has two pushbuttons (tactile switches), two slider switches in the I2C configuration (*i.e.*, the switches are attached to pins D10 and D11), and a **SSD1306-based 128x64 OLED matrix** that uses the I2C protocol.
 - `wokwi.toml` -- a file needed by the Wokwi VS Code plugin to locate the firmware.
     You may need to edit it.

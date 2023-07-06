@@ -1,6 +1,9 @@
 # CowPi Library
 
-version 0.4
+[![GitHub Release](https://img.shields.io/github/release/DocBohn/CowPi)](https://github.com/DocBohn/CowPi/releases)
+[![GitHub License](https://img.shields.io/github/license/DocBohn/CowPi)](https://github.com/DocBohn/CowPi/blob/main/LICENSE)
+
+[![Depends on CowPi_stdio](https://img.shields.io/badge/🐮_𝜋_depends_on-CowPi__stdio-crimson)](https://github.com/DocBohn/CowPi_stdio)
 
 ## What is the Cow Pi?
 
