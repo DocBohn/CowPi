@@ -25,6 +25,7 @@ void loop() {
     printf("\n");
     printf("Keypad:      %c        Column pins:  %d%d%d%d    Keypad NAND: %d\n", (c = cowpi_get_keypress()) ? c : ' ',
            digitalRead(14), digitalRead(15), digitalRead(16), digitalRead(17), digitalRead(3));
+    printf("Chorded keypad: %#06x\n", cowpi_get_keypresses());
     printf("Left switch: %s    Right switch: %s\n",
            cowpi_left_switch_is_in_left_position() ? "LEFT " : "RIGHT",
            cowpi_right_switch_is_in_left_position() ? "LEFT " : "RIGHT");

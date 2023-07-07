@@ -22,6 +22,7 @@
  */
 
 #include <Arduino.h>
+#include <stdint.h>
 #include "cowpi_io.h"
 #include "cowpi_internal.h"
 
@@ -52,19 +53,44 @@ char cowpi_get_keypress(void) {
     digitalWrite(A_BASE + 2, a == 2 ? LOW : HIGH);
     digitalWrite(A_BASE + 3, a == 3 ? LOW : HIGH);
     switch (c = !digitalRead(B_BASE + b) * (b + 256 * a + 1024)) {
-        case 00000:     if ((a = (int8_t) ((a + 1) & 0x3)) || (++b < 4)) goto e;  else break;
-        case 02000: case 02001: case 02002:                 d = (char)(    c - 001717); break;
-        case 02400: case 02401: case 02402:                 d = (char)(    c - 002314); break;
-        case 03000: case 03001: case 03002:                 d = (char)(    c - 002711); break;
-        case 02003: case 02403: case 03003: case 03403:     d = (char)(    a + 000101); break;
-        case 03400: case 03401:                             d = (char)(6 * c - 024726); break;
-        case 03402:                                         d =                 000043; break;
-        default:                                            d =                 000130; break;
+        case 00000: if ((a = (int8_t) ((a + 1) & 0x3)) || (++b < 4)) goto e;   else break;
+        case 02000: case 02001: case 02002:             d = (char)(    c - 001717); break;
+        case 02400: case 02401: case 02402:             d = (char)(    c - 002314); break;
+        case 03000: case 03001: case 03002:             d = (char)(    c - 002711); break;
+        case 02003: case 02403: case 03003: case 03403: d = (char)(    a + 000101); break;
+        case 03400: case 03401:                         d = (char)(6 * c - 024726); break;
+        case 03402:                                     d =                0000043; break;
+        default:                                        d =                0000130; break;
     }
     digitalWrite(A_BASE + 0, LOW);
     digitalWrite(A_BASE + 1, LOW);
     digitalWrite(A_BASE + 2, LOW);
     digitalWrite(A_BASE + 3, LOW);
+    return d;
+}
+
+uint16_t cowpi_get_keypresses(void) {
+    // *** THIS FUNCTION SHOULD ONLY BE CALLED IF THE KEYS ARE PROTECTED BY DIODES ***
+    // returns bit vector where each bit position corresponds to a hexadecimal digit on on a 4x4 matrix keypad's face (bit0 corresponds to the '0' key, bit 1 corresponds to the '1' key, ..., bit13 (0xD) corresponds to the 'D' key -- finally, bit14 (0xE) corresponds to the '#' key, and bit15 (0xF) corresopnds to the '*' key)
+    // this function is intentionally unreadable
+    int8_t a = 0;
+    int8_t b = 0;
+    uint16_t c;
+    uint16_t d = 0;
+    e:
+    for (int8_t f = 0; f < 4; f++) digitalWrite(A_BASE + f, a == f ? LOW : HIGH);
+    switch (c = !digitalRead(B_BASE + b) * (b + 256 * a + 1024)) {
+        case 00000: if ((a = (int8_t) ((a + 1) & 0x3)) || (++b < 4))                  goto e; else break;
+        case 02000: case 02001: case 02002: d |= 1 <<       (c - 001777); a++;        goto e;
+        case 02400: case 02401: case 02402: d |= 1 <<       (c - 002374); a++;        goto e;
+        case 03000: case 03001: case 03002: d |= 1 <<       (c - 002771); a++;        goto e;
+        case 02003: case 02403: case 03003: d |= 1 <<       (a + 000012); a++;        goto e;
+        case 03403:                         d |= 1 <<       (a + 000012);                          break;
+        case 03400: case 03402:             d |= 1 << (01617 - (c >> 1)); a = 0; b++; goto e;
+        case 03401:                         d |=                 0000001; a = 0; b++; goto e;
+        default:                            d  =                 0177777;                          break;
+    }
+    for (int8_t f = 0; f < 4; f++) digitalWrite(A_BASE + f, LOW);
     return d;
 }
 

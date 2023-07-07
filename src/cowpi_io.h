@@ -29,6 +29,7 @@
 #define COWPI_IO_H
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,6 +52,8 @@ extern "C" {
  * no key is pressed
  */
 char cowpi_get_keypress(void);
+
+uint16_t cowpi_get_keypresses(void);
 
 /**
  * @brief Reports whether the left button is pressed.
