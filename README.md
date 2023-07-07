@@ -3,7 +3,12 @@
 [![GitHub Release](https://img.shields.io/github/release/DocBohn/CowPi)](https://github.com/DocBohn/CowPi/releases)
 [![GitHub License](https://img.shields.io/github/license/DocBohn/CowPi)](https://github.com/DocBohn/CowPi/blob/main/LICENSE)
 
-[![Depends on CowPi_stdio](https://img.shields.io/badge/🐮_𝜋_depends_on-CowPi__stdio-crimson)](https://github.com/DocBohn/CowPi_stdio)
+[![Arduino Library](https://www.ardu-badge.com/badge/CowPi.svg)](https://www.ardu-badge.com/CowPi)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/docbohn/library/CowPi.svg)](https://registry.platformio.org/libraries/docbohn/CowPi)
+
+[//]: # ([![Depends on CowPi_stdio]&#40;https://img.shields.io/badge/🐮_𝜋_depends_on-CowPi__stdio-crimson&#41;]&#40;https://github.com/DocBohn/CowPi_stdio&#41;)
+[//]: # (scarlet)
+[![Depends on CowPi_stdio](https://img.shields.io/badge/🐮_𝜋_depends_on-CowPi__stdio-rgb(255,36,0))](https://github.com/DocBohn/CowPi_stdio)
 
 ## What is the Cow Pi?
 

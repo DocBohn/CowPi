@@ -30,33 +30,41 @@ static bool cowpi_pin_is_output(uint8_t pin);
 static bool cowpi_switch_is_in_left_position(uint8_t default_pin, uint8_t alternate_pin);
 static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alternate_pin);
 
+
+#if defined ARDUINO_AVR_UNO || defined ARDUINO_AVR_NANO
+#define A_BASE  (4)
+#define B_BASE  (14)
+#elif defined ARDUINO_AVR_MEGA2560
+#define A_BASE  (4)
+#define B_BASE  (54)
+#endif //MICROCONTROLLER BOARD
+
 char cowpi_get_keypress(void) {
     // returns character corresponding to that on a 4x4 matrix keypad's face (0-9, A-D, *, #)
     // this function is intentionally unreadable
-    // (it also won't work right on Mega 2560, but we can fix that)
     int8_t a = 0;
-    int8_t b = 14;
+    int8_t b = 0;
     uint16_t c;
     char d = '\0';
     e:
-    digitalWrite(4, a == 0 ? LOW : HIGH);
-    digitalWrite(5, a == 1 ? LOW : HIGH);
-    digitalWrite(6, a == 2 ? LOW : HIGH);
-    digitalWrite(7, a == 3 ? LOW : HIGH);
-    switch (c = !digitalRead(b) * (b + 256 * a + 1024)) {
-        case 00000:     if ((a = (int8_t) ((a + 1) & 0x3)) || (++b < 18)) goto e;  else break;
-        case 02016: case 02017: case 02020:                 d = (char)(    c - 001735); break;
-        case 02416: case 02417: case 02420:                 d = (char)(    c - 002332); break;
-        case 03016: case 03017: case 03020:                 d = (char)(    c - 002727); break;
-        case 02021: case 02421: case 03021: case 03421:     d = (char)(    a + 000101); break;
-        case 03416: case 03417:                             d = (char)(6 * c - 025052); break;
-        case 03420:                                         d =                 000043; break;
+    digitalWrite(A_BASE + 0, a == 0 ? LOW : HIGH);
+    digitalWrite(A_BASE + 1, a == 1 ? LOW : HIGH);
+    digitalWrite(A_BASE + 2, a == 2 ? LOW : HIGH);
+    digitalWrite(A_BASE + 3, a == 3 ? LOW : HIGH);
+    switch (c = !digitalRead(B_BASE + b) * (b + 256 * a + 1024)) {
+        case 00000:     if ((a = (int8_t) ((a + 1) & 0x3)) || (++b < 4)) goto e;  else break;
+        case 02000: case 02001: case 02002:                 d = (char)(    c - 001717); break;
+        case 02400: case 02401: case 02402:                 d = (char)(    c - 002314); break;
+        case 03000: case 03001: case 03002:                 d = (char)(    c - 002711); break;
+        case 02003: case 02403: case 03003: case 03403:     d = (char)(    a + 000101); break;
+        case 03400: case 03401:                             d = (char)(6 * c - 024726); break;
+        case 03402:                                         d =                 000043; break;
         default:                                            d =                 000130; break;
     }
-    digitalWrite(4, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(6, LOW);
-    digitalWrite(7, LOW);
+    digitalWrite(A_BASE + 0, LOW);
+    digitalWrite(A_BASE + 1, LOW);
+    digitalWrite(A_BASE + 2, LOW);
+    digitalWrite(A_BASE + 3, LOW);
     return d;
 }
 

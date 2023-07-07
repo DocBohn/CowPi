@@ -86,8 +86,8 @@ static const uint8_t SPI_CHIP_SELECT        = 10;
 extern "C" {
 #endif
 void cowpi_error(const char *message);
-void cowpi_setup_max7219(unsigned int configuration);
-void cowpi_setup_lcd1602(unsigned int configuration);
+// void cowpi_setup_max7219(unsigned int configuration);
+// void cowpi_setup_lcd1602(unsigned int configuration);
 #ifdef __cplusplus
 } // extern "C"
 #endif

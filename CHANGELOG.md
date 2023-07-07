@@ -30,9 +30,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- `cowpi_get_keypress()` can handle form factors other than Uno/Nano
+
+## [0.5.0] - 2023-07-06
+
 ### Added
 
-- Register interrupt service routines for changes on any digital pin on Arduino Nano (uses pin change interrupts)
+- Option to register interrupt service routines for changes on any digital pin on Arduino Nano (uses pin change interrupts)
 
 ### Changed
 

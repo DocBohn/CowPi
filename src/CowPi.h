@@ -103,6 +103,7 @@
 #define COWPI_H
 
 #include <Arduino.h>
+#include <CowPi_stdio.h>
 #include "cowpi_boards.h"
 #include "cowpi_setup.h"
 #include "cowpi_interrupts.h"

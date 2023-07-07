@@ -40,7 +40,7 @@
 #elif defined ARDUINO_NANO_RP2040_CONNECT
 #error Arduino Nano RP2040 is not yet supported for CowPi
 #elif defined ARDUINO_AVR_MEGA2560
-#error Arduino Mega 2560 is not yet supported for CowPi
+#warning Arduino Mega 2560 is not yet supported for CowPi
 #elif defined ARDUINO_RASPBERRY_PI_PICO || defined PICO_RP2040
 #error Raspberry Pi Pico is not yet supported for CowPi
 #else

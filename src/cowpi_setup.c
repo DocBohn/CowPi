@@ -76,15 +76,15 @@ void cowpi_setup(unsigned int configuration) {
         pinMode(SCL, OUTPUT);
         digitalWrite(SDA, HIGH);
         digitalWrite(SCL, HIGH);
-        cowpi_initialize_i2c;
+        // cowpi_initialize_i2c;
     }
     if (configuration & MAX7219) {
         cowpi_display_device_and_dialect |= MAX7219;
-        cowpi_setup_max7219(configuration);
+        // cowpi_setup_max7219(configuration);
     }
     if (configuration & LCD1602) {
         cowpi_display_device_and_dialect |= LCD1602;
-        cowpi_setup_lcd1602(configuration);
+        // cowpi_setup_lcd1602(configuration);
     }
 }
 

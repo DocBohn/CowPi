@@ -16,7 +16,7 @@ lib/
 test/
 CMakeLists.txt
 platformio.ini
-src/main.cpp
+src/main.cpp.bk
 
 
 #####
