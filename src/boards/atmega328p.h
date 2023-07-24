@@ -1,6 +1,6 @@
 /**************************************************************************//**
  *
- * @file cowpi_atmega328p.h
+ * @file atmega328p.h
  *
  * @author Christopher A. Bohn
  *
@@ -11,19 +11,19 @@
  * data structures to conveniently access the I/O registers.
  *
  * Possibly-useful memory-mapped registers:
- * | Use                                            | Datatype              | Offset from `COWPI_IO_BASE`       |
+ * | Use                                            | Datatype              | Memory Address                    |
  * |:----------------------------------------------:|:----------------------|:----------------------------------|
- * | External pins                                  | cowpi_ioport_t[3]     | 0x03 (index with named constants) |
- * | Pin-based interrupts                           | cowpi_pininterrupt_t  | 0x1B                              |
- * | SPI protocol                                   | cowpi_spi_t           | 0x2C                              |
- * | I2C protocol                                   | cowpi_i2c_t           | 0x98                              |
- * | Timer0                                         | cowpi_timer8bit_t     | 0x24                              |
- * | Timer1                                         | cowpi_timer16bit_t    | 0x60                              |
- * | Timer2                                         | cowpi_timer8bit_t     | 0x90                              |
- * | Timer interrupt masks (TIMSKx)                 | uint8_t[3]            | 0x4E (index with timer number)    |
- * | Timer interrupt flags (TIFRx)                  | uint8_t[3]            | 0x35 (index with timer number)    |
- * | General timer/counter control register (GTCCR) | uint8_t               | 0x23                              |
- * | Asynchronous Status Register (ASSR)            | uint8_t               | 0x96                              |
+ * | External pins                                  | cowpi_ioport_t[3]     | 0x23 (index with named constants) |
+ * | Pin-based interrupts                           | cowpi_pininterrupt_t  | 0x3B                              |
+ * | SPI protocol                                   | cowpi_spi_t           | 0x4C                              |
+ * | I2C protocol                                   | cowpi_i2c_t           | 0xB8                              |
+ * | Timer0                                         | cowpi_timer8bit_t     | 0x44                              |
+ * | Timer1                                         | cowpi_timer16bit_t    | 0x80                              |
+ * | Timer2                                         | cowpi_timer8bit_t     | 0xB0                              |
+ * | Timer interrupt masks (TIMSKx)                 | uint8_t[3]            | 0x6E (index with timer number)    |
+ * | Timer interrupt flags (TIFRx)                  | uint8_t[3]            | 0x55 (index with timer number)    |
+ * | General timer/counter control register (GTCCR) | uint8_t               | 0x43                              |
+ * | Asynchronous Status Register (ASSR)            | uint8_t               | 0xB6                              |
  *
  ******************************************************************************/
 
@@ -43,10 +43,14 @@
 #ifndef COWPI_ATMEGA328P_H
 #define COWPI_ATMEGA328P_H
 
+#ifdef __AVR_ATmega328P__
+
+#define COWPI_USING_A_SUPPORTED_BOARD
+
 #include <Arduino.h>
 #include <avr/pgmspace.h>
 #include <stdint.h>
-#include "cowpi_setup.h"
+#include "../setup/cowpi_setup.h"
 
 /** @addtogroup architecture
  *  @{*/
@@ -54,67 +58,12 @@
 /**
  * The memory address corresponding to the start of the
  * memory-mapped I/O registers.
+ * 
+ * @deprecated Use the absolute memory address instead of an offset from 
+ * `COWPI_IO_BASE`
  */
 #define COWPI_IO_BASE   ((uint8_t *) 0x20)
 
-/**
- * @brief Enables the SPI hardware.
- *
- * Sets the bitrate at 1 MHz, and configures the hardware not to generate
- * interrupts and to transmit MSB-first or LSB-first, depending on the display
- * module and dialect.
- *
- * This macro should be invoked only immediately before using the SPI hardware
- * because:
- *
- * @attention Enabling SPI hardware automatically configures COPI pin and SCK
- *      pin as output, the CIPO pin as input, and will cause the SPI hardware to
- *      assume there is another controller if a low input is received on the CS
- *      pin, (if the CS pin is set for inputs) causing it to stop transmitting
- *      on COPI.
- *
- * @sa cowpi_spi_disable
- */
-#define cowpi_spi_enable do {                                                                           \
-    /* Enable SPI, Controller, set clock rate fck/16 [1MHz] */                                          \
-    SPCR = cowpi_is_spi_lsbfirst()  ? (1 << SPE) | (1 << DORD) | (1 << MSTR) | (1 << SPR0)              \
-                                    : (1 << SPE) |               (1 << MSTR) | (1 << SPR0);             \
-    /* By repeating myself, both constants will be generated at compile time */                         \
-} while(0)
-
-/**
- * @brief Disables the SPI hardware.
- *
- * This macro should be invoked immediately after using the SPI hardware to
- * restore the program-defined (or library-defined) pin directions and to
- * desensitize the SPI hardware to inputs on the CS pin (if the CS pin is set
- * for inputs).
- *
- * @sa cowpi_spi_enable
- */
-#define cowpi_spi_disable do {                                                                          \
-    SPCR = 0;                                                                                           \
-} while(0)
-
-/**
- * @brief Configures and enables the TWI hardware.
- *
- * Sets the bitrate at 100 kHz and configures the hardware not to generate
- * interrupts.
- *
- * Application should not need to invoke this macro, as it is invoked during
- * setup; however, there is no harm in doing so.
- */
-#define cowpi_initialize_i2c do {                                                                       \
-    /* Set SCL Frequency [100kHz] = CPU Clock Frequency [16MHz] / (16 + 2 * TWBR * prescaler [1]) */    \
-    TWBR = 72;                                                                                          \
-    TWSR &= ~((1 << TWPS1) | (1 << TWPS0));                                                             \
-    /* We won't rely on interrupts since students will work with display before knowing interrupts. */  \
-    /* We're also not going to enable acknowledgements: the basic labs will only use                    \
-     * controller-transmitter mode, and without interrupts we can't honor the ACK anyway. */            \
-    /* So we'll just enable TWI */                                                                      \
-    TWCR = (1 << TWEN) | (1 << TWEA);                                                                   \
-} while(0)
 
 #define COWPI_PB  0                 //!< Index for arrays to access PINB/DDRB/PORTB and PCMSK0
 #define D8_D13    0                 //!< Alias of COWPI_PB corresponding to pins D8-D13 on the Arduino Uno & Arduino Nano
@@ -205,5 +154,7 @@ typedef struct {
 } cowpi_timer16bit_t;
 
 /** @} */
+
+#endif //__AVR_ATmega328P__
 
 #endif //COWPI_ATMEGA328P_H

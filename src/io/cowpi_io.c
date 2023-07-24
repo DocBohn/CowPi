@@ -22,14 +22,16 @@
  */
 
 #include <Arduino.h>
-#include <stdint.h>
 #include "cowpi_io.h"
-#include "cowpi_internal.h"
+#include "../internal/cowpi_internal.h"
 
 
-static bool cowpi_pin_is_output(uint8_t pin);
-static bool cowpi_switch_is_in_left_position(uint8_t default_pin, uint8_t alternate_pin);
-static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alternate_pin);
+enum protocols cowpi_protocol = NO_PROTOCOL;
+uint8_t cowpi_left_switch = 255;
+uint8_t cowpi_right_switch = 255;
+uint8_t cowpi_clock_pin = 255;
+uint8_t cowpi_data_pin = 255;
+uint8_t cowpi_latch_pin = 255;
 
 
 #if defined ARDUINO_AVR_UNO || defined ARDUINO_AVR_NANO
@@ -38,10 +40,12 @@ static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alter
 #elif defined ARDUINO_AVR_MEGA2560
 #define A_BASE  (4)
 #define B_BASE  (54)
+#else
+#define A_BASE  (0)
+#define B_BASE  (0)
 #endif //MICROCONTROLLER BOARD
 
 char cowpi_get_keypress(void) {
-    // returns character corresponding to that on a 4x4 matrix keypad's face (0-9, A-D, *, #)
     // this function is intentionally unreadable
     int8_t a = 0;
     int8_t b = 0;
@@ -70,8 +74,6 @@ char cowpi_get_keypress(void) {
 }
 
 uint16_t cowpi_get_keypresses(void) {
-    // *** THIS FUNCTION SHOULD ONLY BE CALLED IF THE KEYS ARE PROTECTED BY DIODES ***
-    // returns bit vector where each bit position corresponds to a hexadecimal digit on on a 4x4 matrix keypad's face (bit0 corresponds to the '0' key, bit 1 corresponds to the '1' key, ..., bit13 (0xD) corresponds to the 'D' key -- finally, bit14 (0xE) corresponds to the '#' key, and bit15 (0xF) corresopnds to the '*' key)
     // this function is intentionally unreadable
     int8_t a = 0;
     int8_t b = 0;
@@ -103,19 +105,39 @@ bool cowpi_right_button_is_pressed(void) {
 }
 
 bool cowpi_left_switch_is_in_left_position(void) {
-    return cowpi_switch_is_in_left_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
+    if (cowpi_protocol != NO_PROTOCOL) {
+        return !digitalRead(cowpi_left_switch);
+    } else {
+        // if either possible switch position is 0, then (a) that must be where the switch is, and (b) it's to the left
+        return !(digitalRead(LEFT_SWITCH_SPI) && digitalRead(LEFT_SWITCH_I2C));
+    }
 }
 
 bool cowpi_right_switch_is_in_left_position(void) {
-    return cowpi_switch_is_in_left_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
+    if (cowpi_protocol != NO_PROTOCOL) {
+        return !digitalRead(cowpi_right_switch);
+    } else {
+        // if either possible switch position is 0, then (a) that must be where the switch is, and (b) it's to the left
+        return !(digitalRead(RIGHT_SWITCH_SPI) && digitalRead(RIGHT_SWITCH_I2C));
+    }
 }
 
 bool cowpi_left_switch_is_in_right_position(void) {
-    return cowpi_switch_is_in_right_position(LEFT_SWITCH_DEFAULT, LEFT_SWITCH_ALTERNATE);
+    if (cowpi_protocol != NO_PROTOCOL) {
+        return digitalRead(cowpi_left_switch);
+    } else {
+        // if both possible switch positions are 1, then it's to the right, regardless of which pin is being used
+        return (digitalRead(LEFT_SWITCH_SPI) && digitalRead(LEFT_SWITCH_I2C));
+    }
 }
 
 bool cowpi_right_switch_is_in_right_position(void) {
-    return cowpi_switch_is_in_right_position(RIGHT_SWITCH_DEFAULT, RIGHT_SWITCH_ALTERNATE);
+    if (cowpi_protocol != NO_PROTOCOL) {
+        return digitalRead(cowpi_right_switch);
+    } else {
+        // if both possible switch positions are 1, then it's to the right, regardless of which pin is being used
+        return (digitalRead(RIGHT_SWITCH_SPI) && digitalRead(RIGHT_SWITCH_I2C));
+    }
 }
 
 void cowpi_illuminate_right_led(void) {
@@ -134,42 +156,10 @@ void cowpi_deluminate_left_led(void) {
     digitalWrite(LEFT_LED, LOW);
 }
 
-void cowpi_illuminate_external_led(void) {
-    digitalWrite(LED_EXTERNAL, HIGH);
-}
-
 void cowpi_illuminate_internal_led(void) {
     digitalWrite(LED_BUILTIN, HIGH);
 }
 
-void cowpi_deluminate_external_led(void) {
-    digitalWrite(LED_EXTERNAL, LOW);
-}
-
 void cowpi_deluminate_internal_led(void) {
     digitalWrite(LED_BUILTIN, LOW);
-}
-
-static inline bool cowpi_pin_is_output(uint8_t pin) {
-    return *portModeRegister(digitalPinToPort(pin)) & digitalPinToBitMask(pin);
-}
-
-static bool cowpi_switch_is_in_left_position(uint8_t default_pin, uint8_t alternate_pin) {
-    if (!cowpi_pin_is_output(default_pin)) {            // if default isn't used for I2C then it's used for the switch
-        return !digitalRead(default_pin);
-    } else if (!cowpi_pin_is_output(alternate_pin)) {   // not using default but make sure alternate not used for SPI
-        return !digitalRead(alternate_pin);
-    } else {                                            // if both SPI and I2C are in use then there isn't a switch here
-        return false;
-    }
-}
-
-static bool cowpi_switch_is_in_right_position(uint8_t default_pin, uint8_t alternate_pin) {
-    if (!cowpi_pin_is_output(default_pin)) {            // if default isn't used for I2C then it's used for the switch
-        return digitalRead(default_pin);
-    } else if (!cowpi_pin_is_output(alternate_pin)) {   // not using default but make sure alternate not used for SPI
-        return digitalRead(alternate_pin);
-    } else {                                            // if both SPI and I2C are in use then there isn't a switch here
-        return false;
-    }
 }

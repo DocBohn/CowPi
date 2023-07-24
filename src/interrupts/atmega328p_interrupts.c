@@ -1,6 +1,6 @@
 /**************************************************************************//**
  *
- * @file cowpi_atmega328p_interrupts.c
+ * @file atmega328p_interrupts.c
  *
  * @author Christopher A. Bohn
  *
@@ -31,7 +31,7 @@
 
 #include <stdint.h>
 #include <avr/interrupt.h>
-#include "cowpi_interrupts.h"
+#include "interrupts.h"
 
 static void do_nothing(void) {}
 

@@ -30,9 +30,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Code to read chorded keypresses
+  - This function should only be called when the keys are protected by diodes to prevent short-circuits!
+
 ### Changed
 
-- `cowpi_get_keypress()` can handle form factors other than Uno/Nano
+- Default code to read keypresses can handle form factors other than Uno/Nano
+
+### Deprecated
+
+- `COWPI_IO_BASE`
+  Use absolute memory addresses instead of offsets from `COWPI_IO_BASE`
 
 ## [0.5.0] - 2023-07-06
 

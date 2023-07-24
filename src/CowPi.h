@@ -3,7 +3,7 @@
  *
  * @version 0.5
  *
- * @copyright (c) 2021-22 Christopher A. Bohn
+ * @copyright (c) 2021-23 Christopher A. Bohn
  *
  * @section overview Overview
  *
@@ -104,11 +104,12 @@
 
 #include <Arduino.h>
 #include <CowPi_stdio.h>
-#include "cowpi_boards.h"
-#include "cowpi_setup.h"
-#include "cowpi_interrupts.h"
-#include "cowpi_io.h"
+#include "setup/cowpi_setup.h"
+#include "boards/boards.h"
+#include "interrupts/interrupts.h"
+#include "io/cowpi_io.h"
+#include "io/debounce.h"
 
-#define COWPI_VERSION ("0.5.0")
+#define COWPI_VERSION ("0.5.x")
 
 #endif //COWPI_H

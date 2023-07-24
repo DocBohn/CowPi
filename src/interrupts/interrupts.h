@@ -1,6 +1,6 @@
 /**************************************************************************//**
  *
- * @file cowpi_interrupts.h
+ * @file interrupts.h
  *
  * @author Christopher A. Bohn
  *

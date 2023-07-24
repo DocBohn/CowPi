@@ -38,13 +38,15 @@ extern "C" {
 /**
  * @brief Scans the keypad to determine which, if any, key was pressed.
  *
- * There is no debouncing. This is a portable implementation, not a memory-mapped
- * implementation. Returns the ASCII representation of the character depicted on
- * whichever key was pressed (0-9, A-D, *, #).
+ * There is no debouncing. This is a portable implementation, not a 
+ * memory-mapped implementation. Returns the ASCII representation of the 
+ * character depicted on whichever key was pressed (0-9, A-D, *, #).
  *
  * Assumes a common 4x4 matrix keypad with the rows in Arduino pins D4-D7 and
- * the columns in Arduino pins A0-A3 (D14-D17). A pressed key grounds a
- * pulled-high input.
+ * the columns in Arduino pins A0-A3 (D14-D17 on Uno/Nano). A pressed key 
+ * grounds a pulled-high input.
+ * 
+ * @sa cowpi_get_keypresses
  *
  * @ingroup scanned
  *
@@ -53,6 +55,32 @@ extern "C" {
  */
 char cowpi_get_keypress(void);
 
+/**
+ * @brief Scans the keypad to determine which keys have been pressed.
+ *
+ * There is no debouncing. This is a portable implementation, not a 
+ * memory-mapped implementation.
+ * 
+ * Returns a bit vector with a 1 (key pressed) or 0 (key not pressed) in each
+ * of 16 bits that correspond to the 16 keys. For keys with hexadecimal digits, 
+ * the digit indicates the corresponding bit (bit0 corresponds to the "0" key; 
+ * bit1 corresponds to the "1" key; ...; and bit13 corresponds to the "D" key). 
+ * Additionally, bit14 corresponds to the "#" key and bit15 corresponds to the 
+ * "*" key.
+ *
+ * Assumes a common 4x4 matrix keypad with the rows in Arduino pins D4-D7 and
+ * the columns in Arduino pins A0-A3 (D14-D17 on Uno/Nano). A pressed key 
+ * grounds a pulled-high input.
+ * 
+ * @warning This function should only be called if diodes are used to isolate 
+ * the keys, as on the Cow Pi mark 3 and mark 4 development boards.
+ * 
+ * @sa cowpi_get_keypress
+ *
+ * @ingroup scanned
+ * 
+ * @return uint16_t 
+ */
 uint16_t cowpi_get_keypresses(void);
 
 /**
@@ -206,18 +234,6 @@ void cowpi_deluminate_right_led(void);
 void cowpi_deluminate_left_led(void);
 
 /**
- * @brief Illuminates the external LED, aka the right LED.
- *
- * This is a portable implementation, not a memory-mapped implementation.
- *
- * Assumes the external LED is in Arduino pin D12. An LED illuminates when the
- * pin is placed high, to match the semantics of Arduino's built-in LED.
- *
- * @ingroup outputs
- */
-void cowpi_illuminate_external_led(void);
-
-/**
  * @brief Illuminates the internal LED, aka the built-in LED, aka the left LED.
  *
  * This is a portable implementation, not a memory-mapped implementation.
@@ -228,18 +244,6 @@ void cowpi_illuminate_external_led(void);
  * @ingroup outputs
  */
 void cowpi_illuminate_internal_led(void);
-
-/**
- * @brief Deluminates the external LED, aka the right LED.
- *
- * This is a portable implementation, not a memory-mapped implementation.
- *
- * Assumes the external LED is in Arduino pin D12. An LED deluminates when the
- * pin is placed low, to match the semantics of Arduino's built-in LED.
- *
- * @ingroup outputs
- */
-void cowpi_deluminate_external_led(void);
 
 /**
  * @brief Deluminates the internal LED, aka the built-in LED, aka the left LED.
