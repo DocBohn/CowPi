@@ -1,13 +1,34 @@
+/**************************************************************************//**
+ *
+ * @file cowpi_io.c
+ *
+ * @brief @copybrief debounce.h
+ *
+ * @details @copydetails debounce.h
+ *
+ ******************************************************************************/
+
+/* CowPi (c) 2021-23 Christopher A. Bohn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include <Arduino.h>
 #include "debounce.h"
 
 
-#define DEBOUNCE_THRESHOLD 40
+#define DEBOUNCE_THRESHOLD 20
 
 
-
-uint8_t debounce_byte(uint8_t current_value, enum input_names input_name) {
+uint8_t cowpi_debounce_byte(uint8_t current_value, enum input_names input_name) {
     static uint8_t last_actual_value[NUMBER_OF_INPUTS] = {0};
     static uint8_t last_good_value[NUMBER_OF_INPUTS] = {0};
     static unsigned long last_change[NUMBER_OF_INPUTS] = {[0 ... (NUMBER_OF_INPUTS - 1)] = 0x80000000}; // gcc extension
@@ -28,7 +49,7 @@ uint8_t debounce_byte(uint8_t current_value, enum input_names input_name) {
 }
 
 
-uint16_t debounce_short(uint16_t current_value, enum input_names input_name) {
+uint16_t cowpi_debounce_short(uint16_t current_value, enum input_names input_name) {
     static uint16_t last_actual_value[NUMBER_OF_INPUTS] = {0};
     static uint16_t last_good_value[NUMBER_OF_INPUTS] = {0};
     static unsigned long last_change[NUMBER_OF_INPUTS] = {[0 ... (NUMBER_OF_INPUTS - 1)] = 0x80000000}; // gcc extension

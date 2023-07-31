@@ -4,8 +4,7 @@
  *
  * @author Christopher A. Bohn
  *
- * @brief Functions, constants, and masks to configure the Cow Pi hardware and to
- * query the configuration.
+ * @brief A functions to configure the Cow Pi hardware.
  *
  ******************************************************************************/
 
@@ -45,12 +44,12 @@ extern "C" {
  *
  * If the USB-based serial interface should not be configured, then set the
  * `console_bitrate` to 0. If there is not yet a display module, then set the
- * `display_module` to {.display_module = NO_MODULE}. If there is not yet a
+ * `display_module` to `{.display_module = NO_MODULE}`. If there is not yet a
  * display module (and the communication protocol's pins are not otherwise used)
- * then you may use {.protocol = NO_PROTOCOL}.
+ * then you may assign `communication_protocol` to `{.protocol = NO_PROTOCOL}`.
  *
- * @sa cowpi_stdio_setup in CowPi_stdio
- * @sa cowpi_add_display_module in CowPi_stdio
+ * @sa `cowpi_stdio_setup()` in CowPi_stdio
+ * @sa `cowpi_add_display_module()` in CowPi_stdio
  *
  * @param console_bitrate the serial interface's bitrate, or `0` if the serial
  *      interface should not be configured

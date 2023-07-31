@@ -34,9 +34,11 @@ and this project adheres to
 
 - Code to read chorded keypresses
   - This function should only be called when the keys are protected by diodes to prevent short-circuits!
+- Code to support switch debouncing
 
 ### Changed
 
+- `cowpi_setup` now uses CowPi_stdio library's configuration structures
 - Default code to read keypresses can handle form factors other than Uno/Nano
 
 ### Deprecated

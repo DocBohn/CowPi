@@ -52,9 +52,6 @@
 #include <stdint.h>
 #include "../setup/cowpi_setup.h"
 
-/** @addtogroup architecture
- *  @{*/
-
 /**
  * The memory address corresponding to the start of the
  * memory-mapped I/O registers.
@@ -152,8 +149,6 @@ typedef struct {
     uint16_t compareA;                //!< Output compare register A (OCRxAH OCRxAL, aka OCRxA)
     uint16_t compareB;                //!< Output compare register B (OCRxBH OCRxBL, aka OCRxB)
 } cowpi_timer16bit_t;
-
-/** @} */
 
 #endif //__AVR_ATmega328P__
 

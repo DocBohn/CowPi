@@ -48,8 +48,6 @@ extern "C" {
  * 
  * @sa cowpi_get_keypresses
  *
- * @ingroup scanned
- *
  * @return ASCII character corresponding to the key that is pressed, or NUL if
  * no key is pressed
  */
@@ -76,10 +74,9 @@ char cowpi_get_keypress(void);
  * the keys, as on the Cow Pi mark 3 and mark 4 development boards.
  * 
  * @sa cowpi_get_keypress
- *
- * @ingroup scanned
  * 
- * @return uint16_t 
+ * @return bit vector that indicates which keys are pressed and which are not
+ *      pressed
  */
 uint16_t cowpi_get_keypresses(void);
 
@@ -91,8 +88,6 @@ uint16_t cowpi_get_keypresses(void);
  *
  * Assumes the left button is in Arduino pin D8. A pressed button grounds a
  * pulled-high input.
- *
- * @ingroup inputs
  *
  * @return `true` if the button is pressed, `false` otherwise
  */
@@ -106,8 +101,6 @@ bool cowpi_left_button_is_pressed(void);
  *
  * Assumes the right button is in Arduino pin D9. A pressed button grounds a
  * pulled-high input.
- *
- * @ingroup inputs
  *
  * @return `true` if the button is pressed, `false` otherwise
  */
@@ -125,8 +118,6 @@ bool cowpi_right_button_is_pressed(void);
  * will always return `false`. A switch in the left position grounds a
  * pulled-high input.
  *
- * @ingroup inputs
- *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
 bool cowpi_left_switch_is_in_left_position(void);
@@ -142,8 +133,6 @@ bool cowpi_left_switch_is_in_left_position(void);
  * (but not SPI) is in use. If both protocols are in use, then this function
  * will always return `false`. A switch in the left position grounds a
  * pulled-high input.
- *
- * @ingroup inputs
  *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
@@ -161,8 +150,6 @@ bool cowpi_right_switch_is_in_left_position(void);
  * will always return `false`. A switch in the right position floats, allowing
  * pulled-high input to remain high.
  *
- * @ingroup inputs
- *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
 bool cowpi_left_switch_is_in_right_position(void);
@@ -179,8 +166,6 @@ bool cowpi_left_switch_is_in_right_position(void);
  * will always return `false`. A switch in the right position floats, allowing
  * pulled-high input to remain high.
  *
- * @ingroup inputs
- *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
 bool cowpi_right_switch_is_in_right_position(void);
@@ -192,8 +177,6 @@ bool cowpi_right_switch_is_in_right_position(void);
  *
  * Assumes the external LED is in Arduino pin D12. An LED illuminates when the
  * pin is placed high, to match the semantics of Arduino's built-in LED.
- *
- * @ingroup outputs
  */
 void cowpi_illuminate_right_led(void);
 
@@ -204,8 +187,6 @@ void cowpi_illuminate_right_led(void);
  *
  * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
  * that an LED illuminates when the pin is placed high.
- *
- * @ingroup outputs
  */
 void cowpi_illuminate_left_led(void);
 
@@ -216,8 +197,6 @@ void cowpi_illuminate_left_led(void);
  *
  * Assumes the external LED is in Arduino pin D12. An LED deluminates when the
  * pin is placed low, to match the semantics of Arduino's built-in LED.
- *
- * @ingroup outputs
  */
 void cowpi_deluminate_right_led(void);
 
@@ -228,8 +207,6 @@ void cowpi_deluminate_right_led(void);
  *
  * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
  * that an LED deluminates when the pin is placed low.
- *
- * @ingroup outputs
  */
 void cowpi_deluminate_left_led(void);
 
@@ -240,8 +217,6 @@ void cowpi_deluminate_left_led(void);
  *
  * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
  * that an LED illuminates when the pin is placed high.
- *
- * @ingroup outputs
  */
 void cowpi_illuminate_internal_led(void);
 
@@ -252,8 +227,6 @@ void cowpi_illuminate_internal_led(void);
  *
  * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
  * that an LED deluminates when the pin is placed low.
- *
- * @ingroup outputs
  */
 void cowpi_deluminate_internal_led(void);
 

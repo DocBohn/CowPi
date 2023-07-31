@@ -78,27 +78,6 @@
  * limitations under the License.
  */
 
-/** @defgroup inputs Simple Inputs
- *  @brief Buttons and switches that can be read directly from pins.
- */
-/** @defgroup outputs Simple Outputs
- *  @brief LEDs that can be written directly through pins.
- */
-/** @defgroup scanned Scanned Inputs
- *  @brief Keypad that is scanned through a combination of writing to pins and
- *          reading from other pins.
- */
-/** @defgroup configuration Configuration Functions and Constants
- *  @brief Functions and constants used to configure the Cow Pi hardware and
- *          library at the start of a program.
- */
-/** @defgroup query Configuration Queries
- *  @brief Functions used to determine the Cow Pi's configuration
- */
-/** @defgroup architecture Microcontroller-Specific Definitions
- *  @brief Macros and constants that are specific to a particular microcontroller
- */
-
 #ifndef COWPI_H
 #define COWPI_H
 

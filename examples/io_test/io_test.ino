@@ -1,5 +1,4 @@
-#include "../../src/CowPi.h"
-//#include <CowPi.h>
+#include <CowPi.h>
 
 void setup(void) {
     cowpi_setup(9600,
@@ -26,11 +25,13 @@ void loop(void) {
     static bool left_switch_was_in_left_position = false;
     static bool right_switch_was_in_left_position = false;
     static char previous_key = 'z';     // this is impossible and will trigger the initial status "update"
-    bool left_button_is_pressed = debounce_byte(cowpi_left_button_is_pressed(), LEFT_BUTTON_DOWN);
-    bool right_button_is_pressed = debounce_byte(cowpi_right_button_is_pressed(), RIGHT_BUTTON_DOWN);
-    bool left_switch_is_in_left_position = debounce_byte(cowpi_left_switch_is_in_left_position(), LEFT_SWITCH_LEFT);
-    bool right_switch_is_in_left_position = debounce_byte(cowpi_right_switch_is_in_left_position(), RIGHT_SWITCH_LEFT);
-    char current_key = (char) debounce_byte(cowpi_get_keypress(), KEYPAD);
+    bool left_button_is_pressed = cowpi_debounce_byte(cowpi_left_button_is_pressed(), LEFT_BUTTON_DOWN);
+    bool right_button_is_pressed = cowpi_debounce_byte(cowpi_right_button_is_pressed(), RIGHT_BUTTON_DOWN);
+    bool left_switch_is_in_left_position = cowpi_debounce_byte(cowpi_left_switch_is_in_left_position(),
+                                                               LEFT_SWITCH_LEFT);
+    bool right_switch_is_in_left_position = cowpi_debounce_byte(cowpi_right_switch_is_in_left_position(),
+                                                                RIGHT_SWITCH_LEFT);
+    char current_key = (char) cowpi_debounce_byte(cowpi_get_keypress(), KEYPAD);
     bool update_is_needed = ((left_button_is_pressed != left_button_was_pressed)
                              || (right_button_is_pressed != right_button_was_pressed)
                              || (left_switch_is_in_left_position != left_switch_was_in_left_position)
@@ -47,16 +48,16 @@ void loop(void) {
         char c;
 #ifdef __AVR__
         printf_P(PSTR("Keypad:      %-5c    Column pins:  %d%d%d%d\n"),
-               (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
+                 (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
         printf_P(PSTR("Left switch: %-5s    Right switch: %s\n"),
-               left_switch_is_in_left_position ? "LEFT" : "RIGHT",
-               right_switch_is_in_left_position ? "LEFT" : "RIGHT");
+                 left_switch_is_in_left_position ? "LEFT" : "RIGHT",
+                 right_switch_is_in_left_position ? "LEFT" : "RIGHT");
         printf_P(PSTR("Left button: %-5s    Right button: %s\n"),
-               left_button_is_pressed ? "DOWN" : "UP",
-               right_button_is_pressed ? "DOWN" : "UP");
+                 left_button_is_pressed ? "DOWN" : "UP",
+                 right_button_is_pressed ? "DOWN" : "UP");
         printf_P(PSTR("Left LED:    %-5s    Right LED:    %s\n\n"),
-               illuminate_left_led ? "ON" : "OFF",
-               illuminate_right_led ? "ON " : "OFF");
+                 illuminate_left_led ? "ON" : "OFF",
+                 illuminate_right_led ? "ON " : "OFF");
 #else
         printf("Keypad:      %-5c    Column pins:  %d%d%d%d\n",
                (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
