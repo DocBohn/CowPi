@@ -1,7 +1,7 @@
 /*!
  * @mainpage CowPi Library
  *
- * @version 0.5
+ * @version 0.6
  *
  * @copyright (c) 2021-23 Christopher A. Bohn
  *
@@ -89,6 +89,6 @@
 #include "io/cowpi_io.h"
 #include "io/debounce.h"
 
-#define COWPI_VERSION ("0.5.x")
+#define COWPI_VERSION ("0.6.0")
 
 #endif //COWPI_H

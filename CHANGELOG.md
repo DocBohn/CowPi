@@ -28,7 +28,7 @@ and this project adheres to
 - Plug-and-play debouncing code
 -->
 
-## [Unreleased]
+## [0.6.0]
 
 ### Added
 
@@ -44,7 +44,7 @@ and this project adheres to
 ### Deprecated
 
 - `COWPI_IO_BASE`
-  Use absolute memory addresses instead of offsets from `COWPI_IO_BASE`
+  - Use absolute memory addresses instead of offsets from `COWPI_IO_BASE`
 
 ## [0.5.0] - 2023-07-06
 
