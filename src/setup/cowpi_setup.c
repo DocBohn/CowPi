@@ -56,7 +56,7 @@ FILE *cowpi_setup(unsigned long console_bitrate,
         cowpi_data_pin = DATA_I2C;
         cowpi_clock_pin = CLOCK_I2C;
     } else {}
-    /* unused pins */
+    /* unused pins on UnoNano and Mega form factors */
     cowpi_pin_mode(2, INPUT);
     cowpi_pin_mode(3, INPUT);
     /* LEDs */

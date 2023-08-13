@@ -28,7 +28,7 @@ and this project adheres to
 - Plug-and-play debouncing code
 -->
 
-## [0.6.0]
+## [0.6.0] - 2023-08-02
 
 ### Added
 

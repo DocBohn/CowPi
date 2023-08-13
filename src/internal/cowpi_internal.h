@@ -103,7 +103,36 @@ static const uint8_t CLOCK_SPI              = 52;
 static const uint8_t DATA_I2C               = 20;
 static const uint8_t CLOCK_I2C              = 21;
 
-//#elif defined (CCOWPI_PICO_FORMFACTOR)
+#elif defined (COWPI_PICO_FORMFACTOR)
+    // LEDs
+static const uint8_t LEFT_LED               = 21;
+static const uint8_t RIGHT_LED              = 20;
+static const uint8_t INTERNAL_LED           = 25;   // careful: this works on Pico & Pico-H but not on Pico-W & Pico-WH
+    // buttons
+static const uint8_t LEFT_BUTTON            = 2;
+static const uint8_t RIGHT_BUTTON           = 3;
+    // switches
+static const uint8_t LEFT_SWITCH            = 14;
+static const uint8_t RIGHT_SWITCH           = 15;
+static const uint8_t LEFT_SWITCH_SPI        = LEFT_SWITCH;
+static const uint8_t RIGHT_SWITCH_SPI       = RIGHT_SWITCH;
+static const uint8_t LEFT_SWITCH_I2C        = LEFT_SWITCH;
+static const uint8_t RIGHT_SWITCH_I2C       = RIGHT_SWITCH;
+    // keypad
+static const uint8_t KEYPAD_ROW_1           = 6;
+static const uint8_t KEYPAD_ROW_4           = 7;
+static const uint8_t KEYPAD_ROW_7           = 8;
+static const uint8_t KEYPAD_ROW_STAR        = 9;
+static const uint8_t KEYPAD_COLUMN_1        = 10;
+static const uint8_t KEYPAD_COLUMN_2        = 11;
+static const uint8_t KEYPAD_COLUMN_3        = 12;
+static const uint8_t KEYPAD_COLUMN_A        = 13;
+    // display
+static const uint8_t CHIP_SELECT_SPI        = 17;
+static const uint8_t DATA_SPI               = 19;
+static const uint8_t CLOCK_SPI              = 18;
+static const uint8_t DATA_I2C               = 4;
+static const uint8_t CLOCK_I2C              = 5;
 
 #else
 #error CowPi does not yet support your microcontroller board

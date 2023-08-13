@@ -7,12 +7,14 @@ void setup(void) {
     );
 
 #ifdef __AVR__
-    printf_P(PSTR("CowPi library version %s\n"), COWPI_VERSION);
+    printf_P(PSTR("CowPi library version       %s\n"), COWPI_VERSION);
+    printf_P(PSTR("CowPi_stdio library version %s\n"), COWPI_STDIO_VERSION);
 
     printf_P(PSTR("The simple I/O test will print the status of the keypad and of each\n"));
     printf_P(PSTR("\tbutton, switch, and LED every time there is a change.\n\n"));
 #else
-    printf("CowPi library version %s\n", COWPI_VERSION);
+    printf("CowPi library version       %s\n", COWPI_VERSION);
+    printf("CowPi_stdio library version %s\n", COWPI_STDIO_VERSION);
 
     printf("The simple I/O test will print the status of the keypad and of each\n");
     printf("\tbutton, switch, and LED every time there is a change.\n\n");
@@ -46,7 +48,7 @@ void loop(void) {
         bool illuminate_left_led = left_button_is_pressed && !left_switch_is_in_left_position;
         bool illuminate_right_led = right_button_is_pressed && !right_switch_is_in_left_position;
         char c;
-#ifdef __AVR__
+#if (ARDUINO_AVR_UNO) || defined (ARDUINO_AVR_NANO) || defined (ARDUINO_AVR_MEGA2560)
         printf_P(PSTR("Keypad:      %-5c    Column pins:  %d%d%d%d\n"),
                  (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
         printf_P(PSTR("Left switch: %-5s    Right switch: %s\n"),
@@ -58,9 +60,9 @@ void loop(void) {
         printf_P(PSTR("Left LED:    %-5s    Right LED:    %s\n\n"),
                  illuminate_left_led ? "ON" : "OFF",
                  illuminate_right_led ? "ON " : "OFF");
-#else
+#elif defined (ARDUINO_RASPBERRY_PI_PICO) || defined (PICO_RP2040)
         printf("Keypad:      %-5c    Column pins:  %d%d%d%d\n",
-               (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
+               (c = current_key) ? c : '-', digitalRead(10), digitalRead(11), digitalRead(12), digitalRead(13));
         printf("Left switch: %-5s    Right switch: %s\n",
                left_switch_is_in_left_position ? "LEFT" : "RIGHT",
                right_switch_is_in_left_position ? "LEFT" : "RIGHT");
@@ -70,7 +72,19 @@ void loop(void) {
         printf("Left LED:    %-5s    Right LED:    %s\n\n",
                illuminate_left_led ? "ON" : "OFF",
                illuminate_right_led ? "ON " : "OFF");
-#endif //__AVR__
+#else
+        printf("Keypad:      %-5c    Column pins:  %d%d%d%d\n",
+                 (c = current_key) ? c : '-', digitalRead(A0), digitalRead(A1), digitalRead(A2), digitalRead(A3));
+        printf("Left switch: %-5s    Right switch: %s\n",
+               left_switch_is_in_left_position ? "LEFT" : "RIGHT",
+               right_switch_is_in_left_position ? "LEFT" : "RIGHT");
+        printf("Left button: %-5s    Right button: %s\n",
+               left_button_is_pressed ? "DOWN" : "UP",
+               right_button_is_pressed ? "DOWN" : "UP");
+        printf("Left LED:    %-5s    Right LED:    %s\n\n",
+               illuminate_left_led ? "ON" : "OFF",
+               illuminate_right_led ? "ON " : "OFF");
+#endif //MICROCONTROLLER BOARD
         if (illuminate_left_led) {
             cowpi_illuminate_left_led();
         } else {

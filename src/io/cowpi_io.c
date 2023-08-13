@@ -34,12 +34,15 @@ uint8_t cowpi_data_pin = 255;
 uint8_t cowpi_latch_pin = 255;
 
 
-#if defined ARDUINO_AVR_UNO || defined ARDUINO_AVR_NANO
+#if defined (ARDUINO_AVR_UNO) || defined (ARDUINO_AVR_NANO)
 #define A_BASE  (4)
 #define B_BASE  (14)
-#elif defined ARDUINO_AVR_MEGA2560
+#elif defined (ARDUINO_AVR_MEGA2560)
 #define A_BASE  (4)
 #define B_BASE  (54)
+#elif defined (ARDUINO_RASPBERRY_PI_PICO) || defined (PICO_RP2040)
+#define A_BASE  (6)
+#define B_BASE  (10)
 #else
 #define A_BASE  (0)
 #define B_BASE  (0)
