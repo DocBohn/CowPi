@@ -89,6 +89,6 @@
 #include "io/cowpi_io.h"
 #include "io/debounce.h"
 
-#define COWPI_VERSION ("0.6.0")
+#define COWPI_VERSION ("0.6.1")
 
 #endif //COWPI_H

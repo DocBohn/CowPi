@@ -28,6 +28,12 @@ and this project adheres to
 - Plug-and-play debouncing code
 -->
 
+## [0.6.1] - 2023-10-14
+
+### Fixed
+
+- Added Nyquist Rate check to debouncing code
+
 ## [0.6.0] - 2023-08-02
 
 ### Added
