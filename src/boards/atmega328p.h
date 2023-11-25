@@ -4,8 +4,8 @@
  *
  * @author Christopher A. Bohn
  *
- * @brief Macros and constants for the ATmega328P microcontroller (Arduino Uno,
- *      Arduino Nano)
+ * @brief Type definitions and constants for the ATmega328P microcontroller 
+ *      (Arduino Uno, Arduino Nano)
  *
  * This header provides the base address for memory-mapped I/O and
  * data structures to conveniently access the I/O registers.
@@ -47,19 +47,10 @@
 
 #define COWPI_USING_A_SUPPORTED_BOARD
 
-#include <Arduino.h>
-#include <avr/pgmspace.h>
+#include <Arduino.h>                //TODO: is this include needed?
+#include <avr/pgmspace.h>           //TODO: is this include needed?
 #include <stdint.h>
-#include "../setup/cowpi_setup.h"
-
-/**
- * The memory address corresponding to the start of the
- * memory-mapped I/O registers.
- * 
- * @deprecated Use the absolute memory address instead of an offset from 
- * `COWPI_IO_BASE`
- */
-#define COWPI_IO_BASE   ((uint8_t *) 0x20)
+#include "../setup/cowpi_setup.h"   //TODO: why is this include here?
 
 
 #define COWPI_PB  0                 //!< Index for arrays to access PINB/DDRB/PORTB and PCMSK0
@@ -80,7 +71,7 @@
  * (COWPI_PB, etc).
  */
 typedef struct {
-    uint8_t input;                      //!< Read inputs from field (PINx)
+    uint8_t input;                      //!< Read inputs from this field (PINx)
     uint8_t direction;                  //!< Set the pin's direction using this field (DDRx)
     uint8_t output;                     //!< Write outputs to this field, and set/unset a pull-up resistor (PORTx)
 } cowpi_ioport_t;

@@ -74,3 +74,20 @@ uint16_t cowpi_debounce_short(uint16_t current_value, enum input_names input_nam
     last_call[input_name] = now;
     return last_good_value[input_name];
 }
+
+
+uint32_t cowpi_debounce_long(uint32_t current_value, enum input_names input_name) {
+    static uint32_t last_actual_value[NUMBER_OF_INPUTS] = {0};
+    static uint32_t last_good_value[NUMBER_OF_INPUTS] = {0};
+    static unsigned long last_change[NUMBER_OF_INPUTS] = {[0 ... (NUMBER_OF_INPUTS - 1)] = 0x80000000}; // gcc extension
+    static unsigned long last_call[NUMBER_OF_INPUTS] = {[0 ... (NUMBER_OF_INPUTS - 1)] = 0x80000000}; // gcc extension
+    unsigned long now = millis();
+    last_change[input_name] = (current_value == last_actual_value[input_name]) ? last_change[input_name] : now;
+    last_good_value[input_name] = (now - last_call[input_name] < DEBOUNCE_THRESHOLD / 2) &&
+                                  (now - last_change[input_name] < DEBOUNCE_THRESHOLD)
+                                  ? last_good_value[input_name]
+                                  : current_value;
+    last_actual_value[input_name] = current_value;
+    last_call[input_name] = now;
+    return last_good_value[input_name];
+}

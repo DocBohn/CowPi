@@ -21,12 +21,21 @@ and this project adheres to
 
 <!--
 ## [TODO]
-- Bit-banged I2C implementation
-- Microcontroller-dependent code other than that for ATMega328P
+- Microcontroller-dependent code other than that for ATMega328P & RP2040
 - Implementation that uses Raspberry Pi Pico SDK
-- Code to detect keypresses without interrupts
-- Plug-and-play debouncing code
 -->
+
+## [Unreleased]
+
+### Added
+
+- Pin mappings for Raspberry Pi Pico
+- Memory-mapped I/O structures for RP2040
+- Debouncing code for 32-bit inputs
+
+### Removed
+
+- `COWPI_IO_BASE`
 
 ## [0.6.1] - 2023-10-14
 

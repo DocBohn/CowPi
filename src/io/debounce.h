@@ -41,7 +41,8 @@ extern "C" {
  * board.
  */
 enum input_names {
-    LEFT_BUTTON_DOWN = 0,
+    ALL_INPUTS = 0,
+    LEFT_BUTTON_DOWN,
     RIGHT_BUTTON_DOWN,
     LEFT_SWITCH_LEFT,
     RIGHT_SWITCH_LEFT,
@@ -77,6 +78,7 @@ enum input_names {
  * fewer) bits.
  *
  * @sa cowpi_debounce_short
+ * @sa cowpi_debounce_long
  *
  * @param current_value an expression that evaluates to the input's current,
  *      un-debounced value
@@ -110,6 +112,7 @@ uint8_t cowpi_debounce_byte(uint8_t current_value, enum input_names input_name);
  * fewer) bits.
  *
  * @sa cowpi_debounce_byte
+ * @sa cowpi_debounce_long
  *
  * @param current_value an expression that evaluates to the input's current,
  *      un-debounced value
@@ -118,6 +121,40 @@ uint8_t cowpi_debounce_byte(uint8_t current_value, enum input_names input_name);
  * @return the input's value after mechanical bouncing has been filtered-out
  */
 uint16_t cowpi_debounce_short(uint16_t current_value, enum input_names input_name);
+
+/**
+ * @brief Applies a software-based low-pass filter to an input, smoothing-out
+ * mechanical switch bounce.
+ *
+ * When the input is stable, this function will return the input's value. When
+ * the input is bouncing, this function will return a stable value.
+ *
+ * The first argument is an expression that you would use to determine the
+ * input's value if switch bounce weren't an issue. This might be one of the
+ * CowPi library's functions, it might be memory-mapped I/O, or it might be some
+ * other expression altogether.
+ *
+ * Because this function cannot ascertain which input is being debounced (the
+ * expression that provides the `current-value` is evaluated before this
+ * function starts), you must provide additional information, in the form of
+ * the `input_name` argument. Most of the `input_names` correspond to the likely
+ * inputs that would be polled on a Cow Pi board. Providing a unique
+ * `input_name` allows the library to stabilize multiple bouncing inputs, such
+ * as the user pressing both pushbuttons simultaneously.
+ *
+ * This function is suitable for inputs that can be represented in sixteen (or
+ * fewer) bits.
+ *
+ * @sa cowpi_debounce_byte
+ * @sa cowpi_debounce_short
+ *
+ * @param current_value an expression that evaluates to the input's current,
+ *      un-debounced value
+ * @param input_name a unique enumerated value to distinguish between different
+ *      inputs
+ * @return the input's value after mechanical bouncing has been filtered-out
+ */
+uint32_t cowpi_debounce_long(uint32_t current_value, enum input_names input_name);
 
 #ifdef __cplusplus
 } // extern "C"

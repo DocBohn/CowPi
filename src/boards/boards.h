@@ -26,6 +26,7 @@
 #define COWPI_BOARDS_H
 
 #include "atmega328p.h"
+#include "rp2040.h"
 
 #ifndef COWPI_USING_A_SUPPORTED_BOARD
 
@@ -39,15 +40,15 @@
 #warning CowPi does not yet have memory-mapped I/O data structures for Arduino Nano 33 IOT
 
 #elif defined (ARDUINO_NANO_RP2040_CONNECT)
-#warning CowPi does not yet have memory-mapped I/O data structures for Arduino Nano RP2040
+#warning CowPi has not yet been tested on Arduino Nano RP2040
 
 #elif defined (ARDUINO_AVR_MEGA2560)
 #warning CowPi does not yet have memory-mapped I/O data structures for Arduino Mega 2560
 
-#elif defined (ARDUINO_RASPBERRY_PI_PICO) || defined (PICO_RP2040)
-#warning CowPi does not yet have memory-mapped I/O data structures for Raspberry Pi Pico
+#elif defined (PICO_RP2040)
+#warning CowPi is not yet ported to Raspberry Pi Pico SDK
 
-// TODO: add the new Uno R4 and Nano ESP32
+// TODO: add the Uno R4 and Nano ESP32
 
 #else
 #error Cowpi does not yet support your microcontroller board
