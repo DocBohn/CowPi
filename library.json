@@ -1,6 +1,6 @@
 {
   "name": "CowPi",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "The Cow Pi hardware kit is used to teach memory-mapped I/O, polling, and interrupts. The CowPi library takes care of details unrelated to those learning objectives and provides (non-memory-mapped) input/output functions to bootstrap student code.",
   "keywords": [
     "cowpi",

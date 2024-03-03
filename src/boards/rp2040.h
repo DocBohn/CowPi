@@ -40,11 +40,9 @@
 #define COWPI_RP2040_H
 
 #ifdef ARDUINO_ARCH_RP2040
-
 #define COWPI_USING_A_SUPPORTED_BOARD
 
 #include <stdint.h>
-
 
 /* *** SINGLE-CYCLE I/O *** (see RP2040 datasheet, section 2.3.1) *** */
 
@@ -60,33 +58,27 @@ typedef struct {
     uint32_t :32;                       //!< padding (QSPI input)
     uint32_t :32;                       //!< padding (not described in rp2040 datasheet)
     uint32_t output;                    //!< Write outputs to this field
-    struct {
-        uint32_t set;                           //!< Perform an atomic bit-set; equivalent to     `output |= bit_vector`
-        uint32_t clear;                         //!< Perofrm an atomic bit-clear; equivalent to   `output &= ~bit_vector`
-        uint32_t toggle;                        //!< Perform an atomic bitwise XOR; equivalent to `output ^= bit_vector`
-    } atomic_output;                    //!< Atomically update outputs, without race condition intrinsic to read/modify/write pattern
+    uint32_t atomic_set;                //!< Perform an atomic bit-set; equivalent to     `output |= bit_vector`
+    uint32_t atomic_clear;              //!< Perofrm an atomic bit-clear; equivalent to   `output &= ~bit_vector`
+    uint32_t atomic_toggle;             //!< Perform an atomic bitwise XOR; equivalent to `output ^= bit_vector`
     uint32_t output_enable;             //!< Enable output on specified pins
-    struct {
-        uint32_t set;                           //!< Perform an atomic bit-set; equivalent to     `output_enable |= bit_vector`
-        uint32_t clear;                         //!< Perofrm an atomic bit-clear; equivalent to   `output_enable &= ~bit_vector`
-        uint32_t toggle;                        //!< Perform an atomic bitwise XOR; equivalent to `output_enable ^= bit_vector`
-    } atomic_output_enable;             //!< Atomically update outputs, without race condition intrinsic to read/modify/write pattern
+    uint32_t atomic_set_enable;         //!< Perform an atomic bit-set; equivalent to     `output_enable |= bit_vector`
+    uint32_t atomic_clear_enable;       //!< Perofrm an atomic bit-clear; equivalent to   `output_enable &= ~bit_vector`
+    uint32_t atomic_toggle_enable;      //!< Perform an atomic bitwise XOR; equivalent to `output_enable ^= bit_vector`
 } cowpi_ioport_t;
 
 /**
  * @brief Structure to coordinate concurrent behavior between the two cores.
  * 
- * A 32 bit wide, 8 word deep FIFO pipes can be used to pass data/messages
+ * A 32 bit wide, 8 word deep FIFO pipe can be used to pass data/messages
  * between the cores.
  * 
  * @todo incorporate interrupts
  */
 typedef struct {
-    struct {
-        uint32_t status;                //!< Status register; see datasheet for bit descriptions
-        uint32_t write;                 //!< Write word in this field to send message to other core
-        uint32_t read;                  //!< Read word from this field to obtain message from other core
-    } pipe;                             //!< FIFO used for interprocess communication
+    uint32_t pipe_status;               //!< FIFO Status register; see datasheet for bit descriptions
+    uint32_t pipe_write;                //!< Write word in this field to send message to other core
+    uint32_t pipe_read;                 //!< Read word from this field to obtain message from other core
     uint32_t spinlock_status;           //!< Status of each of the 32 mutex tokens (1=locked, 0=unlocked)
     uint32_t DO_NOT_TOUCH_1[0x20];      //!< padding (divider)
     uint32_t DO_NOT_TOUCH_2[0x80];      //!< padding (interpolators)
@@ -135,9 +127,8 @@ typedef struct {
     uint16_t data;                      //!< SSP data register (SSPDR)
     uint16_t :16;                       //!< padding (unused upper half-word of SSPDR)
     uint32_t status;                    //!< SSP status register (SSPSR)
-    uint8_t prescaler;                  //!< SSP prescale register (SSPCPSR)
-    uint8_t :8;                         //!< padding (unused bits 15..8 of SSPCSR)
-    uint16_t :16;                       //!< padding (unused bits 31..16 of SSPCSR)
+    uint32_t prescaler:8;               //!< SSP prescale register (SSPCPSR)
+    uint32_t :24;                       //!< padding (unused bits 31..8 of SSPCSR)
     // skip over the interrupt-related registers (for now?)
 } cowpi_spi_t;
 

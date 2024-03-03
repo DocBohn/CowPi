@@ -23,9 +23,15 @@ and this project adheres to
 ## [TODO]
 - Microcontroller-dependent code other than that for ATMega328P & RP2040
 - Implementation that uses Raspberry Pi Pico SDK
+- Implement `cowpi_register_pin_ISR()` for RP2040
+- Wrap and document the [Ticker](https://os.mbed.com/docs/mbed-os/v6.16/apis/ticker.html) and [Timeout](https://os.mbed.com/docs/mbed-os/v6.16/apis/timeout.html) APIs
 -->
 
+<!--
 ## [Unreleased]
+-->
+
+## [0.7.0] - 2024-03-03
 
 ### Added
 

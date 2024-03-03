@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-23 Christopher A. Bohn
+/* CowPi (c) 2021-24 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,15 +30,19 @@
 FILE *cowpi_setup(unsigned long console_bitrate,
                   cowpi_display_module_t display_module,
                   cowpi_display_module_protocol_t communication_protocol) {
+    /* stderr */
+    stderr = cowpi_add_display_module(
+            (cowpi_display_module_t) {.display_module = MORSE_CODE, .words_per_minute = 7},
+#if defined (ARDUINO_RASPBERRY_PI_PICO)
+            (cowpi_display_module_protocol_t) {.protocol = NO_PROTOCOL, .data_pin = INTERNAL_LED}
+#else
+            (cowpi_display_module_protocol_t) {.protocol = NO_PROTOCOL, .data_pin = RIGHT_LED}
+#endif //PICO or no
+    );
     /* stdin & stdout */
     if (console_bitrate > 0) {
         cowpi_stdio_setup(console_bitrate);
     }
-    /* stderr */
-    stderr = cowpi_add_display_module(
-            (cowpi_display_module_t) {.display_module = MORSE_CODE, .words_per_minute = 7},
-            (cowpi_display_module_protocol_t) {.protocol = NO_PROTOCOL, .data_pin = RIGHT_LED}
-    );
     if (stderr == NULL) {
         stderr = stdout;
     }

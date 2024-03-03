@@ -1,9 +1,9 @@
 /*!
  * @mainpage CowPi Library
  *
- * @version 0.6
+ * @version 0.7
  *
- * @copyright (c) 2021-23 Christopher A. Bohn
+ * @copyright (c) 2021-24 Christopher A. Bohn
  *
  * @section overview Overview
  *
@@ -65,7 +65,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-23 Christopher A. Bohn
+/* CowPi (c) 2021-24 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,6 +89,6 @@
 #include "io/cowpi_io.h"
 #include "io/debounce.h"
 
-#define COWPI_VERSION ("0.7.experimental")
+#define COWPI_VERSION ("0.7.0")
 
 #endif //COWPI_H
