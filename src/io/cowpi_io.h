@@ -12,7 +12,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-23 Christopher A. Bohn
+/* CowPi (c) 2021-24 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,9 +42,13 @@ extern "C" {
  * memory-mapped implementation. Returns the ASCII representation of the 
  * character depicted on whichever key was pressed (0-9, A-D, *, #).
  *
- * Assumes a common 4x4 matrix keypad with the rows in Arduino pins D4-D7 and
- * the columns in Arduino pins A0-A3 (D14-D17 on Uno/Nano). A pressed key 
- * grounds a pulled-high input.
+ * Assumes a common 4x4 matrix keypad with:
+ * - Arduino form factors: the rows in pins D4-D7 and the columns in pins A0-A3
+ *   (D14-D17 on Uno/Nano).
+ * - Raspberry Pi Pico: the rows in pins GP6-GP9 and the columns in pins 
+ *   GP10-GP13.
+ * 
+ * A pressed key grounds a pulled-high input.
  * 
  * @sa cowpi_get_keypresses
  *
@@ -66,9 +70,13 @@ char cowpi_get_keypress(void);
  * Additionally, bit14 corresponds to the "#" key and bit15 corresponds to the 
  * "*" key.
  *
- * Assumes a common 4x4 matrix keypad with the rows in Arduino pins D4-D7 and
- * the columns in Arduino pins A0-A3 (D14-D17 on Uno/Nano). A pressed key 
- * grounds a pulled-high input.
+ * Assumes a common 4x4 matrix keypad with:
+ * - Arduino form factors: the rows in pins D4-D7 and the columns in pins A0-A3
+ *   (D14-D17 on Uno/Nano).
+ * - Raspberry Pi Pico: the rows in pins GP6-GP9 and the columns in pins 
+ *   GP10-GP13.
+ * 
+ * A pressed key grounds a pulled-high input.
  * 
  * @warning This function should only be called if diodes are used to isolate 
  * the keys, as on the Cow Pi mark 3 and mark 4 development boards.
@@ -86,8 +94,8 @@ uint16_t cowpi_get_keypresses(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the left button is in Arduino pin D8. A pressed button grounds a
- * pulled-high input.
+ * Assumes the left button is in Arduino pin D8 or Raspberry Pi Pico pin GP2.
+ * A pressed button grounds a pulled-high input.
  *
  * @return `true` if the button is pressed, `false` otherwise
  */
@@ -99,8 +107,8 @@ bool cowpi_left_button_is_pressed(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the right button is in Arduino pin D9. A pressed button grounds a
- * pulled-high input.
+ * Assumes the right button is in Arduino pin D9 or Raspberry Pi Pico pin GP3.
+ * A pressed button grounds a pulled-high input.
  *
  * @return `true` if the button is pressed, `false` otherwise
  */
@@ -112,11 +120,12 @@ bool cowpi_right_button_is_pressed(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I2C) is
- * in use or if no protocol is in use; assumes the switch is in pin D11 if I2C
- * (but not SPI) is in use. If both protocols are in use, then this function
- * will always return `false`. A switch in the left position grounds a
- * pulled-high input.
+ * Assumes the left switch is in:
+ * - Arduino pin A4 (D18) if SPI (but not I2C) is in use or if no protocol is in
+ *   use; assumes the switch is in pin D11 if I2C (but not SPI) is in use.
+ * - Raspberry Pi Pico pin GP14.
+ * 
+ * A switch in the left position grounds a pulled-high input.
  *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
@@ -128,11 +137,12 @@ bool cowpi_left_switch_is_in_left_position(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I2C) is
- * in use or if no protocol is in use; assumes the switch is in pin D10 if I2C
- * (but not SPI) is in use. If both protocols are in use, then this function
- * will always return `false`. A switch in the left position grounds a
- * pulled-high input.
+ * Assumes the right switch is in:
+ * - Arduino pin A5 (D19) if SPI (but not I2C) is in use or if no protocol is in
+ *   use; assumes the switch is in pin D10 if I2C (but not SPI) is in use.
+ * - Raspberry Pi Pico pin GP15.
+ * 
+ * A switch in the left position grounds a pulled-high input.
  *
  * @return `true` if the switch is in the left position, `false` otherwise
  */
@@ -144,11 +154,13 @@ bool cowpi_right_switch_is_in_left_position(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the left switch is in Arduino pin A4 (D18) if SPI (but not I2C) is
- * in use or if no protocol is in use; assumes the switch is in pin D11 if I2C
- * (but not SPI) is in use. If both protocols are in use, then this function
- * will always return `false`. A switch in the right position floats, allowing
- * pulled-high input to remain high.
+ * Assumes the left switch is in:
+ * - Arduino pin A4 (D18) if SPI (but not I2C) is in use or if no protocol is in
+ *   use; assumes the switch is in pin D11 if I2C (but not SPI) is in use.
+ * - Raspberry Pi Pico pin GP14.
+ * 
+ * A switch in the right position floats, allowing pulled-high input to remain 
+ * high.
  *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
@@ -160,11 +172,13 @@ bool cowpi_left_switch_is_in_right_position(void);
  * There is no debouncing. This is a portable implementation, not a
  * memory-mapped implementation.
  *
- * Assumes the right switch is in Arduino pin A5 (D19) if SPI (but not I2C) is
- * in use or if no protocol is in use; assumes the switch is in pin D10 if I2C
- * (but not SPI) is in use. If both protocols are in use, then this function
- * will always return `false`. A switch in the right position floats, allowing
- * pulled-high input to remain high.
+ * Assumes the right switch is in:
+ * - Arduino pin A5 (D19) if SPI (but not I2C) is in use or if no protocol is in
+ *   use; assumes the switch is in pin D10 if I2C (but not SPI) is in use.
+ * - Raspberry Pi Pico pin GP15.
+ * 
+ * A switch in the right position floats, allowing pulled-high input to remain
+ * high.
  *
  * @return `true` if the switch is in the right position, `false` otherwise
  */
@@ -175,8 +189,9 @@ bool cowpi_right_switch_is_in_right_position(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the external LED is in Arduino pin D12. An LED illuminates when the
- * pin is placed high, to match the semantics of Arduino's built-in LED.
+ * Assumes the right LED is in Arduino pin D12 or Raspberry Pi Pico pin GP20.
+ * An LED illuminates when the pin is placed high, to match the semantics of
+ * the built-in LED.
  */
 void cowpi_illuminate_right_led(void);
 
@@ -185,8 +200,9 @@ void cowpi_illuminate_right_led(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
- * that an LED illuminates when the pin is placed high.
+ * Assumes the left LED is in Arduino pin D13 or Raspberry Pi Pico pin GP21.
+ * An LED illuminates when the pin is placed high, to match the semantics of
+ * the built-in LED.
  */
 void cowpi_illuminate_left_led(void);
 
@@ -195,8 +211,9 @@ void cowpi_illuminate_left_led(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the external LED is in Arduino pin D12. An LED deluminates when the
- * pin is placed low, to match the semantics of Arduino's built-in LED.
+ * Assumes the right LED is in Arduino pin D12 or Raspberry Pi Pico pin GP20.
+ * An LED deluminates when the pin is placed low, to match the semantics of
+ * the built-in LED.
  */
 void cowpi_deluminate_right_led(void);
 
@@ -205,8 +222,9 @@ void cowpi_deluminate_right_led(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
- * that an LED deluminates when the pin is placed low.
+ * Assumes the left LED is in Arduino pin D13 or Raspberry Pi Pico pin GP21.
+ * An LED deluminates when the pin is placed low, to match the semantics of
+ * the built-in LED.
  */
 void cowpi_deluminate_left_led(void);
 
@@ -215,8 +233,8 @@ void cowpi_deluminate_left_led(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
- * that an LED illuminates when the pin is placed high.
+ * Assumes the built-in LED is in Arduino pin D13 or Raspberry Pi Pico pin GP25.
+ * An LED illuminates when the pin is placed high.
  */
 void cowpi_illuminate_internal_led(void);
 
@@ -225,8 +243,8 @@ void cowpi_illuminate_internal_led(void);
  *
  * This is a portable implementation, not a memory-mapped implementation.
  *
- * Assumes the internal LED is in Arduino pin D13. The Arduino semantics are
- * that an LED deluminates when the pin is placed low.
+ * Assumes the built-in LED is in Arduino pin D13 or Raspberry Pi Pico pin GP25.
+ * An LED deluminates when the pin is placed low.
  */
 void cowpi_deluminate_internal_led(void);
 

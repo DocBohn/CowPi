@@ -114,10 +114,10 @@ static const uint8_t RIGHT_BUTTON           = 3;
     // switches
 static const uint8_t LEFT_SWITCH            = 14;
 static const uint8_t RIGHT_SWITCH           = 15;
-static const uint8_t LEFT_SWITCH_SPI        = LEFT_SWITCH;
-static const uint8_t RIGHT_SWITCH_SPI       = RIGHT_SWITCH;
-static const uint8_t LEFT_SWITCH_I2C        = LEFT_SWITCH;
-static const uint8_t RIGHT_SWITCH_I2C       = RIGHT_SWITCH;
+static const uint8_t LEFT_SWITCH_SPI        = 14;
+static const uint8_t RIGHT_SWITCH_SPI       = 15;
+static const uint8_t LEFT_SWITCH_I2C        = 14;
+static const uint8_t RIGHT_SWITCH_I2C       = 15;
     // keypad
 static const uint8_t KEYPAD_ROW_1           = 6;
 static const uint8_t KEYPAD_ROW_4           = 7;
