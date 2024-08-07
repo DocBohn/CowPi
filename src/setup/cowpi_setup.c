@@ -48,13 +48,13 @@ FILE *cowpi_setup(unsigned long console_bitrate,
     }
     /* determine the configuration */
     cowpi_protocol = communication_protocol.protocol;
-    if (cowpi_protocol == SPI) {
+    if (cowpi_protocol == COWPI_SPI) {
         cowpi_left_switch = LEFT_SWITCH_SPI;
         cowpi_right_switch = RIGHT_SWITCH_SPI;
         cowpi_data_pin = DATA_SPI;
         cowpi_clock_pin = CLOCK_SPI;
         cowpi_latch_pin = CHIP_SELECT_SPI;
-    } else if (cowpi_protocol == I2C) {
+    } else if (cowpi_protocol == COWPI_I2C) {
         cowpi_left_switch = LEFT_SWITCH_I2C;
         cowpi_right_switch = RIGHT_SWITCH_I2C;
         cowpi_data_pin = DATA_I2C;
@@ -90,14 +90,14 @@ FILE *cowpi_setup(unsigned long console_bitrate,
     cowpi_pin_mode(KEYPAD_COLUMN_3, INPUT_PULLUP);
     cowpi_pin_mode(KEYPAD_COLUMN_A, INPUT_PULLUP);
     /* display module */
-    if (cowpi_protocol == SPI) {
+    if (cowpi_protocol == COWPI_SPI) {
         cowpi_pin_mode(cowpi_data_pin, OUTPUT);
         cowpi_pin_mode(cowpi_clock_pin, OUTPUT);
         cowpi_pin_mode(cowpi_latch_pin, OUTPUT);
         digitalWrite(cowpi_data_pin, LOW);
         digitalWrite(cowpi_clock_pin, LOW);
         digitalWrite(cowpi_latch_pin, HIGH);
-    } else if (cowpi_protocol == I2C) {
+    } else if (cowpi_protocol == COWPI_I2C) {
         cowpi_pin_mode(cowpi_data_pin, INPUT);
         cowpi_pin_mode(cowpi_clock_pin, INPUT);
     } else {}
