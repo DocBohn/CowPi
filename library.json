@@ -27,6 +27,7 @@
   },
   "license": "Apache-2.0",
   "frameworks": "Arduino",
+  "platforms": ["atmelavr", "raspberrypi", "rp2040"],
   "headers": "CowPi.h",
   "examples": [
     {

@@ -27,9 +27,15 @@ and this project adheres to
 - Wrap and document the [Ticker](https://os.mbed.com/docs/mbed-os/v6.16/apis/ticker.html) and [Timeout](https://os.mbed.com/docs/mbed-os/v6.16/apis/timeout.html) APIs
 -->
 
-<!--
 ## [Unreleased]
--->
+
+### Added
+
+- Ported to [Arduino-Pico](https://arduino-pico.readthedocs.io/en/latest/index.html) core based on RPi Pico SDK
+
+### Changed
+
+- Renamed constants to deconflict with other libraries
 
 ## [0.7.0] - 2024-03-03
 

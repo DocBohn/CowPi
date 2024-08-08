@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-23 Christopher A. Bohn
+/* CowPi (c) 2021-24 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,16 @@
 
 #include <stdint.h>
 #include <CowPi_stdio.h>
+
+// There doesn't seem to be a well-defined way to distinctively identify that
+// we're using the earlephilhower arduino-pico core. Since the "official"
+// Arduino core is switching from MBED to Zephyr, we can't simply use
+// `defined (ARDUINO_ARCH_RP2040) && !defined (MBED)` without ambiguity.
+// Looking at what's defined for the "official" Arduino core and for the
+// earlephilhower arduino-pico core, let's go with this for now:
+#if defined (ARDUINO_ARCH_RP2040) && defined (ARDUINO_VARIANT) // && hope that ARDUINO_VARIANT is "rpipico"
+#define COWPI_ARDUINO_PICO_SDK
+#endif
 
 #if defined (ARDUINO_AVR_UNO)   || defined (ARDUINO_AVR_NANO)           || defined (ARDUINO_AVR_NANO_EVERY)         \
  || defined (ARDUINO_NANO33BLE) || defined (ARDUINO_SAMD_NANO_33_IOT)   || defined (ARDUINO_NANO_RP2040_CONNECT)
@@ -161,10 +171,11 @@ extern "C" {
 #elif defined(ARDUINO_ARCH_MEGAAVR)
 #define pin_number_t uint8_t
 #define pin_mode_t PinMode
-#elif defined(ARDUINO_ARCH_SAMD)
-#define pin_number_t pin_size_t
-#define pin_mode_t PinMode
-#elif defined (ARDUINO_ARCH_MBED)
+// #elif defined(ARDUINO_ARCH_SAMD)
+// #define pin_number_t pin_size_t
+// #define pin_mode_t PinMode
+// #elif defined (ARDUINO_ARCH_MBED)
+#else   // this seems to be the used in ARDUINO_ARCH_SAMD, ARDUINO_ARCH_MBED, and in Arduino-Pico (pico-sdk) -- probably will also be used in the upcoming Zephyr-based Arduino
 #define pin_number_t pin_size_t
 #define pin_mode_t PinMode
 #endif //ARCHITECTURE

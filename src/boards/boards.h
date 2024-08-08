@@ -45,12 +45,6 @@
 #elif defined (ARDUINO_AVR_MEGA2560)
 #warning CowPi does not yet have memory-mapped I/O data structures for Arduino Mega 2560
 
-#elif defined (ARDUINO_ARCH_RP2040) && !defined (MBED)
-#warning CowPi is not yet ported to the earlephilhower arduino-pico core
-
-#elif defined (PICO_RP2040)
-#warning CowPi is not yet ported to Raspberry Pi Pico SDK
-
 // TODO: add the Uno R4 and Nano ESP32
 
 #else

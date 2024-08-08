@@ -152,7 +152,7 @@ typedef struct {
     uint32_t status;                    //!< I2C status register (IC_STATUS)
     uint32_t tx_fifo_level;             //!< I2C transmit FIFO level register (IC_TXFLR)
     uint32_t rx_fifo_level;             //!< I2C receive FIFO level register (IC_RXFLR)
-    // skip over the remaining registes (for now?)
+    // skip over the remaining registers (for now?)
 } cowpi_i2c_t;
 
 #endif //ARDUINO_ARCH_RP2040
