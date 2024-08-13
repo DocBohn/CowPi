@@ -8,7 +8,7 @@
  *
  ******************************************************************************/
 
-/* CowPi (c) 2021-23 Christopher A. Bohn
+/* CowPi (c) 2021-24 Christopher A. Bohn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +61,81 @@ extern "C" {
 FILE *cowpi_setup(unsigned long console_bitrate,
                   cowpi_display_module_t display_module,
                   cowpi_display_module_protocol_t communication_protocol);
+
+/**
+ * @brief Configures the specified pin to be output pins
+ *
+ * The <code>pins</code> argument is used to specify which pins will be output
+ * pins. Bit0 corresponds to Pin 0, Bit1 corresponds to Pin 1, and so on. A 1 in
+ * a particular bit indicates that the corresponding pin should be an output
+ * pin, overriding any previous configuration for that pin. If more than one bit
+ * has a 1, then each of the corresponding pins will be output pins. The
+ * configuration of any pin whose corresponding bit bit is 0 will be unchanged,
+ * regardless of whether that pin had been previously set as an input or output
+ * pin.
+ *
+ * @param pins A bit vector specifying which pins will be output pins
+ */
+void cowpi_set_output_pins(uint32_t pins);
+
+/**
+ * @brief Configures the specified pin to be input pins with high impedance to
+ * both the microprocessor's reference voltage and ground; that is, their input
+ * values will float unless driven high or low by a peripheral device.
+ *
+ * The <code>pins</code> argument is used to specify which pins will be input
+ * pins. Bit0 corresponds to Pin 0, Bit1 corresponds to Pin 1, and so on. A 1 in
+ * a particular bit indicates that the corresponding pin should be a floating
+ * input pin, overriding any previous configuration for that pin. If more than
+ * one bit has a 1, then each of the corresponding pins will be floating input
+ * pins. The configuration of any pin whose corresponding bit bit is 0 will be
+ * unchanged, regardless of whether that pin had been previously set as an input
+ * or output pin, and regardless of whether it had been previously set to float
+ * or tied to a pullup or pulldown resistor.
+ *
+ * @param pins A bit vector specifying which pins will be floating input pins
+ */
+void cowpi_set_floating_input_pins(uint32_t pins);
+
+/**
+ * @brief Configures the specified pin to be input pins connected to a pullup
+ * resistor that is internal to the microcontroller; that is, their input
+ * values will be high unless driven low by a peripheral device.
+ *
+ * The <code>pins</code> argument is used to specify which pins will be input
+ * pins. Bit0 corresponds to Pin 0, Bit1 corresponds to Pin 1, and so on. A 1 in
+ * a particular bit indicates that the corresponding pin should be a pulled-up
+ * input pin, overriding any previous configuration for that pin. If more than
+ * one bit has a 1, then each of the corresponding pins will be pulled-up input
+ * pins. The configuration of any pin whose corresponding bit bit is 0 will be
+ * unchanged, regardless of whether that pin had been previously set as an input
+ * or output pin, and regardless of whether it had been previously set to float
+ * or tied to a pullup or pulldown resistor.
+ *
+ * @param pins A bit vector specifying which pins will be floating input pins
+ */
+void cowpi_set_pullup_input_pins(uint32_t pins);
+
+#ifdef ARDUINO_ARCH_RP2040
+/**
+ * @brief Configures the specified pin to be input pins connected to a pulldown
+ * resistor that is internal to the microcontroller; that is, their input
+ * values will be low unless driven high by a peripheral device.
+ *
+ * The <code>pins</code> argument is used to specify which pins will be input
+ * pins. Bit0 corresponds to Pin 0, Bit1 corresponds to Pin 1, and so on. A 1 in
+ * a particular bit indicates that the corresponding pin should be a pulled-down
+ * input pin, overriding any previous configuration for that pin. If more than
+ * one bit has a 1, then each of the corresponding pins will be pulled-down
+ * input pins. The configuration of any pin whose corresponding bit bit is 0
+ * will be unchanged, regardless of whether that pin had been previously set as
+ * an input or output pin, and regardless of whether it had been previously set
+ * to float or tied to a pullup or pulldown resistor.
+ *
+ * @param pins A bit vector specifying which pins will be floating input pins
+ */
+void cowpi_set_pulldown_input_pins(uint32_t pins);
+#endif //ARDUINO_ARCH_RP2040
 
 #ifdef __cplusplus
 } // extern "C"
