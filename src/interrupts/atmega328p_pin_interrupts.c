@@ -1,6 +1,6 @@
 /**************************************************************************//**
  *
- * @file atmega328p_interrupts.c
+ * @file atmega328p_pin_interrupts.c
  *
  * @author Christopher A. Bohn
  *
@@ -31,7 +31,7 @@
 
 #include <stdint.h>
 #include <avr/interrupt.h>
-#include "interrupts.h"
+#include "pin_interrupts.h"
 
 static void do_nothing(void) {}
 
@@ -154,7 +154,7 @@ void cowpi_deregister_pin_ISR(uint32_t interrupt_mask) {
   inputs[(io_bank)] = (new_inputs);                             \
 } while (0)
 
-ISR(PCINT0_vect) {
+ISR(PCINT0_vect) {  // handle pin change interrupt for D8 to D13 here
         RUN_ISR(8, 13, 0, PINB & PCMSK0);
 }
 

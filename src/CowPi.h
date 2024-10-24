@@ -1,7 +1,7 @@
 /*!
  * @mainpage CowPi Library
  *
- * @version 0.7
+ * @version 0.8
  *
  * @copyright (c) 2021-24 Christopher A. Bohn
  *
@@ -85,10 +85,10 @@
 #include <CowPi_stdio.h>
 #include "setup/cowpi_setup.h"
 #include "boards/boards.h"
-#include "interrupts/interrupts.h"
+#include "interrupts/pin_interrupts.h"
 #include "io/cowpi_io.h"
 #include "io/debounce.h"
 
-#define COWPI_VERSION ("0.7.x")
+#define COWPI_VERSION ("0.8.0")
 
 #endif //COWPI_H

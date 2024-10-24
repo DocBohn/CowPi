@@ -1,6 +1,6 @@
 /**************************************************************************//**
  *
- * @file interrupts.h
+ * @file pin_interrupts.h
  *
  * @author Christopher A. Bohn
  *
@@ -29,8 +29,8 @@
  * limitations under the License.
  */
 
-#ifndef COWPI_INTERRUPTS_H
-#define COWPI_INTERRUPTS_H
+#ifndef COWPI_PIN_INTERRUPTS_H
+#define COWPI_PIN_INTERRUPTS_H
 
 #include <stdint.h>
 
@@ -93,4 +93,4 @@ void cowpi_deregister_pin_ISR(uint32_t interrupt_mask);
 } // extern "C"
 #endif
 
-#endif //COWPI_INTERRUPTS_H
+#endif //COWPI_PIN_INTERRUPTS_H

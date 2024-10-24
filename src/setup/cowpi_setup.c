@@ -24,7 +24,6 @@
 #include <Arduino.h>
 #include <CowPi_stdio.h>
 #include "../internal/cowpi_internal.h"
-#include "../boards/boards.h"
 #include "cowpi_setup.h"
 
 
@@ -97,10 +96,10 @@ FILE *cowpi_setup(unsigned long console_bitrate,
 }
 
 
-static uint32_t cowpi_output_pins = 0;
-static uint32_t cowpi_floating_input_pins = 0;
-static uint32_t cowpi_pullup_input_pins = 0;
-static uint32_t cowpi_pulldown_input_pins = 0;
+uint32_t cowpi_output_pins = 0;
+uint32_t cowpi_floating_input_pins = 0;
+uint32_t cowpi_pullup_input_pins = 0;
+uint32_t cowpi_pulldown_input_pins = 0;
 
 void cowpi_set_output_pins(uint32_t pins) {
 #if defined (__AVR_ATmega328P__)

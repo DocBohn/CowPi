@@ -27,15 +27,23 @@ and this project adheres to
 - Wrap and document the [Ticker](https://os.mbed.com/docs/mbed-os/v6.16/apis/ticker.html) and [Timeout](https://os.mbed.com/docs/mbed-os/v6.16/apis/timeout.html) APIs
 -->
 
-## [Unreleased]
+## [0.8.0] - 2024-10-24
 
 ### Added
 
 - Ported to [Arduino-Pico](https://arduino-pico.readthedocs.io/en/latest/index.html) core based on RPi Pico SDK
+- Register/deregister ISRs for pin interrupts on Raspberry Pi Pico (uses mbed::InterruptIn)
+- Configure periodic timers (AVR) or periodic virtual timers (MBED) and register periodic timer interrupts
 
 ### Changed
 
 - Renamed constants to deconflict with other libraries
+
+## [0.7.1] - 2024-03-08
+
+### Fixed
+
+- Static variables are initialized with constants and not with const variables
 
 ## [0.7.0] - 2024-03-03
 
