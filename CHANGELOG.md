@@ -27,6 +27,18 @@ and this project adheres to
 - Wrap and document the [Ticker](https://os.mbed.com/docs/mbed-os/v6.16/apis/ticker.html) and [Timeout](https://os.mbed.com/docs/mbed-os/v6.16/apis/timeout.html) APIs
 -->
 
+## [0.8.2] - 2024-10-27
+
+### Fixed
+
+- Library manifests corrected
+
+## [0.8.1] - 2024-10-27
+
+### Fixed
+
+- Replaced pinMode with cowpi_pin_mode from CowPi_stdio
+
 ## [0.8.0] - 2024-10-24
 
 ### Added
