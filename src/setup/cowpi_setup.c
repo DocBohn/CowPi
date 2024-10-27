@@ -116,7 +116,8 @@ void cowpi_set_output_pins(uint32_t pins) {
 #else
     for (int i = 0; i < 32; i++) {
         if (pins & (1 << i)) {
-            pinMode(i, OUTPUT);
+//            pinMode(i, OUTPUT);
+            cowpi_pin_mode(i, OUTPUT);
         }
     }
 #endif
@@ -141,7 +142,8 @@ void cowpi_set_floating_input_pins(uint32_t pins) {
 #else
     for (int i = 0; i < 32; i++) {
         if (pins & (1 << i)) {
-            pinMode(i, INPUT);
+//            pinMode(i, INPUT);
+            cowpi_pin_mode(i, INPUT);
         }
     }
 #endif
@@ -166,7 +168,8 @@ void cowpi_set_pullup_input_pins(uint32_t pins) {
 #else
     for (int i = 0; i < 32; i++) {
         if (pins & (1 << i)) {
-            pinMode(i, INPUT_PULLUP);
+//            pinMode(i, INPUT_PULLUP);
+            cowpi_pin_mode(i, INPUT_PULLUP);
         }
     }
 #endif
@@ -192,7 +195,8 @@ void cowpi_set_pulldown_input_pins(uint32_t pins) {
 #else
     for (int i = 0; i < 32; i++) {
         if (pins & (1 << i)) {
-            pinMode(i, INPUT_PULLDOWN);
+//            pinMode(i, INPUT_PULLDOWN);
+            cowpi_pin_mode(i, INPUT_PULLDOWN);
         }
     }
 #endif
